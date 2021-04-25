@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <div class="row  justify-content-end">
+    <div class="row justify-content-end">
       <div class="col-6 col-md-2 text-center text-white">
         <a
           class="btn btn-dark btn-block mt-1 pt-1 pl-1 pb-1 pr-1 border border-light shadow"
@@ -24,9 +24,9 @@
             v-for="(contact, index) in contacts"
             :key="index"
             class="list-group-item list-group-item-action font-weight-bold"
-            @click="toogleChat(contact.email, contact.name)"
+            @click="toogleChat(contact)"
           >
-            {{ contact.name }}
+            {{ contact }}
           </button>
         </div>
       </div>
@@ -43,6 +43,7 @@
 <script>
 import Chat from "../components/Chat";
 import UserSC from "../serviceClients/UserServiceClient";
+import ChatSC from "../serviceClients/ChatServiceClient";
 import firebase from "firebase";
 
 export default {
@@ -86,28 +87,15 @@ export default {
     Chat,
   },
   methods: {
-    getUserDB() {
-      UserSC.getUser((data) => {
-        this.user = data;
-        this.isDriver();
-      });
-    },
-    createChats(contacts) {
-      const db = firebase.firestore();
-      var i;
-
-      for (i = 0; i < contacts.length; i++) {
-        let pas;
-        pas = this.user.userMail + contacts[i].email;
-
-        db.collection("Chat")
-          .doc(pas)
-          .set({
-            mensajes: [],
-          });
+    toogleList() {
+      if (this.collapselist.display == "block") {
+        this.collapselist.display = "none";
+      } else if (this.collapse1.display == "none") {
+        this.getConversations();
+        this.collapselist.display = "block";
       }
     },
-    toogleChat(contact, name) {
+    toogleChat(contact) {
       const db = firebase.firestore();
 
       if (this.collapse1.display == "block") {
@@ -115,7 +103,8 @@ export default {
       } else if (this.collapse1.display == "none") {
         this.collapse1.display = "block";
       }
-      this.userName = name;
+      this.userName = contact;
+      /*
       var pas;
       if (this.driver) {
         pas = this.user.userMail + contact;
@@ -129,15 +118,36 @@ export default {
 
       db.collection("Chat")
         .doc(pas)
-        .onSnapshot(function(doc) {
+        .onSnapshot(function (doc) {
           self.conversation4 = doc.data().mensajes;
-        });
+        }); */
     },
-    toogleList() {
-      if (this.collapselist.display == "block") {
-        this.collapselist.display = "none";
-      } else if (this.collapse1.display == "none") {
-        this.collapselist.display = "block";
+    getConversations() {
+      //var email = this.$store.state.user;
+      var email = "enderson@unal.edu.co";
+      ChatSC.getConversations((data) => {
+        data.forEach((element) => {
+          this.contacts.push({ user: element.user1, convId: element._id });
+        });
+      }, email);
+    },
+
+    getUserDB() {
+      UserSC.getUser((data) => {
+        this.user = data;
+      });
+    },
+    createChats(contacts) {
+      const db = firebase.firestore();
+      var i;
+
+      for (i = 0; i < contacts.length; i++) {
+        let pas;
+        pas = this.user.userMail + contacts[i].email;
+
+        db.collection("Chat").doc(pas).set({
+          mensajes: [],
+        });
       }
     },
     isDriver() {
@@ -147,8 +157,8 @@ export default {
       db.collection("driverRoute")
         .where("routeActive", "==", true)
         .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
 
             self.driverMail = doc.data().dataDriver.driverMail;
@@ -180,10 +190,15 @@ export default {
             }
           });
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log("Error getting documents: ", error);
         });
     },
   },
 };
 </script>
+<style>
+.list-item {
+  color: black;
+}
+</style>

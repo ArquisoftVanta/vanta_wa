@@ -97,7 +97,7 @@ import firebase from "firebase";
 import { EventBus } from "@/EventBus.js";
 import UserSC from "../serviceClients/UserServiceClient";
 import Directions from "../components/WatchCurrentDirections";
-import Request from "../peticiones/requestClient";
+import Request from "../controller/requestClient";
 
 export default {
   components: {
@@ -105,8 +105,8 @@ export default {
   },
   data() {
     return {
-      prueba : [],
-      request:{
+      prueba: [],
+      request: {
         passengerMail: "ojtinjacar@unal.edu.co",
         time: "",
         date: Date,
@@ -119,14 +119,14 @@ export default {
           address: "",
           lat: 0,
           lng: 0,
-        }
+        },
       },
       error: "",
       typeInput: "",
     };
   },
 
-    async mounted() {
+  async mounted() {
     //this.prueba = await Request.createCoordinates(this.coodinates);
     //console.log(this.prueba)
     this.getUserDB();
@@ -192,8 +192,8 @@ export default {
         });
     },
     saveRoute() {
-      console.log(this.request)
-      Request.createRequest(this.request)
+      console.log(this.request);
+      Request.createRequest(this.request);
       /*if (this.route.time === "" || this.route.date === ""||this.route.origin.address === "" || this.route.destination.address === "")  {
         this.$bvToast.toast("Revisa los campos por llenar!", {
           title: "Error",
