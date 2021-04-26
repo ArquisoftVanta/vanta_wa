@@ -24,9 +24,9 @@
             v-for="(contact, index) in contacts"
             :key="index"
             class="list-group-item list-group-item-action font-weight-bold"
-            @click="toogleChat(contact)"
+            @click="toogleChat(contact.user, contact.convId)"
           >
-            {{ contact }}
+            {{ contact.user }}
           </button>
         </div>
       </div>
@@ -36,7 +36,7 @@
       :conversation="conversation4"
       :userMail="user.userMail"
       :userName="userName"
-      :idDoc="idDoc"
+      :convId="convId"
     ></Chat>
   </div>
 </template>
@@ -71,7 +71,7 @@ export default {
       collapse1: { display: "none" },
       collapselist: { display: "none" },
       userName: "",
-      idDoc: "",
+      convId: "",
       viejo: "viejo",
       driverMail: "",
       driver: false,
@@ -81,7 +81,9 @@ export default {
     this.getUserDB();
   },
 
-  mounted() {},
+  mounted() {
+    this.getConversations();
+  },
   updated() {},
   components: {
     Chat,
@@ -95,44 +97,35 @@ export default {
         this.collapselist.display = "block";
       }
     },
-    toogleChat(contact) {
-      const db = firebase.firestore();
-
-      if (this.collapse1.display == "block") {
+    toogleChat(contact, convId) {
+      /*       if (this.collapse1.display == "block") {
         this.collapse1.display = "none";
       } else if (this.collapse1.display == "none") {
         this.collapse1.display = "block";
-      }
+      } */
+      this.collapse1.display = "block";
+
       this.userName = contact;
-      /*
-      var pas;
-      if (this.driver) {
-        pas = this.user.userMail + contact;
-      } else {
-        pas = contact + this.user.userMail;
-      }
-
-      this.idDoc = pas;
-
-      var self = this;
-
-      db.collection("Chat")
-        .doc(pas)
-        .onSnapshot(function (doc) {
-          self.conversation4 = doc.data().mensajes;
-        }); */
+      this.convId = convId;
     },
     getConversations() {
-      //var email = this.$store.state.user;
-      var email = "enderson@unal.edu.co";
-      ChatSC.getConversations((data) => {
+      var email = this.$store.state.user.userMail;
+      console.log(email);
+
+      ChatSC.getConversationsList(email, (data) => {
+        this.contacts = [];
         data.forEach((element) => {
-          this.contacts.push({ user: element.user1, convId: element._id });
+          if (element.user1 == email) {
+            this.contacts.push({ user: element.user2, convId: element._id });
+          } else {
+            this.contacts.push({ user: element.user1, convId: element._id });
+          }
         });
-      }, email);
+      });
     },
 
-    getUserDB() {
+    /*    
+ getUserDB() {
       UserSC.getUser((data) => {
         this.user = data;
       });
@@ -193,7 +186,7 @@ export default {
         .catch(function (error) {
           console.log("Error getting documents: ", error);
         });
-    },
+    }, */
   },
 };
 </script>

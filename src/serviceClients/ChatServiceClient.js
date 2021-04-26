@@ -2,7 +2,7 @@ const axios = require("axios");
 //const environment = require("./../environment.js");
 const route = "http://localhost:8600"+"/conv";
 
-function getConversations(callback, email) {
+function getConversationsList(email, callback) {
   axios
     .get(route + "/" + email, {
       params: {
@@ -17,6 +17,38 @@ function getConversations(callback, email) {
     });
 }
 
+function getConversation(email, convId, callback) {
+    axios
+      .get(route + "/" + email + "/" + convId, {
+        params: {
+          access_token: localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        callback(response.data);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
+
+  function sendMessage(convId, userId, content, callback){
+    axios
+      .put(route, {convId: convId, userId: userId, content: content},{
+        params: {
+          access_token: localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        callback(response.data);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
+
 export default{
-    getConversations
+    getConversationsList,
+    getConversation,
+    sendMessage
 }

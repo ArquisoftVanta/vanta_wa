@@ -55,17 +55,22 @@
               <h5 class="d-none d-md-block text-muted">
                 Viaja junto a miembros de la comunidad universitaria para juntos
                 llegar a cualquier lugar.
-                
               </h5>
               <h5 class="d-block d-md-none text-muted">
                 Viaja en comunidad a cualquier lugar.
               </h5>
             </div>
           </div>
-          <button type="button" class="btn btn-dark btn-block btn-lg mt-5" @click="goToSignUp">Registrate</button>
+          <button
+            type="button"
+            class="btn btn-dark btn-block btn-lg mt-5"
+            @click="goToSignUp"
+          >
+            Registrate
+          </button>
         </div>
         <div
-          class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-md-3 offset-lg-1 mt-0 mt-lg-0 mb-5 mb-xl-4 "
+          class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-md-3 offset-lg-1 mt-0 mt-lg-0 mb-5 mb-xl-4"
         >
           <div class="login-card card">
             <div class="card-body text-dark border-light rounded shadow">
@@ -73,23 +78,20 @@
               <form @submit="login">
                 <div class="form-group text-left">
                   <label for="exampleInputEmail1">Correo electrónico</label>
-        
+
                   <div class="form-row">
                     <div class="col">
-                <input
-                    
-                    type="text"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    style="border: 0; background: #f1f1f1"
-                    aria-describedby="emailHelp"
-                    v-model="userMail"
-                  />
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="exampleInputEmail1"
+                        style="border: 0; background: #f1f1f1"
+                        aria-describedby="emailHelp"
+                        v-model="userMail"
+                      />
                     </div>
                     <div class="col">
-                      <label for="staticEmail">
-                        @unal.edu.co
-                      </label>
+                      <label for="staticEmail"> @unal.edu.co </label>
                     </div>
                   </div>
                 </div>
@@ -133,7 +135,7 @@ export default {
         userMail: "",
         password: "",
       },
-      userMail:"",
+      userMail: "",
       logging: false,
     };
   },
@@ -144,8 +146,11 @@ export default {
         this.credentials,
         () => {
           this.$router.push("home");
+          this.$store.commit("updateUser", {
+            userMail: this.credentials.userMail,
+          });
           UserSC.getUser((data) => {
-            this.$store.commit("updateUser", data);
+            //this.$store.commit("updateUser", data);
           });
         },
         (text) => {

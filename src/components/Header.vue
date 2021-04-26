@@ -175,8 +175,12 @@ export default {
 
   mounted() {
     if (!this.$store.state.user) {
-      UserSC.getUser((data) => {
+      /*       UserSC.getUser((data) => {
         this.$store.commit("updateUser", data);
+      }); */
+
+      this.$store.commit("updateUser", {
+        userMail: "enderson@unal.edu.co",
       });
     }
 
