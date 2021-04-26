@@ -86,6 +86,12 @@ export default {
     convId: function (newValue, oldValue) {
       this.convId = newValue;
       this.getConversation();
+
+      var usr = this.$store.state.user.userMail;
+      var cht = this.convId;
+      this.socket.auth = { usr, cht };
+      this.socket.connect();
+      console.log(this.socket);
     },
   },
 
@@ -105,10 +111,6 @@ export default {
   methods: {
     createSocket() {
       this.socket = io("http://localhost:8600", { autoConnect: false });
-      var user = this.$store.state.user.userMail;
-      var conv = this.convId;
-      this.socket.auth = { user, conv };
-      this.socket.connect();
       let self = this;
       // Evento
       this.socket.on("private message", function ({ content, user }) {
@@ -145,15 +147,16 @@ export default {
       target.style.minHeight = "0px";
     },
     sendMsg() {
+      let self = this;
       ChatSC.sendMessage(
         this.convId,
         this.$store.state.user.userMail,
         this.textMsg,
         (data) => {
           this.socket.emit("private message", {
-            content: this.textMsg,
-            user: this.$store.state.user.userMail,
-            chatId: this.convId,
+            content: self.textMsg,
+            user: self.$store.state.user.userMail,
+            chatId: self.convId,
           });
 
           var email = this.$store.state.user.userMail;
