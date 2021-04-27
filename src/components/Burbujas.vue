@@ -4,7 +4,7 @@
       <div
         class="btn btn-light btn-block text-wrap mb-1 pb-0 pt-2 text-left"
         disabled
-        v-if="type != user.userMail"
+        v-if="sender != userMail"
       >
         <p>{{ message }}</p>
       </div>
@@ -13,7 +13,7 @@
       <div
         class="btn btn-dark btn-block text-wrap mb-1 pb-0 pt-2 text-right"
         disabled
-        v-if="type == user.userMail"
+        v-if="sender == userMail"
       >
         <p class="">{{ message }}</p>
       </div>
@@ -22,41 +22,24 @@
 </template>
 
 <script>
-import UserSC from "../serviceClients/UserServiceClient";
+//import UserSC from "../serviceClients/UserServiceClient";
 
 export default {
   name: "Burbuja",
   props: {
-    type: String,
+    sender: String,
     message: String,
   },
   //pasar cor,
   data() {
     return {
-      user: {
-        userName: "",
-        userDoc: "",
-        userPhone: "",
-        universityId: "",
-        userMail: "",
-        userAddress: "",
-        password: "",
-        registryDatetime: "",
-        picture: "",
-        vehicleModel: [],
-        Rh: "",
-      },
+      userMail: "",
     };
   },
   mounted() {
-    this.getUserDB();
+    //this.getUserDB();
+    this.userMail = this.$store.state.user.userMail;
   },
-  methods: {
-    getUserDB() {
-      UserSC.getUser((data) => {
-        this.user = data;
-      });
-    },
-  },
+  methods: {},
 };
 </script>

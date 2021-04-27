@@ -1,6 +1,6 @@
 {
     "development": {
-      "serverUrl": "https://localhost:8443"
+      "serverUrl": "http://localhost:8443"
     },
     "production": {
       "serverUrl": "https://echo-api.endpoints.wheelsus.cloud.goog"

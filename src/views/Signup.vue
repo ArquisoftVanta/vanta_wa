@@ -93,9 +93,7 @@
                       />
                     </div>
                     <div class="col">
-                      <label for="staticEmail">
-                        @unal.edu.co
-                      </label>
+                      <label for="staticEmail"> @unal.edu.co </label>
                     </div>
                   </div>
                 </div>
@@ -208,6 +206,7 @@ export default {
         ("0" + date.getMinutes()).slice(-2) +
         ":" +
         ("0" + date.getSeconds()).slice(-2);
+      console.log(str);
       return str;
     },
 
