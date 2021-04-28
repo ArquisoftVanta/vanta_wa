@@ -97,7 +97,7 @@ import firebase from "firebase";
 import { EventBus } from "@/EventBus.js";
 import UserSC from "../serviceClients/UserServiceClient";
 import Directions from "../components/WatchCurrentDirections";
-import Request from "../controller/requestClient";
+import Request from "../serviceClients/requestClient";
 
 export default {
   components: {

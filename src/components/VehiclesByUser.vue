@@ -26,7 +26,7 @@
               <div
                 class="card"
                 v-for="vehicle in listVehicles"
-                :key="vehicle.idVehicle"
+                :key="vehicle.id"
               >
                 <div class="card-header" id="headingOne">
                   <h2 class="mb-0">
@@ -34,25 +34,25 @@
                       class="btn btn-link btn-block text-left"
                       type="button"
                       data-toggle="collapse"
-                      :data-target="`#data${vehicle.idVehicle}`"
+                      :data-target="`#data${vehicle.id}`"
                       aria-expanded="true"
-                      :aria-controls="`data${vehicle.idVehicle}`"
+                      :aria-controls="`data${vehicle.id}`"
                       style="color: #06416d"
                     >
-                      Placa: {{ vehicle.vehicleLicenseplate }}
+                      Placa: {{ vehicle.license_plate }}
                     </button>
                   </h2>
                 </div>
                 <div
-                  :id="`data${vehicle.idVehicle}`"
+                  :id="`data${vehicle.id}`"
                   class="collapse"
                   aria-labelledby="headingOne"
                   data-parent="#accordionExample"
                 >
                   <div class="card-body">
-                    <div>Marca: {{ vehicle.vehicleBrand }}</div>
-                    <div>Tipo: {{ vehicle.vehicleType }}</div>
-                    <div>Color: {{ vehicle.vehicleColor }}</div>
+                    <div>Marca: {{ vehicle.brand }}</div>
+                    <div>Tipo: {{ vehicle.vehicle_type }}</div>
+                    <div>Color: {{ vehicle.color }}</div>
                     <div class="row">
                       <div class="col">
                         <button
@@ -112,16 +112,18 @@ export default {
       button: "",
     };
   },
-  mounted() {
+   mounted() {
     this.nameButton();
-    this.showVehicles();
+    this.showVehicles("otrocorreo2");
+    
   },
   methods: {
-    showVehicles() {
+     showVehicles(user) {
       let x = document.getElementById("modalAlert");
-      VehicleServiceClient.getVehicles((response) => {
-        if (response.data !== "") {
-          this.listVehicles.push(response.data);
+      VehicleServiceClient.getVehicle(user,(response) => {
+        if (response.lenght != 0) {
+          console.log(response)
+          this.listVehicles =response;
             x.style.display = "none";
         }else{
             x.style.display = "block";
@@ -130,18 +132,14 @@ export default {
       });
     },
     chooseSelection(vehicle) {
-      if (this.button === "Eliminar Dirección") {
-        this.button = "Eliminar Dirección";
-      } else {
         EventBus.$emit("vehicle", vehicle);
-      }
     },
     goToHome() {
       this.$router.push("/home");
     },
     nameButton() {
-      if (this.state == "Watch Vehicle") {
-        this.button = "Eliminar Vehículo";
+      if (this.state == "Choose Vehicle") {
+        this.button = "Seleccionar Vehículo Vehículo";
       } else if (this.state == "Choose Vehicle") {
         this.button = "Escoger Vehículo";
       }

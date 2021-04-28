@@ -1,6 +1,7 @@
 <template>
   <div>
     <Header></Header>
+    <VehiclesByUser state="Choose Vehicle" />
     <div>
       <div class="container-fluid mb-5">
         <div class="modal" id="myModal" tabindex="-1">
@@ -45,7 +46,7 @@
                         type="text"
                         class="form-control form-control-sm"
                         id="validationDefaultplaca"
-                        v-model="vehicle.vehicleLicenseplate"
+                        v-model="vehicle.license_plate"
                         disabled
                       />
                     </div>
@@ -55,27 +56,19 @@
                         type="text"
                         class="form-control form-control-sm"
                         id="validationDefaultmarca"
-                        v-model="vehicle.vehicleBrand"
+                        v-model="vehicle.brand"
                         disabled
                       />
                     </div>
                     <div class="col-md-3 mb-3">
                       <p for="validationDefault01">No de pasajeros</p>
-                      <select
-                        class="form-control custom-select"
-                        style="background: #f1f1f1; border: 0"
-                        required
-                      >
-                        <option :value="vehicle.vehicleCapacity">
-                          {{ vehicle.vehicleCapacity }}
-                        </option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                      </select>
+                      <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        id="validationDefaultmarca"
+                        v-model="vehicle.capacity"
+                        disabled
+                      />
                     </div>
                     <div class="col-md-3 mb-3">
                       <p for="validationDefaultservicio">Tipo de Servicio</p>
@@ -83,7 +76,7 @@
                         type="text"
                         class="form-control form-control-sm"
                         id="validationDefaultservicio"
-                        v-model="vehicle.vehicleServiceType"
+                        v-model="vehicle.service_type"
                         disabled
                       />
                     </div>
@@ -95,7 +88,7 @@
                         type="text"
                         class="form-control form-control-sm"
                         id="validationDefaultlinea"
-                        v-model="vehicle.vehicleYear"
+                        v-model="vehicle.year"
                         disabled
                       />
                     </div>
@@ -107,7 +100,7 @@
                         type="text"
                         class="form-control form-control-sm"
                         id="validationDefaultcarroceria"
-                        v-model="vehicle.vehicleBody"
+                        v-model="vehicle.body"
                         disabled
                       />
                     </div>
@@ -118,7 +111,7 @@
                         class="form-control form-control-sm"
                         id="validationDefaultfecha"
                         disabled
-                        v-model="vehicle.vehicleSoatExpiration"
+                        v-model="vehicle.soat_exp"
                       />
                     </div>
                     <div class="col-md-3 mb-3">
@@ -132,7 +125,7 @@
                         type="text"
                         class="form-control form-control-sm"
                         id="validationDefaultclasevehiculo"
-                        v-model="vehicle.vehicleType"
+                        v-model="vehicle.vehicle_type"
                         disabled
                       />
                     </div>
@@ -144,7 +137,7 @@
                         type="text"
                         class="form-control form-control-sm"
                         id="validationDefaultmodelo"
-                        v-model="vehicle.vehicleModel"
+                        v-model="vehicle.model"
                         disabled
                       />
                     </div>
@@ -154,7 +147,7 @@
                         type="text"
                         class="form-control form-control-sm"
                         id="validationDefaultcilindraje"
-                        v-model="vehicle.vehicleEngine"
+                        v-model="vehicle.engine"
                         disabled
                       />
                     </div>
@@ -164,7 +157,7 @@
                         type="text"
                         class="form-control form-control-sm"
                         id="validationDefaultcolor"
-                        v-model="vehicle.vehicleColor"
+                        v-model="vehicle.color"
                         disabled
                       />
                     </div>
@@ -176,7 +169,7 @@
                         type="text"
                         class="form-control form-control-sm"
                         id="validationDefaultcombustible"
-                        v-model="vehicle.vehicleGasType"
+                        v-model="vehicle.gas_type"
                         disabled
                       />
                     </div>
@@ -249,6 +242,18 @@
                     </div>
                   </form>
                 </div>
+                 <div>
+                  <a
+                    type="button"
+                    class="btn btn-dark btn-block text-white mb-2"
+                    data-toggle="modal"
+                    data-target="#modalVehicles"
+                    data-display="static"  
+                  >
+                  Ver Mis Vehículos
+                  </a>
+                </div>
+               
                 <div>
                   <a
                     @click="habilitarCampos"
@@ -262,11 +267,15 @@
                   @click="guardarVehiculo"
                   type="button"
                   class="btn btn-dark btn-block text-white"
-                  id="w-change-location"
-                  data-toggle="modal"
-                  data-target="#locModal"
                 >
                   Guardar vehículo
+                </a>
+                <a
+                  @click="eliminarVehiculo()"
+                  type="button"
+                  class="btn btn-dark btn-block text-white"
+                >
+                  Eliminar vehículo
                 </a>
                 <div>
                   <button
@@ -342,22 +351,25 @@
         </div>
       </div>
     </div>
-    <FooterwithBackground></FooterwithBackground>
+    <!--FooterwithBackground></FooterwithBackground-->
   </div>
 </template>
 
 <script>
-import FooterwithBackground from "../components/FooterwithBackground.vue";
+//import FooterwithBackground from "../components/FooterwithBackground.vue";
 import Header from "../components/Header.vue";
 import vehicleSC from "../serviceClients/VehicleServiceClient";
 import Foto from "@/assets/car.jpg";
-
+import VehiclesByUser from "../components/VehiclesByUser.vue"
+import { EventBus } from "@/EventBus.js";
 export default {
   name: "RegistrarVehiculo",
   components: {
-    FooterwithBackground,
+    //FooterwithBackground,
     Header,
+    VehiclesByUser
   },
+
   data: function() {
     return {
       showModal: false,
@@ -370,45 +382,42 @@ export default {
       Estado: "",
 
       vehicle: {
-        idVehicle: null,
-        vehicleOwner: null,
-        vehicleLicenseplate: "",
-        vehicleType: null,
-        vehicleModel: "",
-        vehicleYear: null,
-        vehicleColor: "",
-        vehicleRegistryDatetime: "",
-        vehiclePicture: "",
-        vehicleCapacity: null,
-        vehicleBrand: "",
-        vehicleServiceType: "",
-        vehicleBody: "",
-        vehicleSoatExpiration: "",
-        vehicleEngine: null,
-        vehicleGasType: "",
-        userModel: null,
+        id: null,
+        owner: null,
+        license_plate: "",
+        vehicle_type: null,
+        model: "",
+        year: null,
+        color: "",
+        registry: "",
+        capacity: null,
+        brand: "",
+        service_type: "",
+        body: "",
+        soat_exp: "",
+        engine: null,
+        gas_type: "",
       },
     };
   },
   mounted() {
-    this.getVehicleDB();
+    this.getVehicleDB(); 
   },
+
   methods: {
+    
     getVehicleDB() {
-      vehicleSC.getVehicles((response) => {
-        /*if (!this.$store.state.vehicle) {
-          this.$store.commit("updateUser", data);
-        }*/
-
-        if (response.status == 200) {
-          this.vehicle = response.data;
+      EventBus.$on("vehicle", (vehicle) => {
+        try {
+          this.vehicle = vehicle
+          document.getElementById(
+        "validationDefaultfecha"
+      ).disabled = true
+        } catch (error) {
         }
-
-        document.getElementById("vhcPicture").src = this.vehicle.vehiclePicture;
-      });
-    },
+    });    },
     datosRUNT() {
-      this.vehicle.vehicleRegistryDatetime = this.getFormattedDate();
+      this.vehicle.registry = this.getFormattedDate();
       var datos = this.DatosRunt.split(
         "\n"
       ); /*Separa la información por saltos de línea */
@@ -417,45 +426,45 @@ export default {
         if (dato.includes("PLACA DEL VEHÍCULO")) {
           /*la información correspondiente para llenar los campos*/
           var lineaplaca = dato.split(":"); /*de texto.*/
-          this.vehicle.vehicleLicenseplate = lineaplaca[1];
+          this.vehicle.license_plate = lineaplaca[1];
         } else if (dato.includes("MARCA:")) {
           var lineamarca = dato.split(":");
-          this.vehicle.vehicleBrand = lineamarca[1].replace("LÍNEA", "");
-          this.vehicle.vehicleModel = lineamarca[2];
+          this.vehicle.brand = lineamarca[1].replace("LÍNEA", "");
+          this.vehicle.model = lineamarca[2];
         } else if (dato.includes("MODELO:")) {
           var lineamodelo = dato.split(":");
-          this.vehicle.vehicleYear = lineamodelo[1].replace("COLOR", "");
-          this.vehicle.vehicleColor = lineamodelo[2];
+          this.vehicle.year = lineamodelo[1].replace("COLOR", "");
+          this.vehicle.color = lineamodelo[2];
         } else if (dato.includes("ESTADO DEL VEHÍCULO")) {
           var lineaestado = dato.split(":");
           this.Estado = lineaestado[2];
         } else if (dato.includes("TIPO DE SERVICIO")) {
           var lineatipo = dato.split(":");
-          this.vehicle.vehicleServiceType = lineatipo[1].replace(
+          this.vehicle.service_type = lineatipo[1].replace(
             "CLASE DE VEHÍCULO",
             ""
           );
-          this.vehicle.vehicleType = lineatipo[2];
+          this.vehicle.vehicle_type = lineatipo[2];
         } else if (dato.includes("CILINDRAJE")) {
           var lineacilindraje = dato.split(":");
-          this.vehicle.vehicleEngine = lineacilindraje[1].replace(
+          this.vehicle.engine = lineacilindraje[1].replace(
             "TIPO DE CARROCERÍA",
             ""
           );
-          this.vehicle.vehicleBody = lineacilindraje[2];
+          this.vehicle.body = lineacilindraje[2];
         } else if (dato.includes("COMBUSTIBLE")) {
           var lineacombustible = dato.split(":");
-          this.vehicle.vehicleGasType = lineacombustible[1].replace(
+          this.vehicle.gas_type = lineacombustible[1].replace(
             "FECHA DE MATRICULA INICIAL(DD/MM/AAAA)",
             ""
           );
         } else if (dato.includes("PASAJEROS")) {
           var lineapasajeros = dato.split(":");
-          this.vehicle.vehicleCapacity = lineapasajeros[2];
+          this.vehicle.capacity = lineapasajeros[2];
         } else if (dato.includes("VIGENTE")) {
           var lineasoat = dato.split("	");
           var formato = lineasoat[3].split("/");
-          this.vehicle.vehicleSoatExpiration =
+          this.vehicle.soat_exp =
             formato[2] +
             "-" +
             formato[1] +
@@ -467,11 +476,12 @@ export default {
           var dateControl = document.querySelector(
             'input[type="date"]'
           ); /**Busca el primer input de tipo "date" */
-          dateControl.value = this.vehicle.vehicleSoatExpiration; /**Posteriormente se guarda en el input date la fecha de vencimiento tomada por el RUNT */
+          dateControl.value = this.vehicle.soat_exp; /**Posteriormente se guarda en el input date la fecha de vencimiento tomada por el RUNT */
           break;
         }
       }
     },
+
     onVhcPicSelected() {
       this.selectedVhcPic = document.getElementById("vhcPicPicker").files;
 
@@ -490,8 +500,18 @@ export default {
         var base64 = reader.readAsDataURL(archivo);
       }
     },
+
+    eliminarVehiculo(){
+      vehicleSC.deleteVehicle(this.vehicle.id);
+    },
+
     guardarVehiculo() {
-      vehicleSC.updateVehicle(this.vehicle, () => {});
+        if (this.vehicle.id == null){
+          vehicleSC.createVehicle(this.vehicle)
+        }else{
+          vehicleSC.updateVehicle(this.vehicle)
+          
+        }
     },
     getFormattedDate() {
       var date = new Date();
@@ -516,6 +536,7 @@ export default {
       ).disabled = false; /**Habiita el único campo a modificar que es la fecha*/
       /**de vencimiento del SOAT */
     },
+
   },
 };
 </script>

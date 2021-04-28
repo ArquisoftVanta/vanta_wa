@@ -1,12 +1,12 @@
 
 const axios = require("axios");
 const moment = require("moment");
-var d = new Date();
+const route = "http://localhost:8000/graphql";
 async function getRequestbyUser(){
         var id = "ojtinjacar@unal.edu.co"
         var result =await axios({
             method: "POST",
-            url: "http://localhost:8000/graphql",
+            url: route,
             data:{
                 query: `
                 {
@@ -22,13 +22,32 @@ async function getRequestbyUser(){
         })
         return result.data.data.getRequestbyUser;
 }
+
+function getRequestbyActive(flag){
+    var active = flag
+    var result =axios({
+        method: "POST",
+        url: route,
+        data:{
+            query: `
+            {
+                getRequestbyUser(user_id:${active}){
+                    active
+                    request_id
+                    service_id
+                  }
+            }
+            `
+        }
+
+    })
+    return result.data.data.getRequestbyUser;
+}
+
 function createRequest(request){
-    console.log(request)
-    console.log(request.origin.lat)
-    console.log(request.destination.lat)
     axios({
         method: "POST",
-        url: "http://localhost:8000/graphql",
+        url: route,
         data:{
             query: `mutation{
                     newRequest(req:{
@@ -66,5 +85,7 @@ function createRequest(request){
 export default {
     getRequestbyUser,
     createRequest,
+    getRequestbyActive,
+
   };
   
