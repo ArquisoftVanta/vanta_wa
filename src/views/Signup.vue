@@ -11,7 +11,7 @@
               alt=""
               loading="lazy"
             />
-            Wheels US
+            Vanta
           </a>
         </div>
         <button
@@ -223,7 +223,8 @@ export default {
         });
       } else {
         AuthServiceClient.registerUser(this.newUser, (response) => {
-          if (response === 201) {
+          let name = response
+          if (name.userMail === this.newUser.userMail) {
             this.$router.push("/");
           } else {
             this.$bvToast.toast(

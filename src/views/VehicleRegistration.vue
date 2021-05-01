@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header></Header>
-    <VehiclesByUser state="Choose Vehicle" />
+    <VehiclesByUser ref="myComp" state="Choose Vehicle" />
     <div>
       <div class="container-fluid mb-5">
         <div class="modal" id="myModal" tabindex="-1">
@@ -55,7 +55,7 @@
                       <input
                         type="text"
                         class="form-control form-control-sm"
-                        id="validationDefaultmarca"
+                        id="validationDefaultmarca2"
                         v-model="vehicle.brand"
                         disabled
                       />
@@ -198,7 +198,7 @@
                     </div>
                     <div class="col-12">
                       <a
-                        @click="datosRUNT"
+                        @click="llenarFormulario"
                         target="_blank"
                         type="button"
                         class="btn btn-dark btn-block text-center text-white"
@@ -249,6 +249,7 @@
                     data-toggle="modal"
                     data-target="#modalVehicles"
                     data-display="static"  
+                    @click="reRender()"
                   >
                   Ver Mis Vehículos
                   </a>
@@ -264,14 +265,14 @@
                   </a>
                 </div>
                 <a
-                  @click="guardarVehiculo"
+                  @click="guardarVehiculo(vehicle)"
                   type="button"
                   class="btn btn-dark btn-block text-white"
                 >
                   Guardar vehículo
                 </a>
                 <a
-                  @click="eliminarVehiculo()"
+                  @click="eliminarVehiculo(vehicle)"
                   type="button"
                   class="btn btn-dark btn-block text-white"
                 >
@@ -358,8 +359,9 @@
 <script>
 //import FooterwithBackground from "../components/FooterwithBackground.vue";
 import Header from "../components/Header.vue";
-import vehicleSC from "../serviceClients/VehicleServiceClient";
+import vehicleCo from "../controller/VehicleController";
 import Foto from "@/assets/car.jpg";
+import AuthSC from "../serviceClients/AuthServiceClient";
 import VehiclesByUser from "../components/VehiclesByUser.vue"
 import { EventBus } from "@/EventBus.js";
 export default {
@@ -378,8 +380,6 @@ export default {
 
       DatosRunt: "",
       modalaviso: "",
-
-      Estado: "",
 
       vehicle: {
         id: null,
@@ -405,7 +405,6 @@ export default {
   },
 
   methods: {
-    
     getVehicleDB() {
       EventBus.$on("vehicle", (vehicle) => {
         try {
@@ -415,75 +414,36 @@ export default {
       ).disabled = true
         } catch (error) {
         }
-    });    },
-    datosRUNT() {
-      this.vehicle.registry = this.getFormattedDate();
-      var datos = this.DatosRunt.split(
-        "\n"
-      ); /*Separa la información por saltos de línea */
-      for (var dato of datos) {
-        /*Realiza un recorrido por todas las líneas buscando*/
-        if (dato.includes("PLACA DEL VEHÍCULO")) {
-          /*la información correspondiente para llenar los campos*/
-          var lineaplaca = dato.split(":"); /*de texto.*/
-          this.vehicle.license_plate = lineaplaca[1];
-        } else if (dato.includes("MARCA:")) {
-          var lineamarca = dato.split(":");
-          this.vehicle.brand = lineamarca[1].replace("LÍNEA", "");
-          this.vehicle.model = lineamarca[2];
-        } else if (dato.includes("MODELO:")) {
-          var lineamodelo = dato.split(":");
-          this.vehicle.year = lineamodelo[1].replace("COLOR", "");
-          this.vehicle.color = lineamodelo[2];
-        } else if (dato.includes("ESTADO DEL VEHÍCULO")) {
-          var lineaestado = dato.split(":");
-          this.Estado = lineaestado[2];
-        } else if (dato.includes("TIPO DE SERVICIO")) {
-          var lineatipo = dato.split(":");
-          this.vehicle.service_type = lineatipo[1].replace(
-            "CLASE DE VEHÍCULO",
-            ""
-          );
-          this.vehicle.vehicle_type = lineatipo[2];
-        } else if (dato.includes("CILINDRAJE")) {
-          var lineacilindraje = dato.split(":");
-          this.vehicle.engine = lineacilindraje[1].replace(
-            "TIPO DE CARROCERÍA",
-            ""
-          );
-          this.vehicle.body = lineacilindraje[2];
-        } else if (dato.includes("COMBUSTIBLE")) {
-          var lineacombustible = dato.split(":");
-          this.vehicle.gas_type = lineacombustible[1].replace(
-            "FECHA DE MATRICULA INICIAL(DD/MM/AAAA)",
-            ""
-          );
-        } else if (dato.includes("PASAJEROS")) {
-          var lineapasajeros = dato.split(":");
-          this.vehicle.capacity = lineapasajeros[2];
-        } else if (dato.includes("VIGENTE")) {
-          var lineasoat = dato.split("	");
-          var formato = lineasoat[3].split("/");
-          this.vehicle.soat_exp =
-            formato[2] +
-            "-" +
-            formato[1] +
-            "-" +
-            formato[0].replace(
-              " ",
-              ""
-            ); /**Esto permite ordenar la fecha en el formato que se requiere */
-          var dateControl = document.querySelector(
-            'input[type="date"]'
-          ); /**Busca el primer input de tipo "date" */
-          dateControl.value = this.vehicle.soat_exp; /**Posteriormente se guarda en el input date la fecha de vencimiento tomada por el RUNT */
-          break;
-        }
-      }
+    });    
     },
 
+      reRender() {
+      this.$refs["myComp"].showVehicles();
+    },
+
+
+    llenarFormulario(){
+      console.log(this.DatosRunt)
+      this.vehicle = vehicleCo.obtenerDatosRUNT(this.vehicle,this.DatosRunt)
+    },
+
+    eliminarVehiculo(vehicle){
+      vehicleCo.eliminarVehiculo(vehicle.id)
+    },
+
+    guardarVehiculo(vehicle) {
+      vehicleCo.guardarVehiculo(vehicle)        
+    },
+
+    habilitarCampos() {
+      document.getElementById(
+        "validationDefaultfecha"
+      ).disabled = false;
+    },
+
+
     onVhcPicSelected() {
-      this.selectedVhcPic = document.getElementById("vhcPicPicker").files;
+      /*this.selectedVhcPic = document.getElementById("vhcPicPicker").files;
 
       if (this.selectedVhcPic.length > 0) {
         var archivo = this.selectedVhcPic[0];
@@ -498,43 +458,7 @@ export default {
         };
 
         var base64 = reader.readAsDataURL(archivo);
-      }
-    },
-
-    eliminarVehiculo(){
-      vehicleSC.deleteVehicle(this.vehicle.id);
-    },
-
-    guardarVehiculo() {
-        if (this.vehicle.id == null){
-          vehicleSC.createVehicle(this.vehicle)
-        }else{
-          vehicleSC.updateVehicle(this.vehicle)
-          
-        }
-    },
-    getFormattedDate() {
-      var date = new Date();
-      var str =
-        date.getFullYear() +
-        "-" +
-        (date.getMonth() + 1) +
-        "-" +
-        date.toLocaleDateString("es-CO", { day: "2-digit" }) +
-        "T" +
-        ("0" + date.getHours()).slice(-2) +
-        ":" +
-        ("0" + date.getMinutes()).slice(-2) +
-        ":" +
-        ("0" + date.getSeconds()).slice(-2);
-      return str;
-    },
-
-    habilitarCampos() {
-      document.getElementById(
-        "validationDefaultfecha"
-      ).disabled = false; /**Habiita el único campo a modificar que es la fecha*/
-      /**de vencimiento del SOAT */
+      }*/
     },
 
   },
