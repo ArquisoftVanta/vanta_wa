@@ -68,7 +68,7 @@
                       <div
                         class="card"
                         v-for="route in routesActive"
-                        :key="route.id"
+                        :key="route[0].request_id"
                       >
                         <div class="card-header" id="headingOne3">
                           <h2 class="mb-0">
@@ -76,38 +76,38 @@
                               class="btn btn-link btn-block text-left"
                               type="button"
                               data-toggle="collapse"
-                              :data-target="`#data${route.id}`"
+                              :data-target="`#data${route[0].request_id}`"
                               aria-expanded="true"
-                              :aria-controls="`data${route.id}`"
+                              :aria-controls="`data${route[0].request_id}`"
                               style="color: #06416d"
                             >
                               <div>
                                 Origen:
-                                {{ route.origin.address.split(",")[0] }}
+                                {{ route[1][0].address.split(",")[0] }}
                               </div>
                               <div>
                                 Destino:
-                                {{ route.destination.address.split(",")[0] }}
+                                {{ route[1][1].address.split(",")[0] }}
                               </div>
                             </button>
                           </h2>
                         </div>
                         <div
-                          :id="`data${route.id}`"
+                          :id="`data${route[0].request_id}`"
                           class="collapse"
                           aria-labelledby="headingOne3"
                           data-parent="#accordionExample"
                         >
                           <div class="card-body">
-                            <div>Dia: {{ route.date }}</div>
-                            <div>Hora: {{ route.time }}</div>
+                            <div>Dia: {{ route[0].date }}</div>
+                            <div>Hora: {{ route[0].time }}</div>
 
                             <div class="row">
                               <div class="col">
                                 <button
                                   type="button"
                                   class="btn btn-outline-dark btn-block button"
-                                  @click="deleteRoute(route)"
+                                  @click="deleteRoute(route[0].request_id)"
                                   style="margin: 5% 0 5% 0"
                                 >
                                   Cancelar Servicio
@@ -283,7 +283,7 @@ import FooterwithBackground from "../components/FooterwithBackground.vue";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
 import { EventBus } from "@/EventBus.js";
 import firebase from "firebase";
-import UserSC from "../serviceClients/UserServiceClient";
+import RequestCo from "../controller/RequestController"
 
 export default {
   name: "MyServicesDriver",
@@ -303,7 +303,7 @@ export default {
     };
   },
   created() {
-    this.getUserDB();
+    this.getRoutesActives();
   },
   mounted() {
     EventBus.$emit("passengerRoutes-data", this.routes);
@@ -312,29 +312,11 @@ export default {
     goToPassenger() {
       this.$router.push("/passenger");
     },
-    getUserDB() {
-      UserSC.getUser((data) => {
-        this.userMail = data.userMail;
-        this.getRoutesActives();
-        this.getRoutesMade();
-        this.getRoutesChoosed();
-      });
-    },
     getRoutesActives() {
-      const db = firebase.firestore();
-      db.collection("passengerRoutes")
-        .where("dataPassenger.passengerMail", "==", this.userMail)
-        .where("selected", "==", false)
-        .where("servicePerformed", "==", false)
-        .get()
-        .then((snap) => {
-          this.routesActive = [];
-          snap.forEach((doc) => {
-            let route = doc.data();
-            route.id = doc.id;
-            this.routesActive.push(route);
-          });
-        });
+      RequestCo.getRequests((data)=>{
+        this.routesActive = []
+        this.routesActive = data
+      })
     },
     getRoutesChoosed() {
       const db = firebase.firestore();
@@ -375,17 +357,18 @@ export default {
         selected: false,
       });
     },
-    deleteRoute(route) {
-      const db = firebase.firestore();
-      db.collection("passengerRoutes").doc(route.id).delete();
-      this.$bvToast.toast("Postulación Cancelada Correctamente!", {
+    deleteRoute(request) {
+        RequestCo.deleteRequests(request,(response)=>{
+        console.log(response)
+        this.$bvToast.toast("Postulación Cancelada Correctamente!", {
         title: "Postulación Cancelada",
         autoHideDelay: 5000,
         appendToast: true,
         variant: "success",
         solid: true,
       });
-      this.getRoutesActives();
+      this.routesActive = response
+        })
     },
     returnRoute(route) {
       this.$router.push("/service-ended");

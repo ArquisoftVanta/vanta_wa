@@ -16,15 +16,6 @@
               style="border: 0; background: #f1f1f1; width: 100%"
               required
             />
-            <!--button
-              type="button"
-              class="btn btn-dark"
-              data-toggle="modal"
-              data-target="#modalDirections"
-              @click="typeInput = 'origin'"
-            >
-              +
-            </button-->
           </div>
         </div>
         <div class="field">
@@ -37,15 +28,6 @@
               style="border: 0; background: #f1f1f1; width: 100%"
               required
             />
-            <!--button
-              type="button"
-              class="btn btn-dark"
-              data-toggle="modal"
-              data-target="#modalDirections"
-              @click="typeInput = 'destination'"
-            >
-              +
-            </button-->
           </div>
         </div>
         <div class="field">
@@ -93,11 +75,10 @@
 <script>
 /* eslint-disable */
 import axios from "axios";
-import firebase from "firebase";
 import { EventBus } from "@/EventBus.js";
-import UserSC from "../serviceClients/UserServiceClient";
+import UserCo from "../controller/UserController";
 import Directions from "../components/WatchCurrentDirections";
-import Request from "../serviceClients/requestClient";
+import RequestCo from "../controller/RequestController"
 
 export default {
   components: {
@@ -107,7 +88,7 @@ export default {
     return {
       prueba: [],
       request: {
-        passengerMail: "ojtinjacar@unal.edu.co",
+        passengerMail: "",
         time: "",
         date: Date,
         origin: {
@@ -127,9 +108,11 @@ export default {
   },
 
   async mounted() {
-    //this.prueba = await Request.createCoordinates(this.coodinates);
-    //console.log(this.prueba)
-    this.getUserDB();
+    
+    UserCo.getUser((data)=>{
+      this.request.passengerMail = data.user_mail;
+    })
+
     for (let ref in this.$refs) {
       const autocomplete = new google.maps.places.Autocomplete(
         this.$refs[ref],
@@ -161,12 +144,6 @@ export default {
     }
   },
   methods: {
-    getUserDB() {
-      UserSC.getUser((data) => {
-        this.request.passengerMail = data.userMail;
-        this.request.passengerName = data.userName;
-      });
-    },
     calculateButtonPressed() {
       const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?origins=${this.request.origin.lat},${this.request.origin.lng}&destinations=${this.request.destination.lat},${this.request.destination.lng}&key=AIzaSyAxm0QLs59dJ34JezS4XmSs75bHKrFUBz0`;
       axios
@@ -180,10 +157,10 @@ export default {
             if (elements[0].status === "ZERO_RESULTS") {
               this.error = "No Results Found.";
             } else {
-              this.route.distance = elements[0].distance;
-              this.route.duration = elements[0].duration;
+              this.request.distance = elements[0].distance;
+              this.request.duration = elements[0].duration;
             }
-            EventBus.$emit("passengerRoutes-data", [this.route]);
+            EventBus.$emit("passengerRoutes-data", [this.request]);
           }
         })
         .catch((error) => {
@@ -192,30 +169,28 @@ export default {
         });
     },
     saveRoute() {
-      console.log(this.request);
-      Request.createRequest(this.request);
-      /*if (this.route.time === "" || this.route.date === ""||this.route.origin.address === "" || this.route.destination.address === "")  {
-        this.$bvToast.toast("Revisa los campos por llenar!", {
-          title: "Error",
-          autoHideDelay: 2000,
-          appendToast: true,
-          variant: "danger",
-          solid: true,
-        });
+      if (this.request.time === "" || this.request.date === "" || this.request.origin.address === "" || this.request.destination.address === "")  {
+          this.createToast("¡Faltan Campos Por Llenar!","Error","danger")
       } else {
-        const db = firebase.firestore();
-        this.route.selected = false;
-        this.route.servicePerformed = false;
-        db.collection("passengerRoutes").doc().set(this.route);
-        this.$bvToast.toast("¡Ruta Almacenada Correctamente!", {
-          title: "Ruta Almacenada",
-          autoHideDelay: 2000,
-          appendToast: true,
-          variant: "success",
-          solid: true,
+        RequestCo.createRequest(this.request,(response)=>{
+          if(response == 201){
+            this.createToast("¡Postulación Almacenada Correctamente!","Postulación Almacenada","success")
+          }else{
+            this.createToast("¡Hubo un Error con la BD!","Error","danger")
+          }
         });
-      }*/
+      }
     },
+    createToast(toast,title,variant){
+      this.$bvToast.toast(toast, {
+      title: title,
+      autoHideDelay: 5000,
+      appendToast: true,
+      variant: variant,
+      solid: true,
+      });
+    },
+
   },
 };
 </script>
