@@ -101,6 +101,7 @@
 <script>
 import VehicleServiceClient from "../serviceClients/VehicleServiceClient";
 import { EventBus } from "@/EventBus.js";
+import AuthSC from "../serviceClients/AuthServiceClient";
 
 export default {
   name: "VehiclesByUser",
@@ -114,15 +115,15 @@ export default {
   },
    mounted() {
     this.nameButton();
-    this.showVehicles("otrocorreo2");
+    this.showVehicles();
     
   },
   methods: {
-     showVehicles(user) {
+     showVehicles() {
       let x = document.getElementById("modalAlert");
-      VehicleServiceClient.getVehicle(user,(response) => {
+      AuthSC.getUserMailByToken((data)=>{
+      VehicleServiceClient.getVehicle(data,(response) => {
         if (response.lenght != 0) {
-          console.log(response)
           this.listVehicles =response;
             x.style.display = "none";
         }else{
@@ -130,6 +131,7 @@ export default {
 
         }
       });
+      })
     },
     chooseSelection(vehicle) {
         EventBus.$emit("vehicle", vehicle);

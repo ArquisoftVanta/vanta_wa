@@ -149,9 +149,9 @@ export default {
           this.$store.commit("updateUser", {
             userMail: this.credentials.userMail,
           });
-          UserSC.getUser((data) => {
+          /*UserSC.getUser((data) => {
             //this.$store.commit("updateUser", data);
-          });
+          });*/
         },
         (text) => {
           this.credentials.userMail = "";

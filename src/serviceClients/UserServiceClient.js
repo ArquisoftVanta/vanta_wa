@@ -1,20 +1,28 @@
 const axios = require("axios");
-const environment = require("./../environment.js");
-const route = environment.serverUrl + "/api/user";
+const route = "http://localhost:8000/graphql";
 
-function getUser(callback) {
-  axios
-    .get(route + "/profile", {
-      params: {
-        access_token: localStorage.getItem("token"),
-      },
-    })
-    .then((response) => {
-      callback(response.data);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
+function getUser(userName,callback) {
+  axios({
+    method: "POST",
+    url: route,
+    data:{
+        query: `{
+          userById(user_id: "${userName}"){
+            user_name
+            rh
+            user_address
+            user_doc
+            user_mail
+            user_phone
+          }
+        }`
+    }
+}).then(res => {
+    callback(res.data.data.userById);
+   })
+   .catch(err => {
+    callback(err.message);
+   });
 }
 
 function getFastProfile(email, callback){
@@ -45,18 +53,30 @@ function createUser(user, callback) {
 }
 
 function updateUser(user, callback) {
-  axios
-    .put(route + "/profile", user, {
-      params: {
-        access_token: localStorage.getItem("token"),
-      },
-    })
-    .then((response) => {
-      callback(response.status);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
+  axios({
+    method: "POST",
+    url: route,
+    data:{
+        query: `mutation{
+          updateUser(user_mail: "${user.user_mail}", user:{
+            user_name: "${user.user_name}",
+            user_doc: "${user.user_doc}",
+            user_phone: "${user.user_phone}",
+            user_address: "${user.user_address}",
+            user_mail: "${user.user_mail}",
+            picture: "${user.picture}",
+            rh: "${user.rh}"
+          }){
+            user_mail
+          }
+        }`
+    }
+}).then(res => {
+    callback(201);
+   })
+   .catch(err => {
+    callback(err.message);
+   });
 }
 
 function deleteUser(id, callback) {

@@ -78,7 +78,7 @@ export default {
     };
   },
   created() {
-    this.getUserDB();
+    //this.getUserDB();
   },
 
   mounted() {

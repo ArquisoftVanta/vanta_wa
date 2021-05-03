@@ -3,34 +3,34 @@ const route = "http://localhost:8000/graphql";
 
 
 
-function deleteVehicle(id,callback){
-  axios({
-      method: "POST",
-      url: route,
-      data:{
-          query: `mutation{
+function deleteVehicle(id, callback) {
+    axios({
+            method: "POST",
+            url: route,
+            data: {
+                query: `mutation{
             deleteVehicle(id: ${id}){
-                  owner
+              owner
             }
           }`
-      }
-  }).then(res => {
-      console.log(res.data.data.deleteVehicle);
-     })
-     .catch(err => {
-      console.log(err.message);
-     });
+            }
+        }).then(res => {
+            callback(201);
+        })
+        .catch(err => {
+            callback(err.message);
+        });
 }
 
 
-function createVehicle(vehicle){
-  axios({
-      method: "POST",
-      url: route,
-      data:{
-          query: `mutation{
+function createVehicle(vehicle) {
+    axios({
+            method: "POST",
+            url: route,
+            data: {
+                query: `mutation{
             createVehicle(vehicle: {
-                  owner: "otrocorreo2",
+                  owner: "${vehicle.owner}",
                   license_plate: "${vehicle.license_plate}",
                   vehicle_type: "${vehicle.vehicle_type}",
                   model: "${vehicle.model}",
@@ -49,24 +49,23 @@ function createVehicle(vehicle){
               license_plate
             }
           }`
-      }
-  }).then(res => {
-      console.log(res.data.data.createVehicle);
-     })
-     .catch(err => {
-      console.log(err.message);
-     });
+            }
+        }).then(res => {
+            return res.data.data.createVehicle;
+        })
+        .catch(err => {
+            return err.message;
+        });
 }
 
-function updateVehicle(vehicle){
-  console.log(vehicle)
-  axios({
-      method: "POST",
-      url: route,
-      data:{
-          query: `mutation{
+function updateVehicle(vehicle) {
+    axios({
+            method: "POST",
+            url: route,
+            data: {
+                query: `mutation{
             updateVehicle(id:${vehicle.id}, vehicle: {
-                  owner: "otrocorreo2",
+                  owner: "${vehicle.owner}",
                   license_plate: "${vehicle.license_plate}",
                   vehicle_type: "${vehicle.vehicle_type}",
                   model: "${vehicle.model}",
@@ -85,23 +84,22 @@ function updateVehicle(vehicle){
               soat_exp
             }
           }`
-      }
-  }).then(res => {
-      console.log(res.data.data.updateVehicle);
-     })
-     .catch(err => {
-      console.log(err.message);
-     });
+            }
+        }).then(res => {
+            return res.data.data.updateVehicle;
+        })
+        .catch(err => {
+            return err.message;
+        });
 }
 
-async function getVehicle(user,callback){
-  await axios({
-      method: "POST",
-      url: route,
-      data:{
-          query: `
-          {
-            getVehicle(owner: "${user}"){
+async function getVehicle(user, callback) {
+    await axios({
+            method: "POST",
+            url: route,
+            data: {
+                query: `{
+            getVehicles{
               id
               owner
               license_plate
@@ -116,21 +114,27 @@ async function getVehicle(user,callback){
               body
               soat_exp
               engine
-              gas_type            }
+              gas_type
+            }
           }`
-      }
-  }).then(res => {
-      console.log(res.data.data.getVehicle)
-      callback(res.data.data.getVehicle);
-     })
-     .catch(err => {
-      console.log(err.message);
-     });
+            }
+        }).then(res => {
+            var arrayVehiclesUser = []
+            res.data.data.getVehicles.forEach(element => {
+                if (user === element.owner) {
+                    arrayVehiclesUser.push(element)
+                }
+            });
+            callback(arrayVehiclesUser);
+        })
+        .catch(err => {
+            callback(err.message);
+        });
 }
 
 export default {
-  getVehicle,
-  createVehicle,
-  updateVehicle,
-  deleteVehicle,
+    getVehicle,
+    createVehicle,
+    updateVehicle,
+    deleteVehicle,
 };
