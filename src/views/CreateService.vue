@@ -93,91 +93,106 @@
     </div>
     <div>
       <div class="container-fluid mb-5">
-        <div class="row">
-          <div class="col-12 col-md-2 offset-md-5 mt-4">
-            <button
-              class="btn btn-dark btn-block btn-lg"
-              type="button"
-              @click="goToDrive"
-            >
-              Atrás
-            </button>
-          </div>
-        </div>
         <div class="row mb-5">
           <div class="col-12 col-md-4 offset-md-1">
-            <div class="card mt-4 mb-3 mb-md-4">
+            
+            <div class="card mb-3 mb-md-4">
               <div class="card-body">
-                <div class="form-inline mb-3">
-                  <input
-                    id="placeoforigin"
-                    class="form-control"
-                    type="text"
-                    placeholder="Lugar de Salida"
-                    style="border: 0; background: #f1f1f1; width: 80%"
-                    ref="originDriver"
-                  />
-                  <button
-                    type="button"
-                    class="btn btn-dark"
-                    data-toggle="modal"
-                    data-target="#modalDirections"
-                    @click="typeInput = 'originDriver'"
-                  >
-                    +
-                  </button>
-                </div>
-                <div class="form-inline mb-3">
-                  <input
-                    id="placeofdeparture"
-                    class="form-control"
-                    type="text"
-                    placeholder="Lugar de Llegada"
-                    style="border: 0; background: #f1f1f1; width: 80%"
-                    ref="destinationDriver"
-                  />
-                  <button
-                    type="button"
-                    class="btn btn-dark"
-                    data-toggle="modal"
-                    data-target="#modalDirections"
-                    @click="typeInput = 'destinationDriver'"
-                  >
-                    +
-                  </button>
-                </div>
-                <form>
-                  <div class="form-group text-left">
+                <h5 class="card-title text-dark">Crear servicio</h5>
+                <div class="form-group mb-2">
+                  <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span
+                        class="input-group-text"
+                        id="basic-addon1"
+                        >Salida</span
+                      >
+                    </div>
+                    <input
+                      id="placeoforigin"
+                      type="text"
+                      class="form-control"
+                      placeholder="Lugar de salida"
+                      aria-label="lugar-salida"
+                      aria-describedby="basic-addon1"
+                      ref="originDriver"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span
+                        class="input-group-text"
+                        id="basic-addon1"
+                        >Llegada</span
+                      >
+                    </div>
+                    <input
+                      id="placeofdeparture"
+                      type="text"
+                      class="form-control"
+                      placeholder="Lugar de llegada"
+                      aria-label="lugar-llegada"
+                      aria-describedby="basic-addon1"
+                      ref="destinationDriver"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span
+                        class="input-group-text"
+                        id="basic-addon1"
+                        >Fecha</span
+                      >
+                    </div>
                     <input
                       v-model="route.date"
-                      class="form-control"
                       type="date"
-                      placeholder="Hora de Salida"
-                      style="border: 0; background: #f1f1f1"
+                      class="form-control"
+                      placeholder="Fecha de salida"
+                      aria-label="fecha-salida"
+                      aria-describedby="basic-addon1"
                     />
                   </div>
-                  <div class="form-group text-left">
+                  <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span
+                        class="input-group-text"
+                        id="basic-addon1"
+                        >Hora</span
+                      >
+                    </div>
                     <input
                       v-model="route.time"
-                      class="form-control"
                       type="time"
-                      placeholder="Hora de Salida"
-                      style="border: 0; background: #f1f1f1"
+                      class="form-control"
+                      placeholder="Hora de salida"
+                      aria-label="hora-salida"
+                      aria-describedby="basic-addon1"
                     />
                   </div>
-                  <div class="form-group text-left">
+                  <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span
+                        class="input-group-text"
+                        id="basic-addon1"
+                        >Valor</span
+                      >
+                    </div>
                     <input
                       v-model="route.value"
                       type="text"
                       class="form-control"
-                      style="border: 0; background: #f1f1f1"
-                      placeholder="Valor"
+                      placeholder="Valor del viaje"
+                      aria-label=""
+                      aria-describedby="basic-addon1"
                     />
                   </div>
+                </div>
+                <form>
                   <div>
                     <button
                       type="button"
-                      class="btn btn-dark btn-block"
+                      class="btn btn-dark btn-sm btn-block"
                       data-toggle="modal"
                       data-target="#exampleModal"
                       data-display="static"
@@ -190,7 +205,7 @@
                   <div class="mt-2">
                     <button
                       type="button"
-                      class="btn btn-dark btn-block"
+                      class="btn btn-dark btn-sm btn-block"
                       data-toggle="modal"
                       data-target="#modalVehicles"
                       data-display="static"
@@ -204,7 +219,7 @@
                   <div class="mt-2">
                     <button
                       type="button"
-                      class="btn btn-dark btn-block"
+                      class="btn btn-dark btn-sm btn-block"
                       data-toggle="modal"
                       data-target="#exampleModal2"
                     >
@@ -214,7 +229,7 @@
                   <div class="mt-2">
                     <button
                       type="button"
-                      class="btn btn-dark btn-block btn-block"
+                      class="btn btn-dark btn-block btn-sm btn-block"
                       @click="saveRoute"
                     >
                       Crear Servicio
@@ -224,7 +239,7 @@
               </div>
             </div>
           </div>
-          <div class="col-12 col-md-6 mt-md-4 mb-5">
+          <div class="col-12 col-md-6 mb-5">
             <DirectionsMapView />
           </div>
         </div>
@@ -261,8 +276,7 @@ export default {
         orderRoute: {
           ori: {},
           des: {},
-          stops: {
-          },
+          stops: {},
         },
         idVehicle: "",
         originDriver: {
@@ -539,12 +553,12 @@ export default {
       if (textAlert === "") {
         if (new Date(this.currentDate) > new Date(this.route.date)) {
           this.$bvToast.toast(textAlert, {
-          title: "Por favor verifica la fecha.",
-          autoHideDelay: 5000,
-          appendToast: true,
-          variant: "danger",
-          solid: true,
-        });
+            title: "Por favor verifica la fecha.",
+            autoHideDelay: 5000,
+            appendToast: true,
+            variant: "danger",
+            solid: true,
+          });
         } else {
           const db = firebase.firestore();
           this.route.routeActive = true;
@@ -573,15 +587,19 @@ export default {
                   if (this.route.passengers[String.fromCharCode(i)].id !== "") {
                     this.changeStateofPassenger(
                       this.route.passengers[String.fromCharCode(i)].id,
-                      idRoute);//, this.route.value);
+                      idRoute
+                    ); //, this.route.value);
                   }
 
                   NotificationSC.createNotification(
-                    {data:"¡Haz sido seleccionado para un viaje!",
-                    destination: "nomination-services",
-                    mailUser: this.route.passengers[String.fromCharCode(i)].email},(response) => {}
-                  )
-
+                    {
+                      data: "¡Haz sido seleccionado para un viaje!",
+                      destination: "nomination-services",
+                      mailUser: this.route.passengers[String.fromCharCode(i)]
+                        .email,
+                    },
+                    (response) => {}
+                  );
                 }
               });
             });
@@ -604,14 +622,13 @@ export default {
         });
       }
     },
-    changeStateofPassenger(id, idRoute ) {
-
+    changeStateofPassenger(id, idRoute) {
       const db = firebase.firestore();
       const a = db.collection("passengerRoutes").doc(id);
       a.update({
         selected: true,
         idRoute: idRoute,
-        value:""+ this.route.value,
+        value: "" + this.route.value,
       });
     },
     /**
