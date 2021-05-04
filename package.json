@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.5.3",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.21.2",
     "chokidar": "^3.5.1",
