@@ -33,7 +33,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12 offset-md-0 col-lg-7 offset-lg-1 mt-4 mb-5">
+          <div class="col-md-12 offset-md-0 col-lg-7 offset-lg-1 mb-4">
             <div class="datosvehiculo card">
               <div class="card-body">
                 <form class="needs-validation" novalidate>
@@ -175,7 +175,7 @@
                     </div>
                   </div>
                   <div class="form-row">
-                    <div class="col-12 mb-3">
+                    <div class="col-12 mb-1">
                       <textarea
                         v-model="DatosRunt"
                         class="form-control text-center"
@@ -190,7 +190,7 @@
                         href="https://www.runt.com.co/consultaCiudadana/#/consultaVehiculo"
                         target="_blank"
                         type="button"
-                        class="btn btn-dark btn-block text-center mb-2"
+                        class="btn btn-dark btn-block btn-sm text-center mb-2"
                         rel="noopener noreferrer"
                       >
                         Ingresar a RUNT
@@ -201,7 +201,7 @@
                         @click="llenarFormulario"
                         target="_blank"
                         type="button"
-                        class="btn btn-dark btn-block text-center text-white"
+                        class="btn btn-dark btn-block btn-sm text-center text-white"
                       >
                         Validar información de RUNT
                       </a>
@@ -211,7 +211,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-12 col-lg-3 mt-4 mb-5">
+          <div class="col-md-12 col-lg-3 mb-4">
             <img
               src=""
               alt="Foto del vehículo"
@@ -352,7 +352,7 @@
         </div>
       </div>
     </div>
-    <!--FooterwithBackground></FooterwithBackground-->
+    <FooterwithBackground></FooterwithBackground>
   </div>
 </template>
 
@@ -364,10 +364,12 @@ import Foto from "@/assets/car.jpg";
 import AuthSC from "../serviceClients/AuthServiceClient";
 import VehiclesByUser from "../components/VehiclesByUser.vue"
 import { EventBus } from "@/EventBus.js";
+import FooterwithBackground from "../components/FooterwithBackground.vue";
+
 export default {
   name: "RegistrarVehiculo",
   components: {
-    //FooterwithBackground,
+    FooterwithBackground,
     Header,
     VehiclesByUser
   },
