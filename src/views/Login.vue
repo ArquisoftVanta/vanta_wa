@@ -8,9 +8,8 @@
         >
           <div class="login-card card">
             <div class="card-body text-dark border-light shadow">
-              <h2 class="mb-3 font-weight-bold">VANTA</h2>
+              <img class="logo mt-2 mb-5" src="~@/assets/logo.png" alt="logo" />
               <h5 class="text-muted mb-4">Ingresa a tu cuenta Vanta</h5>
-              <!-- <img class="logo mt-2 mb-5" src="~@/assets/logo.png" alt="logo" /> -->
               <form @submit="login">
                 <div class="form-group text-left">
                   <div class="input-group input-group">

@@ -121,14 +121,14 @@
                   </div>
                   <button
                     type="submit"
-                    class="btn btn-dark btn-block btn-sm"
+                    class="btn btn-warning btn-block btn-sm"
                   >
                     Registrarse
                   </button>
                   <button
                     href="#"
                     type="button"
-                    class="btn btn-danger btn-block btn-sm"
+                    class="btn btn-dark btn-block btn-sm"
                     id="cancelBtn"
                     @click="goToLogin"
                   >
@@ -230,3 +230,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+  .input-group-text{
+    min-width: 11vw !important;
+  }
+</style>

@@ -3,7 +3,7 @@
     <nav id="Banner" class="navbar navbar-expand-sm container-fluid">
       <div class="col-auto">
         <a class="navbar-brand text-dark" href="" @click="goToHome">
-          <img src="" alt="vanta_logo" loading="lazy" />
+          <img src="~@/assets/logo.png" alt="vanta_logo" height="40" loading="lazy" />
         </a>
       </div>
       <button
@@ -119,21 +119,21 @@
             </button>
             <div class="dropdown-menu dropdown-menu-lg-left">
               <button
-                class="header-button dropdown-item rounded-lg"
+                class="header-button dropdown-item rounded-lg btn btn-light"
                 @click="goToProfile"
                 type="button"
               >
                 Perfil
               </button>
               <button
-                class="header-button dropdown-item rounded-lg"
+                class="header-button dropdown-item rounded-lg btn btn-light"
                 @click="goToVehicleRegistration"
                 type="button"
               >
                 Vehículo
               </button>
               <div class="header-button dropdown-divider rounded-lg"></div>
-              <button class="dropdown-item" @click="closeSession" type="button">
+              <button class="dropdown-item btn btn-light" @click="closeSession" type="button">
                 Cerrar Sesión
               </button>
             </div>
