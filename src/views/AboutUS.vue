@@ -44,7 +44,7 @@
                     white-space: pre;
                     white-space: pre-wrap;
                   "
-                  >Wheels-US</span
+                  >Vanta</span
                 ><span
                   style="
                     font-size: 11pt;
@@ -111,7 +111,7 @@
                     white-space: pre;
                     white-space: pre-wrap;
                   "
-                  >Wheels-US es una herramienta para poner en contacto, tanto a
+                  >Vanta es una herramienta para poner en contacto, tanto a
                   personas que necesitan movilizarse, como a personas que
                   cuentan con cupos libres en sus medios de transporte; luego
                   entre ellas pueden acordar la ruta, el destino y hasta el
@@ -140,7 +140,7 @@
                     white-space: pre;
                     white-space: pre-wrap;
                   "
-                  >Adicionalmente Wheels-US te permite calificar que tal te fue
+                  >Adicionalmente Vanta te permite calificar que tal te fue
                   en tu viaje con el resto de la comunidad; &iexcl;as&iacute;
                   resaltamos a los buenos pasajeros y conductores!</span
                 >
@@ -193,7 +193,7 @@
                     white-space: pre-wrap;
                   "
                   >Para nosotros la seguridad es una prioridad; por esto
-                  Wheels-US est&aacute; &uacute;nicamente disponible (al menos
+                  Vanta est&aacute; &uacute;nicamente disponible (al menos
                   inicialmente) para las comunidades universitarias que se
                   autentican con sus correos institucionales; de esta forma
                   garantizamos que no existir&aacute;n perfiles ni correos
@@ -303,7 +303,7 @@
                     white-space: pre;
                     white-space: pre-wrap;
                   "
-                  >&iquest;Qu&eacute; beneficios trae usar Wheels-US?</span
+                  >&iquest;Qu&eacute; beneficios trae usar Vanta?</span
                 >
               </p>
               <p
@@ -547,7 +547,7 @@
                       >&nbsp;establece en su art&iacute;culo 2 literal 18 que
                       los veh&iacute;culos con con 3 o m&aacute;s personas
                       (incluyendo el conductor) estar&aacute;n exentos del Pico
-                      y Placa previo registro. &iexcl;Con Wheels-US puedes
+                      y Placa previo registro. &iexcl;Con Vanta puedes
                       llenar tu cupo!</span
                     >
                   </p>
@@ -635,7 +635,7 @@
                         white-space: pre;
                         white-space: pre-wrap;
                       "
-                      >Conoce gente nueva y cercana a ti: Con Wheels-US puedes
+                      >Conoce gente nueva y cercana a ti: Con Vanta puedes
                       conocer nuevos amigos cerca a tu casa para transportarte,
                       salir a rumbear o para lo que quieras.</span
                     >
@@ -680,7 +680,7 @@
                     white-space: pre;
                     white-space: pre-wrap;
                   "
-                  >Wheels US</span
+                  >Vanta</span
                 ><span
                   style="
                     font-size: 11pt;
