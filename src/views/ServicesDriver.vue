@@ -3,19 +3,8 @@
     <Header></Header>
     <div class="container-fluid mb-5">
       <div class="row">
-        <div class="col-12 col-md-2 offset-md-5 mt-4">
-          <button
-            class="btn btn-dark btn-block btn-lg"
-            type="button"
-            @click="goToDrive"
-          >
-            Atrás
-          </button>
-        </div>
-      </div>
-      <div class="row">
         <div class="col-12 col-md-4 offset-md-1 mb-5">
-          <div class="card mt-4 mb-0">
+          <div class="card mb-0">
             <nav>
               <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a
@@ -215,7 +204,7 @@
           </div>
         </div>
 
-        <div class="col-12 col-md-6 mt-md-4 mb-5">
+        <div class="col-12 col-md-6 mb-4">
           <DirectionsMapView />
         </div>
       </div>
