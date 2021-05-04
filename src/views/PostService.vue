@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Header></Header>
     <div
       class="modal fade"
       id="exampleModal"
@@ -35,17 +36,6 @@
     </div>
     <div>
       <div class="container-fluid mb-5">
-        <div class="row">
-          <div class="col-12 col-md-2 offset-md-5 mt-4">
-            <button
-              class="btn btn-dark btn-block btn-lg"
-              type="button"
-              @click="goToPassenger"
-            >
-              Atrás
-            </button>
-          </div>
-        </div>
         <div class="row mb-5">
           <div class="col-12 col-md-4 offset-md-1">
             <div class="createservice card mt-4 mb-3 mb-md-4">
@@ -53,7 +43,7 @@
                 <OriginDestination />
                 <button
                   type="button"
-                  class="btn btn-dark btn-block button"
+                  class="btn btn-dark btn-block btn-sm"
                   @click="locatorButtonPressed"
                 >
                   ¡Ubicame!
@@ -77,6 +67,7 @@ import MyRoutesList from "../components/MyRoutesList.vue";
 import OriginDestination from "../components/OriginDestinationForm";
 import { EventBus } from "@/EventBus.js";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
+import Header from "../components/Header.vue";
 
 export default {
   name: "PostService",
@@ -87,6 +78,7 @@ export default {
     OriginDestination,
     DirectionsMapView,
     MyRoutesList,
+    Header,
   },
   mounted() {
     EventBus.$emit("passengerRoutes-data", this.routes);
