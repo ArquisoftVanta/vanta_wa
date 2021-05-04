@@ -1,20 +1,9 @@
 <template>
   <div id="passenger">
     <Header></Header>
-    <div class="container-fluid mb-5">
+    <div class="container-fluid mb-4">
       <div class="row">
-        <div class="col-12 col-md-2 offset-md-5 mt-4">
-          <button
-            class="btn btn-dark btn-block btn-lg"
-            type="button"
-            @click="goToHome"
-          >
-            Atrás
-          </button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 col-md-6 mt-4 mb-5">
+        <div class="col-12 col-md-6 mb-5">
           <div
             class="card bg-dark text-white border shadow rounded text-center mr-0 ml-0 mr-sm-5 ml-sm-5"
             type="button"
@@ -42,7 +31,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6 mt-4 mb-5">
+        <div class="col-12 col-md-6 mb-5">
           <div
             class="card bg-dark text-white border shadow rounded text-center mr-0 ml-0 mr-sm-5 ml-sm-5"
             type="button"
