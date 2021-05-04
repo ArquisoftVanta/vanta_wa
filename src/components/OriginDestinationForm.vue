@@ -3,29 +3,27 @@
     <div class="form">
       <Directions state="Choose Direction" />
 
-      <h4>Postula tu ruta</h4>
+      <h5 class="text-dark">Postula tu ruta</h5>
       <div v-show="error">{{ error }}</div>
       <div class="four fields">
         <div class="field">
-          <div class="form-inline mb-3">
+          <div class="form-group mb-2">
             <input
               type="text"
               placeholder="Origen"
               ref="origin"
               class="form-control"
-              style="border: 0; background: #f1f1f1; width: 100%"
               required
             />
           </div>
         </div>
         <div class="field">
-          <div class="form-inline mb-3">
+          <div class="form-group mb-2">
             <input
               type="text"
               placeholder="Destino"
               ref="destination"
               class="form-control"
-              style="border: 0; background: #f1f1f1; width: 100%"
               required
             />
           </div>
@@ -37,7 +35,6 @@
               type="time"
               placeholder="Tiempo"
               class="form-control mb-2"
-              style="border: 0; background: #f1f1f1"
               required
             />
           </div>
@@ -48,20 +45,19 @@
               v-model="request.date"
               type="date"
               placeholder="Fecha"
-              class="form-control mb-3"
-              style="border: 0; background: #f1f1f1"
+              class="form-control mb-2"
               required
             />
           </div>
         </div>
         <button
-          class="btn btn-dark btn-block button mb-2"
+          class="btn btn-dark btn-block btn-sm mb-2"
           @click="calculateButtonPressed"
         >
           Ver ruta
         </button>
         <button
-          class="btn btn-dark btn-block button mb-2"
+          class="btn btn-dark btn-block btn-sm mb-2"
           @click="saveRoute"
           data-toggle="modal"
         >
