@@ -14,7 +14,8 @@ function getRequestbyUser(userMail, callback) {
                         active
                         service_id
                         date
-                        time    
+                        time
+                        user_id     
                       }
                 }
                 `
@@ -28,27 +29,30 @@ function getRequestbyUser(userMail, callback) {
 
 }
 
-function getRequestbyActive(flag) {
-    var active = flag
+function getRequestbyActive(flag, callback) {
     var result = axios({
-        method: "POST",
-        url: route,
-        data: {
-            query: `
+            method: "POST",
+            url: route,
+            data: {
+                query: `
             {
-                getRequestbyUser(user_id:${active}){
-                    active
+                getRequestActive(active:"${flag}"){
                     request_id
+                    active
                     service_id
                     date
                     time
-                  }
+                    user_id         
+              }
             }
             `
-        }
-
-    })
-    return result.data.data.getRequestbyUser;
+            }
+        }).then(res => {
+            callback(res.data.data.getRequestActive);
+        })
+        .catch(err => {
+            callback(err.message);
+        });
 }
 
 function getCoordinatesByRequest(request, callback) {
