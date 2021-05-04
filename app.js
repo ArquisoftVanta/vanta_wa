@@ -15,13 +15,13 @@
 //-------------------------------------------
 const express = require("express");
 const app = express();
-console.log(__dirname)
-app.use(express.static(__dirname + "/public"));
+console.log(__dirname);
+app.use(express.static(__dirname + "/dist"));
 app.get(/.*/, function(req, res) {
-  res.sendFile(__dirname + "/public/index.html");
+  res.sendFile(__dirname + "/dist/index.html");
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3500;
 
 app.listen(PORT, function() {
   console.log("Servidor web escuchando en el puerto", PORT);
