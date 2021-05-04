@@ -1,132 +1,163 @@
 <template>
   <div>
-    <FooterwithBackground></FooterwithBackground>
+    <Header></Header>
     <div>
-      <div class="container-fluid mb-5">
+      <div class="container-fluid mb-3">
         <div class="row">
-          <div class="col-md-12 col-lg-3 offset-lg-1 mt-5 mb-5">
-            <div class="card pt-3">
+          <div class="col-md-12 col-lg-3 offset-lg-1 mb-5">
+            <div class="card pt-3">              
               <img
                 src=""
-                class="img-thumbnail align-self-center h-25"
+                class="img-thumbnail align-self-center h-25 w-25"
                 alt=" Imagen de perfil"
                 id="profilePic"
               />
               <div class="card-body">
                 <h5 class="card-title pt-3">{{ user.userName }}</h5>
-                <div class="custom-file">
-                  <input
-                    type="file"
-                    class="custom-file-input outline-dark"
-                    @change="onPicSelected"
-                    id="picPicker"
-                  />
-                  <label class="custom-file-label" id="pickerLabel"
-                    >Elige tu Foto</label
-                  >
+                <div class="form-group mb-0">
+                  <div class="input-group input-group-sm">
+                    <div class="custom-file">
+                      <input type="file" @change="onPicSelected" class="custom-file-input" id="picPicker">
+                      <label class="custom-file-label text-left" for="inputGroupFile01">Seleccionar imagen</label>
+                    </div>
+                  </div>
                 </div>
-                <a
-                  class="btn btn-dark btn-block text-white"
+                <button
+                  class="btn btn-dark btn-block btn-sm text-white"
                   type="button"
                   id="uploadBtn"
-                  style="margin-top: 9px"
                   @click="updateUser"
                 >
-                  Guardar foto
-                </a>
+                  Guardar imagen
+                </button>
               </div>
             </div>
           </div>
-          <div class="col-md-12 col-lg-7 mt-lg-5 mt-0 mb-5">
-            <div class="card card-body mb-5">
+          <div class="col-md-12 col-lg-7 mt-0 mb-5">
+            <div class="card card-body text-dark mb-5">
               <form>
-                <h4 class="mb-3">Tu información</h4>
-                <div class="form-row">
-                  <div class="col-md-8 mb-4">
-                    <label for="validationDefault01">Nombre</label>
+                <h3 class="mb-4 font-weight-bold">Tus datos personales</h3>
+                <div class="form-group">
+                  <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-sm"
+                        >Nombre</span
+                      >
+                    </div>
                     <input
                       v-model="user.user_name"
-                      type="text"
-                      class="form-control form-control-sm text-center"
                       id="validationDefault01"
-                      placeholder="Nombres completos"
+                      type="text"
+                      class="form-control"
+                      placeholder="Nombre completo"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-sm"
                       readonly
                     />
                   </div>
-                  <div class="col-md-4 mb-2">
-                    <label for="validationDefault02">Documento</label>
+                  <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-sm"
+                        >Documento</span
+                      >
+                    </div>
                     <input
                       v-model="user.user_doc"
-                      type="text"
-                      class="form-control form-control-sm text-center"
                       id="validationDefault02"
-                      placeholder="Documento"
+                      type="text"
+                      class="form-control"
+                      placeholder="Número de identificación"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-sm"
                       readonly
                     />
                   </div>
-                </div>
-                <div class="form-row">
-                  <div class="col-md-3 mb-3">
-                    <label for="validationDefault07">Rh</label>
+                  <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-sm"
+                        >RH</span
+                      >
+                    </div>
                     <input
                       v-model="user.rh"
-                      type="text"
-                      class="form-control form-control-sm text-center"
                       id="validationDefault03"
-                      placeholder="Rh"
+                      type="text"
+                      class="form-control"
+                      placeholder="Tipo sanguineo"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-sm"
                       readonly
                     />
                   </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="validationDefault04">Dirección</label>
+                  <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-sm"
+                        >Dirección</span
+                      >
+                    </div>
                     <input
                       v-model="user.user_address"
-                      type="text"
-                      class="form-control form-control-sm text-center"
                       id="validationDefault04"
-                      placeholder="Dirección"
+                      type="text"
+                      class="form-control"
+                      placeholder="Dirección de residencia"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-sm"
                       readonly
                     />
                   </div>
-                  <div class="col-md-3 mb-3">
-                    <label for="validationDefault05">Teléfono</label>
+                  <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-sm"
+                        >Teléfono/Celular</span
+                      >
+                    </div>
                     <input
                       v-model="user.user_phone"
-                      type="text"
-                      class="form-control form-control-sm text-center"
                       id="validationDefault05"
-                      placeholder="N° de teléfono"
+                      type="text"
+                      class="form-control"
+                      placeholder="Número telefonico o celular"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-sm"
                       readonly
                     />
                   </div>
-                </div>
-                <div class="form-row">
-                  <div class="col-md-12 mb-3">
-                    <label for="validationDefault06">Correo</label>
+                  <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-sm"
+                        >Correo</span
+                      >
+                    </div>
                     <input
                       v-model="user.user_mail"
-                      type="text"
-                      class="form-control form-control-sm text-center"
                       id="validationDefault06"
-                      placeholder="Correo electronico"
+                      type="text"
+                      class="form-control"
+                      placeholder="Correo electrónico"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-sm"
                       readonly
                     />
+                    <div class="input-group-append">
+                      <span class="input-group-text">@unal.edu.co</span>
+                    </div>
                   </div>
                 </div>
                 <div class="form-row">
-                  <div class="col-6 mt-3 mb-3">
+                  <div class="col-6">
                     <a
                       v-on:click="editInputData"
                       type="button"
-                      class="btn btn-secondary btn-block text-white"
+                      class="btn btn-secondary btn-block btn-sm text-white"
                     >
                       Editar
                     </a>
                   </div>
-                  <div class="col-6 mt-3 mb-3">
+                  <div class="col-6">
                     <a
                       type="button"
-                      class="btn btn-dark btn-block text-white"
+                      class="btn btn-dark btn-block btn-sm text-white"
                       @click="updateUser"
                     >
                       Guardar
@@ -139,7 +170,7 @@
         </div>
       </div>
     </div>
-    <Header></Header>
+    <FooterwithBackground></FooterwithBackground>
   </div>
 </template>
 
@@ -149,7 +180,7 @@ import Header from "../components/Header";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 import Foto from "@/assets/Enfermeria22.png";
 import NotificationSC from "../serviceClients/NotificationServiceClient";
-import UserCo from "../controller/UserController"
+import UserCo from "../controller/UserController";
 //import { use } from 'vue/types/umd';
 export default {
   name: "Perfil",
@@ -168,7 +199,7 @@ export default {
         user_mail: "",
         user_address: "",
         picture: "",
-        rh: "", 
+        rh: "",
       },
       textoBotonEditar: "Editar",
       //Estado del botón que permite editar y guardar los cambios realizados a la información de un usuario
@@ -180,12 +211,11 @@ export default {
     this.getUserDB();
   },
   methods: {
-    
     editInputData() {
-      this.estadoInput = document.getElementById(
-        "validationDefault01"
-      ).readOnly;
       this.estadoInput = !this.estadoInput;
+      document.getElementById(
+        "validationDefault01"
+      ).readOnly = this.estadoInput;
       document.getElementById(
         "validationDefault02"
       ).readOnly = this.estadoInput;
@@ -198,36 +228,43 @@ export default {
       document.getElementById(
         "validationDefault05"
       ).readOnly = this.estadoInput;
+      document.getElementById(
+        "validationDefault06"
+      ).readOnly = this.estadoInput;
     },
 
     getUserDB() {
-      UserCo.getUser((data)=>{
+      UserCo.getUser((data) => {
         this.user = data;
       });
     },
     updateUser() {
-      UserCo.updateUser(this.user,(data)=>{
+      UserCo.updateUser(this.user, (data) => {
         if (data === 201) {
-          this.createToast("¡Datos de perfil guardados correctamente!","Datos Guardados","success")
+          this.createToast(
+            "¡Datos de perfil guardados correctamente!",
+            "Datos Guardados",
+            "success"
+          );
         } else {
-          this.createToast("Revise los campos","Error","danger")
+          this.createToast("Revise los campos", "Error", "danger");
         }
-            this.$store.commit("updateUser", this.user);
-            /*NotificationSC.createNotification(
+        this.$store.commit("updateUser", this.user);
+        /*NotificationSC.createNotification(
               {data:"Usuario Modificado",
               destination: "profile",
               mailUser: this.user.userMail},(response) => {}
             )*/
-      })
+      });
     },
 
-    createToast(toast,title,variant){
+    createToast(toast, title, variant) {
       this.$bvToast.toast(toast, {
-      title: title,
-      autoHideDelay: 5000,
-      appendToast: true,
-      variant: variant,
-      solid: true,
+        title: title,
+        autoHideDelay: 5000,
+        appendToast: true,
+        variant: variant,
+        solid: true,
       });
     },
     onPicSelected(event) {
@@ -256,8 +293,5 @@ export default {
 #profilePic {
   width: 266px;
   height: 266px;
-}
-#pickerLabel {
-  text-align: left;
 }
 </style>
