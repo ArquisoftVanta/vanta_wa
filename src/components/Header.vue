@@ -26,6 +26,63 @@
           </li> -->
         </ul>
         <div v-if="authenticated">
+          <div v-if="currentRouteName == 'driver' || currentRouteName == 'passenger'" class="btn-group dropleft mr-1">
+            <button
+              type="button"
+              class="btn btn-light rounded-lg"
+              data-toggle="dropdown"
+              data-display="static"
+              aria-haspopup="true"
+              @click="goToHome"
+              aria-expanded="false"
+            >
+              <img
+                class=""
+                src="~@/assets/return.png"
+                width="30"
+                height="30"
+                alt="return"
+              />
+            </button>
+          </div>
+          <div v-else-if="currentRouteName == 'createService' || currentRouteName == 'route-services'" class="btn-group dropleft mr-1">
+            <button
+              type="button"
+              class="btn btn-light rounded-lg"
+              data-toggle="dropdown"
+              data-display="static"
+              aria-haspopup="true"
+              @click="goToDriver"
+              aria-expanded="false"
+            >
+              <img
+                class=""
+                src="~@/assets/return.png"
+                width="30"
+                height="30"
+                alt="return"
+              />
+            </button>
+          </div>
+          <div v-else-if="currentRouteName == 'nomination-services' || currentRouteName == 'postService'" class="btn-group dropleft mr-1">
+            <button
+              type="button"
+              class="btn btn-light rounded-lg"
+              data-toggle="dropdown"
+              data-display="static"
+              aria-haspopup="true"
+              @click="goToPassenger"
+              aria-expanded="false"
+            >
+              <img
+                class=""
+                src="~@/assets/return.png"
+                width="30"
+                height="30"
+                alt="return"
+              />
+            </button>
+          </div>
           <div class="btn-group dropleft mr-1">
             <button
               type="button"
@@ -140,7 +197,7 @@
           </div>
         </div>
         <div v-else>
-          <div v-if="currentRouteName">
+          <div v-if="currentRouteName == 'signup'">
             <ul class="navbar-nav">
               <li class="nav-item">
                 <button type="button" class="btn btn-sm btn-light">
@@ -153,7 +210,7 @@
               </li>
             </ul>
           </div>
-          <div v-else>
+          <div v-else-if="currentRouteName == 'login'">
             <ul class="navbar-nav">
               <li class="nav-item">
                 <button type="button" class="btn btn-sm btn-light">
@@ -229,6 +286,9 @@ export default {
     goToHome() {
       this.$router.push("home");
     },
+    goToDriver() {
+      this.$router.push("driver");
+    },
     goToVehicleRegistration() {
       this.$router.push("vehicle-registration");
     },
@@ -244,6 +304,9 @@ export default {
     },
     goToPostService() {
       this.$router.push("post-service");
+    },
+    goToPassenger() {
+      this.$router.push("passenger");
     },
     getNotifications() {
       NotificationSC.getNotification((data) => {
@@ -265,7 +328,7 @@ export default {
       return this.$store.state.user;
     },
     currentRouteName() {
-      return this.$route.name == "signup";
+      return this.$route.name;
     },
   },
 };
