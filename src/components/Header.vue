@@ -90,9 +90,9 @@
                 <button
                   class="dropdown-item"
                   type="button"
-                  @click="goToNotification(notification.destination)"
+                  @click="goToNotification(notification.direction)"
                 >
-                  {{ notification.data }}
+                  {{ notification.message }}
                 </button>
               </div>
             </div>

@@ -17,7 +17,6 @@ function getNotification(callback) {
     });
 }
 
-
 function createNotification(notification, callback) {
   axios
     .post(route, notification)
@@ -44,7 +43,7 @@ function updateNotification(user, callback) {
     });
 }
 
-function deleteNotification() {
+function deleteNotification(callback) {
   axios
     .delete(route, {
       params: {
