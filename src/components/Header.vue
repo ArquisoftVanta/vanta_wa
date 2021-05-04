@@ -1,26 +1,13 @@
 <template>
-  <div class="fixed-top header-pos">
-    <nav id="Banner" class="navbar navbar-expand-lg">
+  <div class="fixed-top">
+    <nav id="Banner" class="navbar navbar-expand-sm container-fluid">
       <div class="col-auto">
-        <a
-          id="Titulo"
-          class="navbar-brand text-white"
-          href=""
-          @click="goToHome"
-        >
-          <img
-            src="~@/assets/logo.png"
-            width="40"
-            height="40"
-            alt=""
-            loading="lazy"
-          />
-
-          Wheels US
+        <a class="navbar-brand text-dark" href="" @click="goToHome">
+          <img src="~@/assets/logo.png" alt="vanta_logo" height="40" loading="lazy" />
         </a>
       </div>
       <button
-        class="navbar-toggler navbar-light bg-light"
+        class="navbar-toggler navbar-dark bg-dark"
         type="button"
         data-toggle="collapse"
         data-target="#navbarNav"
@@ -32,30 +19,36 @@
       </button>
       <div class="collapse navbar-collapse flex-grow-1" id="navbarNav">
         <ul class="navbar-nav ml-auto flex-nowrap">
-          <li class="nav-item active">
-            <router-link to="about-us" class="nav-link text-white" href=""
-              >Acerca de nosotros<span class="sr-only"></span
-            ></router-link>
-          </li>
-          <li class="nav-item" v-if="authenticated">
-            <a
-              href=""
-              @click="goToHome"
-              class="nav-link menu-item nav-active text-white"
-              >Inicio</a
-            >
-          </li>
-          <li class="nav-item" v-if="authenticated">
-            <a href="#" class="nav-link menu-item text-white"
-              >Hola {{ user.userName }}
+          <!-- <li class="nav-item" v-if="authenticated">
+            <a href="#" class="nav-link disabled menu-item text-dark font-weight-bold"
+              >Hola Francisco{{ user.userName }}
             </a>
-          </li>
+          </li> -->
         </ul>
         <div v-if="authenticated">
-          <div class="btn-group dropleft my-2 my-lg-0">
+          <div class="btn-group dropleft mr-1">
             <button
               type="button"
-              class="btn btn-light"
+              class="btn btn-light rounded-lg"
+              data-toggle="dropdown"
+              data-display="static"
+              aria-haspopup="true"
+              v-on:click="toogleList"
+              aria-expanded="false"
+            >
+              <img
+                class=""
+                src="~@/assets/mail.png"
+                width="30"
+                height="30"
+                alt="notifications"
+              />
+            </button>
+          </div>
+          <div class="btn-group dropleft mr-1">
+            <button
+              type="button"
+              class="btn btn-light rounded-lg"
               data-toggle="dropdown"
               data-display="static"
               aria-haspopup="true"
@@ -63,32 +56,42 @@
               aria-expanded="false"
             >
               <img
-                class="notifications"
-                src="~@/assets/bell.png"
+                class=""
+                src="~@/assets/notification.png"
                 width="30"
                 height="30"
                 alt="notifications"
               />
+              <span
+                v-if="notifications.length > 0"
+                class="ml-2 badge badge-danger font-weight-bold"
+                >{{ notifications.length }}</span
+              >
             </button>
-            <div class="dropdown-menu dropdown-menu-lg-left">
+            <div
+              v-if="notifications.length >= 0"
+              class="dropdown-menu dropdown-menu-lg-left rounded-lg"
+            >
               <div class="row">
-                <div class="col-8">
-                  <h5 style="margin-top: 4%">Notificaciones</h5>
-                </div>
-                <div class="col-4">
-                  <a @click="deleteNotifications"
-                    ><img
-                      src="~@/assets/trash.png"
+                <div class="col-auto">
+                  <button
+                    class="header-button dropdown-item rounded-lg"
+                    @click="deleteNotifications"
+                  >
+                    Eliminar notificación
+                    <img
+                      src="~@/assets/delete.png"
                       width="30"
                       height="30"
                       alt="Borrar Notificaciones"
-                  /></a>
+                    />
+                  </button>
                 </div>
               </div>
               <div class="header-button dropdown-divider"></div>
               <div v-for="(notification, index) in notifications" :key="index">
                 <button
-                  class="dropdown-item"
+                  class="dropdown-item rounded-lg"
                   type="button"
                   @click="goToNotification(notification.direction)"
                 >
@@ -97,58 +100,77 @@
               </div>
             </div>
           </div>
-          <div class="btn-group dropleft my-2 my-lg-0">
+          <div class="btn-group dropleft">
             <button
               type="button"
-              class="btn btn-light"
+              class="btn btn-light rounded-lg"
               data-toggle="dropdown"
               data-display="static"
               aria-haspopup="true"
               aria-expanded="false"
             >
               <img
-                class="person"
-                src="~@/assets/person.png"
+                class=""
+                src="~@/assets/profile.png"
                 width="30"
                 height="30"
-                alt="persona"
+                alt="usuario"
               />
             </button>
             <div class="dropdown-menu dropdown-menu-lg-left">
               <button
-                class="header-button dropdown-item"
+                class="header-button dropdown-item rounded-lg btn btn-light"
                 @click="goToProfile"
                 type="button"
               >
-                Mi perfil
+                Perfil
               </button>
               <button
-                class="header-button dropdown-item"
+                class="header-button dropdown-item rounded-lg btn btn-light"
                 @click="goToVehicleRegistration"
                 type="button"
               >
-                Registrar vehiculo
+                Vehículo
               </button>
-              <div class="header-button dropdown-divider"></div>
-              <button class="dropdown-item" @click="closeSession" type="button">
+              <div class="header-button dropdown-divider rounded-lg"></div>
+              <button class="dropdown-item btn btn-light" @click="closeSession" type="button">
                 Cerrar Sesión
               </button>
             </div>
           </div>
         </div>
         <div v-else>
-          <ul class="navbar-nav mr-right">
-            <li class="nav-item">
-              <router-link to="/login" class="nav-link text-white"
-                >Ingresar</router-link
-              >
-            </li>
-          </ul>
+          <div v-if="currentRouteName">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <button type="button" class="btn btn-sm btn-light">
+                  <router-link
+                    to="/"
+                    class="nav-link text-dark"
+                    >Ingresar</router-link
+                  >
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div v-else>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <button type="button" class="btn btn-sm btn-light">
+                  <router-link
+                    to="/signup"
+                    class="nav-link text-dark"
+                    >Registrarse</router-link
+                  >
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </nav>
     <div v-if="authenticated">
-      <ChatList></ChatList>
+      <ChatList :showList="showList"></ChatList>
     </div>
   </div>
 </template>
@@ -169,6 +191,7 @@ export default {
   data() {
     return {
       notifications: [],
+      showList: false,
     };
   },
   created() {},
@@ -200,6 +223,9 @@ export default {
   },
 
   methods: {
+    toogleList(){
+      this.showList = !this.showList;
+    },
     goToHome() {
       this.$router.push("home");
     },
@@ -238,6 +264,15 @@ export default {
     user() {
       return this.$store.state.user;
     },
+    currentRouteName() {
+      return this.$route.name == "signup";
+    },
   },
 };
 </script>
+
+<style>
+#Banner {
+  background-color: #ffc700;
+}
+</style>

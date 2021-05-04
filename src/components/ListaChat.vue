@@ -1,24 +1,12 @@
 <template>
   <div class="container-fluid">
-    <div class="row justify-content-end">
-      <div class="col-6 col-md-2 text-center text-white">
-        <a
-          class="btn btn-dark btn-block mt-1 pt-1 pl-1 pb-1 pr-1 border border-light shadow"
-          @click="toogleList"
-        >
-          Mensajes
-        </a>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12 col-md-6 offset-md-3 text-center mt-2 mb-2">
+    <div class="row row justify-content-end">
+      <div class="col-12 col-md-4 offset-md-3 text-center mt-2 mb-2">
         <div
-          class="list-group list-contacts bg-dark text-white pt-2 pb-1 pl-1 pr-1 border border-light shadow-sm"
-          v-bind:style="collapselist"
+          v-if="showList"
+          class="pt-1 pb-1 list-group list-contacts bg-dark text-white border border-light shadow-sm"
         >
-          <h3 id="title-contacts" type="button" @click="toogleList">
-            Conversaciones disponibles
-          </h3>
+          <h5 class="mb-0">Conversaciones disponibles</h5>
           <button
             type="button"
             v-for="(contact, index) in contacts"
@@ -48,7 +36,7 @@ import firebase from "firebase";
 
 export default {
   name: "ChatList",
-  props: {},
+  props: ["showList"],
   data() {
     return {
       user: {
@@ -69,10 +57,8 @@ export default {
       conversation4: [],
 
       collapse1: { display: "none" },
-      collapselist: { display: "none" },
       userName: "",
       convId: "",
-      viejo: "viejo",
       driverMail: "",
       driver: false,
     };
@@ -89,14 +75,6 @@ export default {
     Chat,
   },
   methods: {
-    toogleList() {
-      if (this.collapselist.display == "block") {
-        this.collapselist.display = "none";
-      } else if (this.collapse1.display == "none") {
-        this.getConversations();
-        this.collapselist.display = "block";
-      }
-    },
     toogleChat(contact, convId) {
       /*       if (this.collapse1.display == "block") {
         this.collapse1.display = "none";
@@ -190,8 +168,3 @@ export default {
   },
 };
 </script>
-<style>
-.list-item {
-  color: black;
-}
-</style>
