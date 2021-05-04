@@ -24,6 +24,7 @@ function getRequests(callback) {
                     var RequestCoor = []
                     RequestCoor.push(element)
                     RequestCoor.push(response2)
+                    console.log(element)
                     datos.push(RequestCoor)
                     if (Object.is(data.length - 1, key)) {
                         console.log(datos)
@@ -35,6 +36,34 @@ function getRequests(callback) {
         })
     })
 }
+
+function getRequestsbyActive(callback) {
+    AuthSC.getUserMailByToken((response) => {
+        var datos = []
+        RequestSC.getRequestbyActive("False", (data) => {
+            if (data.length == 0) {
+                callback(data)
+            }
+            data.forEach((element, key) => {
+                var user = element.user_id
+                RequestSC.getCoordinatesByRequest(element.request_id, (response2) => {
+                    var RequestCoor = []
+                    RequestCoor.push(element)
+                    RequestCoor.push(response2)
+                    if (response != element.user_id) {
+                        datos.push(RequestCoor)
+                    }
+                    if (Object.is(data.length - 1, key)) {
+                        console.log(datos)
+                        callback(datos)
+                    }
+                })
+            });
+
+        })
+    })
+}
+
 
 function deleteRequests(request_id, callback) {
     AuthSC.getUserMailByToken((response) => {
@@ -49,5 +78,6 @@ function deleteRequests(request_id, callback) {
 export default {
     createRequest,
     getRequests,
-    deleteRequests
+    deleteRequests,
+    getRequestsbyActive
 }

@@ -2,7 +2,7 @@
   <div>
     <Header></Header>
     <Directions state="Choose Direction" />
-    <VehiclesByUser state="Choose Vehicle" />
+    <VehiclesByUser state="Choose" />
     <div
       class="modal fade"
       id="exampleModal"
@@ -395,7 +395,7 @@ export default {
     VehiclesByUser,
   },
   mounted() {
-    this.getUserDB();
+    
     this.getFormattedDate();
     EventBus.$on("vehicle", (vehicle) => {
       try {
@@ -519,12 +519,12 @@ export default {
         "-" +
         date.toLocaleDateString("es-CO", { day: "2-digit" });
     },
-    getUserDB() {
+    /*getUserDB() {
       UserSC.getUser((data) => {
         this.route.dataDriver.driverMail = data.userMail;
         this.route.dataDriver.driverName = data.userName;
       });
-    },
+    },*/
     /**
      * Esta función guarda el objeto "route" con todas las paradas y datos
      *  en la colección "driverRoute", de firebase.

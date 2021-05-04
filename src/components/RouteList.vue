@@ -84,7 +84,7 @@
         </div>
       </div>
       <div class="accordion" id="accordionExample56">
-        <div class="card" v-for="route in routes" :key="route.id">
+        <div class="card" v-for="route in routes" :key="route[0].request_id">
           <!-- Modal de perfil de usuario -->
           <div
             class="modal fade"
@@ -109,11 +109,11 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="modal-body">
+                <!--div class="modal-body">
                   <FastProfile
                     v-bind:userMail="route.dataPassenger.passengerMail"
                   ></FastProfile>
-                </div>
+                </div-->
               </div>
             </div>
           </div>
@@ -124,28 +124,26 @@
                 class="btn btn-link btn-block text-left"
                 type="button"
                 data-toggle="collapse"
-                :data-target="`#data${route.id}`"
+                :data-target="`#data${route[0].request_id}`"
                 aria-expanded="true"
-                :aria-controls="`data${route.id}`"
+                :aria-controls="`data${route[0].request_id}`"
                 style="color: #06416d"
               >
-                Destino: {{ route.destination.address.split(",")[0] }}
+                Destino: {{ route[1][1].address.split(",")[0] }}
               </button>
             </h2>
           </div>
           <div
-            :id="`data${route.id}`"
+            :id="`data${route[0].request_id}`"
             class="collapse"
             aria-labelledby="headingOne"
             data-parent="#accordionExample56"
           >
             <div class="card-body">
-              <div>Usuario: {{ route.dataPassenger.passengerName }}</div>
-              <div>Salida: {{ route.origin.address.split(",")[0] }}</div>
-              <div>Distancia: {{ route.distance.text }}</div>
-              <div>Tiempo aproximado: {{ route.duration.text }}</div>
-              <div>Día de Salida: {{ route.date }}</div>
-              <div>Hora de Salida: {{ route.time }}</div>
+              <div>Correo: {{ route[0].user_id }}</div>
+              <div>Salida: {{ route[1][0].address.split(",")[0] }}</div>
+              <div>Día de Salida: {{ route[0].date }}</div>
+              <div>Hora de Salida: {{ route[0].time }}</div>
               <div class="row">
                 <div class="col">
                   <button
@@ -175,19 +173,11 @@
                     class="btn btn-dark btn-block button"
                     style="margin: 5% 0 5% 0"
                     @click="routePassengerItemPressed(route)"
+                    data-dismiss="modal"
+                    aria-label="Close"
+
                   >
                     Ver ruta del pasajero
-                  </button>
-                </div>
-                <div class="col">
-                  <button
-                    type="button"
-                    class="btn btn-outline-dark btn-block button"
-                    style="margin: 5% 0 5% 0"
-                    data-toggle="modal"
-                    data-target="#exampleModal1"
-                  >
-                    Información del pasajero
                   </button>
                 </div>
               </div>
@@ -204,6 +194,7 @@ import firebase from "firebase";
 import { EventBus } from "@/EventBus.js";
 import UserSC from "../serviceClients/UserServiceClient";
 import FastProfile from "./FastProfile";
+import RequestCo from "../controller/RequestController"
 
 export default {
   components: {
@@ -219,44 +210,32 @@ export default {
       confirmed: "",
       date: [],
       hours: [],
+      request: {
+        origin: {
+          address: "",
+          lat: 0,
+          lng: 0,
+        },
+        destination: {
+          address: "",
+          lat: 0,
+          lng: 0,
+        },
+      },
       datefilter: "",
       hoursfilter: "",
       userMail: "",
     };
   },
   mounted() {
-    this.getUserDB();
+    this.getListPassengersActives();
   },
   methods: {
-    getUserDB() {
-      UserSC.getUser((data) => {
-        this.userMail = data.userMail;
-        this.getListPassengersActives();
-        this.getListPassengersActivesWithoutMe();
-      });
-    },
-    /**
-     * Esta función, ordena a los pasajeros por distancia de origen a destino
-     * o por tiempo de duracion en el servicio.
-     * Esta función se basó en el curso: https://www.udemy.com/course/vuejs-google-maps-api-for-beginners/
-     */
     getListPassengersActives() {
-      const db = firebase.firestore();
-      db.collection("passengerRoutes")
-        .where("selected", "==", false)
-        .onSnapshot((snap) => {
-          this.routes = [];
-          snap.forEach((doc) => {
-            let route = doc.data();
-            if (this.userMail !== route.dataPassenger.passengerMail) {
-              route.id = doc.id;
-              if (this.date.indexOf(route.date) === -1) {
-                this.date.push(route.date);
-              }
-              this.routes.push(route);
-            }
-          });
-        });
+      RequestCo.getRequestsbyActive((call)=>{
+        this.routes = call
+        console.log(this.routes)
+      })
     },
     sortRoute(e) {
       const sortName = e.target.value.split("-")[0];
@@ -320,7 +299,15 @@ export default {
      * "DirectionsMapView" para pintar la ruta del pasajero en el mapa.
      */
     routePassengerItemPressed(route) {
-      EventBus.$emit("passengerRoutes-data", [route]);
+      console.log(route)
+      this.request.origin.lat = Number(route[1][0].lat)
+      this.request.origin.lng = Number(route[1][0].lng)
+      this.request.origin.address = route[1][0].address
+      this.request.destination.lat = Number(route[1][1].lat)
+      this.request.destination.lng = Number(route[1][1].lng)
+      this.request.destination.address = route[1][1].address
+      console.log(this.request)
+      EventBus.$emit("passengerRoutes-data", [this.request]);
     },
     /**
      * Esta función, envia la lista de pasajeros a llevar al componente "Create Service"

@@ -30,7 +30,7 @@ export default {
         });
       }
       if (routes !== undefined) {
-        routes.forEach(({ origin, destination, distance, duration }) => {
+        routes.forEach(({ origin, destination }) => {
           directionsService.route(
             {
               origin: { lat: origin.lat, lng: origin.lng },
@@ -44,7 +44,7 @@ export default {
                   directions: response,
                   map: this.map,
                   polylineOptions: {
-                    strokeColor: "#06416d",
+                    strokeColor: "#FFC700",
                     strokeWeight: 2,
                   },
                 });
@@ -68,14 +68,14 @@ export default {
                 const middleIndex = parseInt(overviewPath.length / 2);
                 const middleLoc = overviewPath[middleIndex];
 
-                const distanceDurationLabel = new google.maps.InfoWindow({
-                  content: `<div style="background-color:#06416d;padding:5px; color:white;">${distance.text} - ${duration.text}</div>`,
+                /*const distanceDurationLabel = new google.maps.InfoWindow({
+                  content: `<div style="background-color:#FFC700;padding:5px; color:black;">${distance.text} - ${duration.text}</div>`,
                   position: new google.maps.LatLng(
                     middleLoc.lat(),
                     middleLoc.lng()
                   ),
-                });
-                distanceDurationLabel.open(this.map, null);
+                });*/
+                //distanceDurationLabel.open(this.map, null);
                 /**
                  * Se llama a "google.maps.Marker" para brindar al conductor una mayor claridad en cuanto a la ubicacion
                  * del pasajero tanto para su recogida como para su destino.
@@ -85,7 +85,7 @@ export default {
                   map: this.map,
                   icon: {
                     path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                    strokeColor: "#06416d",
+                    strokeColor: "#FFC700",
                     scale: 3,
                   },
                 });
@@ -94,7 +94,7 @@ export default {
                   map: this.map,
                   icon: {
                     path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                    strokeColor: "#06416d",
+                    strokeColor: "#FFC700",
                     scale: 3,
                   },
                 });
@@ -157,7 +157,7 @@ export default {
               directions: response,
               map: this.map,
               polylineOptions: {
-                strokeColor: "#06416d",
+                strokeColor: "#FFC700",
                 strokeWeight: 2,
               },
             });
@@ -205,7 +205,7 @@ export default {
      */
     createInfoWindowWith(message, address, lat, lng) {
       const infoWindow = new google.maps.InfoWindow({
-        content: `<div style="background-color:#06416d;padding:5px; color:white">${message} : ${address}</div>`,
+        content: `<div style="background-color:#FFC700;padding:5px; color:black">${message} : ${address}</div>`,
         position: { lat: lat, lng: lng },
       });
 
