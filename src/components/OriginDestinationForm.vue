@@ -149,6 +149,7 @@ export default {
       axios
         .get(URL)
         .then((response) => {
+          console.log(response)
           if (response.data.error_message) {
             this.error = response.data.error_message;
           } else {
@@ -164,6 +165,7 @@ export default {
           }
         })
         .catch((error) => {
+          console.log(URL)
           console.log(error.message);
           this.error = error.message;
         });

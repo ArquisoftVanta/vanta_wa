@@ -118,7 +118,7 @@
                                   type="button"
                                   class="btn btn-outline-dark btn-block button"
                                   style="margin: 5% 0 5% 0"
-                                  @click="routePassengerItemPressed(route)"
+                                  @click="routePassengerItemPressed(route[1])"
                                 >
                                   Ver Ruta
                                 </button>
@@ -300,6 +300,18 @@ export default {
       routesMade: [],
       userMail: "",
       routeComplete: [],
+      request: {
+        origin: {
+          address: "",
+          lat: 0,
+          lng: 0,
+        },
+        destination: {
+          address: "",
+          lat: 0,
+          lng: 0,
+        },
+      },
     };
   },
   created() {
@@ -359,7 +371,6 @@ export default {
     },
     deleteRoute(request) {
         RequestCo.deleteRequests(request,(response)=>{
-        console.log(response)
         this.$bvToast.toast("Postulación Cancelada Correctamente!", {
         title: "Postulación Cancelada",
         autoHideDelay: 5000,
@@ -368,13 +379,19 @@ export default {
         solid: true,
       });
       this.routesActive = response
-        })
+      })
     },
     returnRoute(route) {
       this.$router.push("/service-ended");
     },
     routePassengerItemPressed(route) {
-      EventBus.$emit("passengerRoutes-data", [route]);
+      this.request.origin.lat = Number(route[0].lat)
+      this.request.origin.lng = Number(route[0].lng)
+      this.request.origin.address = route[0].address
+      this.request.destination.lat = Number(route[1].lat)
+      this.request.destination.lng = Number(route[1].lng)
+      this.request.destination.address = route[1].address
+      EventBus.$emit("passengerRoutes-data", [this.request]);
     },
     routePassengerMade(route) {
       const db = firebase.firestore();

@@ -18,6 +18,15 @@ function guardarVehiculo(vehicle) {
     })
 }
 
+function obtenerVehiculo(callback) {
+    AuthSC.getUserMailByToken((data) => {
+        vehicleSC.getVehicle(data, (response) => {
+            callback(response)
+        });
+    })
+
+}
+
 function obtenerDatosRUNT(vehicle, DatosRunt) {
     vehicle.registry = getFormattedDate();
     var datos = DatosRunt.split(
@@ -79,7 +88,6 @@ function obtenerDatosRUNT(vehicle, DatosRunt) {
             break;
         }
     }
-    console.log(vehicle)
     return vehicle
 }
 
@@ -106,4 +114,5 @@ export default {
     eliminarVehiculo,
     guardarVehiculo,
     obtenerDatosRUNT,
+    obtenerVehiculo,
 };
