@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <div class="row row justify-content-end">
+    <div class="row justify-content-end">
       <div class="col-12 col-md-4 offset-md-3 text-center mt-2 mb-2">
         <div
           v-if="showList"
