@@ -16,14 +16,10 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #949597;
-  margin-top: 100px;
+  margin-top: 15vh;
+  margin-right: 0vh;
+  margin-bottom: 5vh;
+  margin-left: 0vh;
 }
-.pac-container {
-    background-color: #FFF;
-    z-index: 100000 !important;
-    position: fixed;
-    display: inline-block;
-}
+
 </style>
