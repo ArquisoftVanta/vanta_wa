@@ -2,43 +2,14 @@
   <div>
     <Header></Header>
     <div>
-      <div class="container-fluid mb-3">
+      <div class="container-fluid">
         <div class="row">
-          <div class="col-md-12 col-lg-3 offset-lg-1 mb-5">
-            <div class="card pt-3">              
-              <img
-                src=""
-                class="img-thumbnail align-self-center h-25 w-25"
-                alt=" Imagen de perfil"
-                id="profilePic"
-              />
-              <div class="card-body">
-                <h5 class="card-title pt-3">{{ user.userName }}</h5>
-                <div class="form-group mb-0">
-                  <div class="input-group input-group-sm">
-                    <div class="custom-file">
-                      <input type="file" @change="onPicSelected" class="custom-file-input" id="picPicker">
-                      <label class="custom-file-label text-left" for="inputGroupFile01">Seleccionar imagen</label>
-                    </div>
-                  </div>
-                </div>
-                <button
-                  class="btn btn-dark btn-block btn-sm text-white"
-                  type="button"
-                  id="uploadBtn"
-                  @click="updateUser"
-                >
-                  Guardar imagen
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-12 col-lg-7 mt-0 mb-5">
-            <div class="card card-body text-dark mb-5">
+          <div class="col-sm-12 col-md-7 offset-lg-1 mt-0 mb-5">
+            <div class="card card-body text-center text-dark border border-dark shadow">
               <form>
-                <h3 class="mb-4 font-weight-bold">Tus datos personales</h3>
+                <h4 class="mb-4 font-weight-bold">Tus datos personales</h4>
                 <div class="form-group">
-                  <div class="input-group input-group-sm mb-3">
+                  <div class="input-group input-group-sm mb-2">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-sm"
                         >Nombre</span
@@ -52,10 +23,10 @@
                       placeholder="Nombre completo"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-sm"
-                      readonly
+                      disabled
                     />
                   </div>
-                  <div class="input-group input-group-sm mb-3">
+                  <div class="input-group input-group-sm mb-2">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-sm"
                         >Documento</span
@@ -69,10 +40,10 @@
                       placeholder="Número de identificación"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-sm"
-                      readonly
+                      disabled
                     />
                   </div>
-                  <div class="input-group input-group-sm mb-3">
+                  <div class="input-group input-group-sm mb-2">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-sm"
                         >RH</span
@@ -86,10 +57,10 @@
                       placeholder="Tipo sanguineo"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-sm"
-                      readonly
+                      disabled
                     />
                   </div>
-                  <div class="input-group input-group-sm mb-3">
+                  <div class="input-group input-group-sm mb-2">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-sm"
                         >Dirección</span
@@ -103,10 +74,10 @@
                       placeholder="Dirección de residencia"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-sm"
-                      readonly
+                      disabled
                     />
                   </div>
-                  <div class="input-group input-group-sm mb-3">
+                  <div class="input-group input-group-sm mb-2">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-sm"
                         >Teléfono/Celular</span
@@ -120,10 +91,10 @@
                       placeholder="Número telefonico o celular"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-sm"
-                      readonly
+                      disabled
                     />
                   </div>
-                  <div class="input-group input-group-sm mb-3">
+                  <div class="input-group input-group-sm mb-2">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-sm"
                         >Correo</span
@@ -137,11 +108,8 @@
                       placeholder="Correo electrónico"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-sm"
-                      readonly
+                      disabled
                     />
-                    <div class="input-group-append">
-                      <span class="input-group-text">@unal.edu.co</span>
-                    </div>
                   </div>
                 </div>
                 <div class="form-row">
@@ -149,22 +117,59 @@
                     <a
                       v-on:click="editInputData"
                       type="button"
-                      class="btn btn-secondary btn-block btn-sm text-white"
+                      class="btn btn-dark btn-block text-white"
                     >
-                      Editar
+                      Editar datos
                     </a>
                   </div>
                   <div class="col-6">
                     <a
                       type="button"
-                      class="btn btn-dark btn-block btn-sm text-white"
+                      class="btn btn-warning btn-block text-dark"
                       @click="updateUser"
                     >
-                      Guardar
+                      Guardar datos
                     </a>
                   </div>
                 </div>
               </form>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+            <div class="card pt-3 border border-dark shadow">
+              <h4 class="mb-4 text-center font-weight-bold">Foto de perfil</h4>
+              <img
+                src=""
+                class="img-thumbnail align-self-center h-50 w-50"
+                alt=" Imagen de perfil"
+                id="profilePic"
+              />
+              <div class="card-body">
+                <h5 class="card-title pt-3">{{ user.userName }}</h5>
+                <div class="form-group mb-0">
+                  <div class="input-group input-group-sm">
+                    <div class="custom-file">
+                      <input
+                        type="file"
+                        @change="onPicSelected"
+                        class="custom-file-input"
+                        id="picPicker"
+                      />
+                      <label
+                        class="custom-file-label text-left"
+                        for="inputGroupFile01"
+                        >Seleccionar imagen</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <button
+                  class="btn btn-warning btn-block btn-sm text-dark"
+                  @click="updateUser"
+                >
+                  Guardar imagen
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -175,13 +180,13 @@
 </template>
 
 <script>
-import { EventBus } from "@/EventBus.js";
 import Header from "../components/Header";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 import Foto from "@/assets/Enfermeria22.png";
-import NotificationSC from "../serviceClients/NotificationServiceClient";
 import UserCo from "../controller/UserController";
-//import { use } from 'vue/types/umd';
+import { EventBus } from "@/EventBus.js";
+import NotificationSC from "../serviceClients/NotificationServiceClient";
+
 export default {
   name: "Perfil",
   components: {
@@ -201,38 +206,27 @@ export default {
         picture: "",
         rh: "",
       },
-      textoBotonEditar: "Editar",
       //Estado del botón que permite editar y guardar los cambios realizados a la información de un usuario
-      estadoInput: false,
+      inputState: true,
     };
   },
-  props: {},
+  props: [],
   mounted() {
     this.getUserDB();
   },
   methods: {
     editInputData() {
-      this.estadoInput = !this.estadoInput;
-      document.getElementById(
-        "validationDefault01"
-      ).readOnly = this.estadoInput;
-      document.getElementById(
-        "validationDefault02"
-      ).readOnly = this.estadoInput;
-      document.getElementById(
-        "validationDefault03"
-      ).readOnly = this.estadoInput;
-      document.getElementById(
-        "validationDefault04"
-      ).readOnly = this.estadoInput;
-      document.getElementById(
-        "validationDefault05"
-      ).readOnly = this.estadoInput;
-      document.getElementById(
-        "validationDefault06"
-      ).readOnly = this.estadoInput;
+      this.inputState = !this.inputState;
+      document.getElementById("validationDefault01").disabled = this.inputState;
+      document.getElementById("validationDefault02").disabled = this.inputState;
+      document.getElementById("validationDefault03").disabled = this.inputState;
+      document.getElementById("validationDefault04").disabled = this.inputState;
+      document.getElementById("validationDefault05").disabled = this.inputState;
+      document.getElementById("validationDefault06").disabled = this.inputState;
+      if (this.inputState == true) {
+        this.getUserDB();
+      }
     },
-
     getUserDB() {
       UserCo.getUser((data) => {
         this.user = data;
@@ -257,7 +251,6 @@ export default {
             )*/
       });
     },
-
     createToast(toast, title, variant) {
       this.$bvToast.toast(toast, {
         title: title,
@@ -291,7 +284,7 @@ export default {
 
 <style>
 #profilePic {
-  width: 266px;
-  height: 266px;
+  width: 250px;
+  height: 250px;
 }
 </style>
