@@ -4,12 +4,12 @@
       <div id="bottom-footer" class="row text-center">
         <div class="col-12 col-md-6">
           <p class="text-white text-wrap mt-1 mb-0 mt-md-2 mb-md-2">
-            © 2021 - Todos los derechos reservados.
+            <small> © 2021 - Todos los derechos reservados.</small>
           </p>
         </div>
         <div class="col-12 col-md-6">
           <p class="text-white mt-0 mb-1 mt-md-2 mb-md-2" @click="goToAboutUs">
-            Acerca de nosotros
+            <small type="button">Acerca de nosotros</small>
           </p>
         </div>
       </div>
