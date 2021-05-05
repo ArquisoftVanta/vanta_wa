@@ -1,19 +1,19 @@
 <template>
   <div>
     <Header></Header>
-    <div class="container-fluid mb-3">
+    <div class="container-fluid text-center">
       <div class="row">
         <div class="col-12 col-lg-4 offset-lg-4">
-          <div class="card shadow">
+          <div class="card border border-dark shadow">
             <div class="form-col text-dark align-items-center">
               <div class="card-body">
                 <!-- <img class="logo mb-4" alt="logo" src="~@/assets/logo.png" /> -->
                 <h5 class="text-muted">Únete a vanta</h5>
-                <h2 class="mb-4 font-weight-bold">Crea tu cuenta</h2>
+                <h2 class="mb-3 font-weight-bold">Crea tu cuenta</h2>
                 <form @submit="signup">
                   <div class="col-auto">
                     <div class="form-group">
-                      <div class="input-group input-group-sm mb-3">
+                      <div class="input-group input-group-sm mb-2">
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="inputGroup-sizing-sm"
                             >Nombre</span
@@ -33,7 +33,7 @@
                   </div>
                   <div class="col-auto">
                     <div class="form-group">
-                      <div class="input-group input-group-sm mb-3">
+                      <div class="input-group input-group-sm mb-2">
                         <input
                           v-model="email"
                           type="text"
@@ -52,7 +52,7 @@
                   </div>
                   <div class="col-auto">
                     <div class="form-group">
-                      <div class="input-group input-group-sm mb-3">
+                      <div class="input-group input-group-sm mb-2">
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="inputGroup-sizing-sm"
                             >Teléfono/Celular</span
@@ -74,7 +74,7 @@
 
                   <div class="col-auto">
                     <div class="form-group">
-                      <div class="input-group input-group-sm mb-3">
+                      <div class="input-group input-group-sm mb-2">
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="inputGroup-sizing-sm"
                             >Contraseña</span
@@ -94,10 +94,10 @@
                   </div>
                   <div class="col-auto">
                     <div class="form-group">
-                      <div class="input-group input-group-sm mb-3">
+                      <div class="input-group input-group-sm mb-2">
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="inputGroup-sizing-sm"
-                            >Confirmar contraseña</span
+                            >Confirmación</span
                           >
                         </div>
                         <input
@@ -121,7 +121,7 @@
                   </div>
                   <button
                     type="submit"
-                    class="btn btn-warning btn-block btn-sm"
+                    class="btn btn-warning btn-block"
                   >
                     Registrarse
                   </button>
@@ -232,6 +232,6 @@ export default {
 </script>
 <style scoped>
   .input-group-text{
-    min-width: 11vw !important;
+    min-width: 9vw !important;
   }
 </style>
