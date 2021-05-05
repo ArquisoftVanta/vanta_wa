@@ -1,10 +1,10 @@
 <template>
-  <div id="aboutus">
+  <div>
     <Header></Header>
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
-        <div class="col-12 justify-content-center">
-          <div class="informacion card">
+        <div class="col-12">
+          <div class="informacion card rounded border border-dark shadow">
             <div class="card-body">
               <h5 class="card-title text-center">Acerca de nosotros</h5>
               <p
@@ -545,7 +545,7 @@
                         white-space: pre-wrap;
                       "
                       >&nbsp;establece en su art&iacute;culo 2 literal 18 que
-                      los veh&iacute;culos con con 3 o m&aacute;s personas
+                      los veh&iacute;culos con 3 o m&aacute;s personas
                       (incluyendo el conductor) estar&aacute;n exentos del Pico
                       y Placa previo registro. &iexcl;Con Vanta puedes
                       llenar tu cupo!</span
@@ -729,17 +729,9 @@ export default {
 
 <style>
 .informacion {
-  opacity: 0.95;
   height: 70vh;
   overflow: auto;
-  text-align: left;
   padding: 60px;
 }
 
-#aboutus {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 85vh;
-}
 </style>
