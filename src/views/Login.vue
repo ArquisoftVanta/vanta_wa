@@ -1,18 +1,18 @@
 <template>
   <div>
     <Header></Header>
-    <div class="container-fluid text-dark mt-0 mb-5">
-      <div class="row">
+    <div class="container-fluid text-dark text-center mb-0 mb-md-0">
+      <div class="row text-center d-flex justify-content-around flex-wrap">
         <div
-          class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-5 offset-md-3 offset-lg-1 mt-0 mt-lg-0 mb-3 mb-xl-5"
+          class="col-12 col-sm-12 col-md-6 mt-0 mt-md-5 mb-5"
         >
           <div class="login-card card">
-            <div class="card-body text-dark border-light shadow">
-              <img class="logo mt-2 mb-5" src="~@/assets/logo.png" alt="logo" />
-              <h5 class="text-muted mb-4">Ingresa a tu cuenta Vanta</h5>
+            <div class="card-body text-dark border-light rounded border border-dark shadow">
+              <img class="logo mt- mb-2 mr-0 mr-md-5 ml-0 ml-md-5" width="200" src="~@/assets/logo.png" alt="logo" />
+              <h5 class="text-muted mb-4"><small> Ingresa a tu cuenta Vanta</small></h5>
               <form @submit="login">
                 <div class="form-group text-left">
-                  <div class="input-group input-group">
+                  <div class="input-group input-group-sm ">
                     <input
                       v-model="userMail"
                       type="text"
@@ -20,7 +20,7 @@
                       class="form-control"
                       placeholder="Usuario institucional"
                       aria-label="Sizing example input"
-                      aria-describedby="inputGroup-sizing"
+                      aria-describedby="inputGroup-sizing-sm"
                       required
                     />
                     <div class="input-group-append">
@@ -29,9 +29,9 @@
                   </div>
                 </div>
                 <div class="form-group text-left">
-                  <div class="input-group input-group mb-3">
+                  <div class="input-group input-group-sm mb-3">
                       <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing"
+                        <span class="input-group-text" id="inputGroup-sizing-sm"
                           >Contraseña</span
                         >
                       </div>
@@ -54,15 +54,15 @@
           </div>
         </div>
         <div
-          class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-md-3 offset-lg-1 mt-0 mt-lg-0 pb-5 mb-5 mb-md-0"
+          class="col-12 col-sm-12 col-md-4 mr-1 ml-1 mb-5 mb-md-0 d-flex justify-content-center align-content-center flex-wrap"
         >
           <div class="text mt-4 mt-lg-0">
             <div class="text-center text-wrap">
               <h1 class="mb-3 font-weight-bold">VANTA</h1>
-              <h5 class="">
+              <p class="">
                 Una comunidad dispuesta a viajar junto a ti y 
-                llegar a cualquier lugar.
-              </h5>
+                llegar a cualquier lugar a tu lado.
+              </p>
               <!-- <h5 class="d-block d-md-none">
                 Viaja en comunidad a cualquier lugar.
               </h5> -->
@@ -70,7 +70,7 @@
           </div>
           <button
             type="button"
-            class="btn btn-dark btn-lg mt-3"
+            class="btn btn-dark btn-lg mt-2"
             @click="goToSignUp"
           >
             ¡Únete!
