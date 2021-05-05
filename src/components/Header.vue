@@ -1,6 +1,6 @@
 <template>
   <div class="fixed-top">
-    <nav id="Banner" class="navbar navbar-expand-sm container-fluid">
+    <nav id="Banner" class="navbar navbar-expand-sm container-fluid text-right">
       <div class="col-auto">
         <a class="navbar-brand text-dark" href="" @click="goToHome">
           <img src="~@/assets/logo.png" alt="vanta_logo" height="40" loading="lazy" />
@@ -29,7 +29,7 @@
           <div v-if="currentRouteName == 'driver' || currentRouteName == 'passenger'" class="btn-group dropleft mr-1">
             <button
               type="button"
-              class="btn btn-light rounded-lg"
+              class="btn btn-light rounded-lg border border-dark"
               data-toggle="dropdown"
               data-display="static"
               aria-haspopup="true"
@@ -48,7 +48,7 @@
           <div v-else-if="currentRouteName == 'createService' || currentRouteName == 'route-services'" class="btn-group dropleft mr-1">
             <button
               type="button"
-              class="btn btn-light rounded-lg"
+              class="btn btn-light rounded-lg border border-dark"
               data-toggle="dropdown"
               data-display="static"
               aria-haspopup="true"
@@ -67,7 +67,7 @@
           <div v-else-if="currentRouteName == 'nomination-services' || currentRouteName == 'postService'" class="btn-group dropleft mr-1">
             <button
               type="button"
-              class="btn btn-light rounded-lg"
+              class="btn btn-light rounded-lg border border-dark"
               data-toggle="dropdown"
               data-display="static"
               aria-haspopup="true"
@@ -86,7 +86,7 @@
           <div class="btn-group dropleft mr-1">
             <button
               type="button"
-              class="btn btn-light rounded-lg"
+              class="btn btn-light rounded-lg border border-dark"
               data-toggle="dropdown"
               data-display="static"
               aria-haspopup="true"
@@ -105,7 +105,7 @@
           <div class="btn-group dropleft mr-1">
             <button
               type="button"
-              class="btn btn-light rounded-lg"
+              class="btn btn-light rounded-lg border border-dark"
               data-toggle="dropdown"
               data-display="static"
               aria-haspopup="true"
@@ -160,7 +160,7 @@
           <div class="btn-group dropleft">
             <button
               type="button"
-              class="btn btn-light rounded-lg"
+              class="btn btn-light rounded-lg border border-dark"
               data-toggle="dropdown"
               data-display="static"
               aria-haspopup="true"
@@ -336,6 +336,6 @@ export default {
 
 <style>
 #Banner {
-  background-color: #ffc700;
+  background: linear-gradient(45deg,#FFC800,#FFC700, #FFD84D);
 }
 </style>
