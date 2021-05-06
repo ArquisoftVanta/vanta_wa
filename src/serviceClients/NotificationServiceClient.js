@@ -1,16 +1,28 @@
 const axios = require("axios");
-const environment = require("./../environment.js");
-const route = environment.serverUrl + "/api/notification";
+//const environment = require("./../environment.js");
+//const route = environment.serverUrl + "/api/notification";
+const route = "http://localhost:8000/graphql";
 
 function getNotification(callback) {
   axios
-    .get(route, {
-      params: {
-        access_token: localStorage.getItem("token"),
-      },
+    .post(route, {
+      query:`  
+      {
+        getNotifications (token: "${localStorage.getItem("token")}"){
+        direction
+        message
+        user_email
+        created_at{
+          _seconds
+          _nanoseconds
+        }
+        notification_id
+        viewed
+      }
+    }`
     })
     .then((response) => {
-      callback(response.data);
+      callback(response.data.data.getNotifications);
     })
     .catch(function(error) {
       console.log(error);
@@ -19,7 +31,18 @@ function getNotification(callback) {
 
 function createNotification(notification, callback) {
   axios
-    .post(route, notification)
+    .post(route, {
+      query:`mutation {
+        createNotification (notification:{
+          direction: "${notification.direction}",
+          message: "${notification.message}",
+          token: "${localStorage.getItem("token")}",
+          viewed: ${notification.viewed}
+        }){
+          notification_id
+        }
+      }`
+    })
     .then((response) => {
       callback(response.status);
     })
@@ -28,12 +51,14 @@ function createNotification(notification, callback) {
     });
 }
 
-function updateNotification(user, callback) {
+function updateNotification(notification_id, callback) {
   axios
-    .put(route + "/profile", user, {
-      params: {
-        access_token: localStorage.getItem("token"),
-      },
+    .post(route , {
+      query: `mutation{
+        updateNotification(notification_id:"${notification_id}"){
+          viewed
+        }
+      }`
     })
     .then((response) => {
       callback(response.status);
@@ -43,12 +68,14 @@ function updateNotification(user, callback) {
     });
 }
 
-function deleteNotification(callback) {
+function deleteNotification(notification_id, callback) {
   axios
     .delete(route, {
-      params: {
-        access_token: localStorage.getItem("token"),
-      },
+      query:`mutation{
+        deleteNotification(notification_id: "${notification_id}"){
+          notification_id
+        }
+      }`
     })
     .then((response) => {
       callback(response.status);
