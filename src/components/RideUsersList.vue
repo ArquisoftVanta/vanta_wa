@@ -87,7 +87,7 @@ export default {
     getRoutesMade() {
       const db = firebase.firestore();
       db.collection("driverRoute")
-        .where("dataDriver.driverMail", "==", this.$store.state.user.userMail)
+        .where("dataDriver.driverMail", "==", this.$store.state.user)
         .where("servicePerformed", "==", true)
         .get()
         .then((snap) => {
@@ -111,7 +111,7 @@ export default {
           .where(
             "passengers." + String.fromCharCode(i) + ".email",
             "==",
-            this.$store.state.user.userMail
+            this.$store.state.user
           )
           .where("servicePerformed", "==", true)
           .get()
@@ -130,7 +130,7 @@ export default {
         let passenger = route.passengers[String.fromCharCode(i)];
         if (passenger.id !== "") {
           this.rates.push({
-            grader: this.$store.state.user.userMail,
+            grader: this.$store.state.user,
             graded: passenger.email,
             grade: 0,
             rideId: route.id,
@@ -144,10 +144,10 @@ export default {
         let passenger = route.passengers[String.fromCharCode(i)];
         if (
           passenger.id !== "" &&
-          passenger.email !== this.$store.state.user.userMail
+          passenger.email !== this.$store.state.user
         ) {
           this.rates.push({
-            grader: this.$store.state.user.userMail,
+            grader: this.$store.state.user,
             graded: passenger.email,
             grade: 0,
             rideId: route.id,
@@ -156,7 +156,7 @@ export default {
         }
       }
       this.rates.push({
-        grader: this.$store.state.user.userMail,
+        grader: this.$store.state.user,
         graded: route.dataDriver.driverMail,
         grade: 0,
         rideId: route.id,

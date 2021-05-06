@@ -38,7 +38,7 @@ export default {
   },
   mounted() {
     //this.getUserDB();
-    this.userMail = this.$store.state.user.userMail;
+    this.userMail = this.$store.state.user;
   },
   methods: {},
 };
