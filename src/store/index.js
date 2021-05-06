@@ -10,6 +10,7 @@ export default new Vuex.Store({
   mutations: {
     updateUser(state, newUser) {
       state.user = newUser;
+      console.log(newUser);
     },
   },
   getters: {},

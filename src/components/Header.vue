@@ -255,13 +255,10 @@ export default {
 
   mounted() {
     if (!this.$store.state.user) {
-      /*       UserSC.getUser((data) => {
-        this.$store.commit("updateUser", data);
-      }); */
-
-      this.$store.commit("updateUser", {
-        userMail: "enderson@unal.edu.co",
-      });
+      UserSC.getUser((data) => {
+        this.$store.commit("updateUser", data.user_mail);
+        console.log(data.user_mail);
+      });       
     }
 
     this.getNotifications();

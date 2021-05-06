@@ -134,7 +134,6 @@ export default {
       }
     },
     toBottom() {
-      console.log("bottom");
       var target = document.getElementById("target");
       target.style.minHeight = "200px";
       var div = document.getElementById("chatBody");

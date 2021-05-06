@@ -184,6 +184,7 @@ import Header from "../components/Header";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 import Foto from "@/assets/Enfermeria22.png";
 import UserCo from "../controller/UserController";
+import UserSC from "../serviceClients/UserServiceClient"
 import { EventBus } from "@/EventBus.js";
 import NotificationSC from "../serviceClients/NotificationServiceClient";
 
@@ -228,7 +229,7 @@ export default {
       }
     },
     getUserDB() {
-      UserCo.getUser((data) => {
+      UserSC.getUser((data) => {
         this.user = data;
       });
     },

@@ -1,13 +1,13 @@
 const axios = require("axios");
 const route = "http://localhost:8000/graphql";
 
-function getUser(userName,callback) {
+function getUser(callback) {
   axios({
     method: "POST",
     url: route,
     data:{
         query: `{
-          userById(user_id: "${userName}"){
+          userById(token: "${localStorage.getItem("token")}"){
             user_name
             rh
             user_address
