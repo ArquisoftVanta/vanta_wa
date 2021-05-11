@@ -200,10 +200,10 @@
           <div v-if="currentRouteName == 'signup'">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <button type="button" class="btn btn-sm btn-light">
+                <button type="button" class="btn btn-sm btn-dark">
                   <router-link
                     to="/"
-                    class="nav-link text-dark"
+                    class="nav-link text-white"
                     >Ingresar</router-link
                   >
                 </button>
@@ -213,10 +213,10 @@
           <div v-else-if="currentRouteName == 'login'">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <button type="button" class="btn btn-sm btn-light">
+                <button type="button" class="btn btn-sm btn-dark">
                   <router-link
                     to="/signup"
-                    class="nav-link text-dark"
+                    class="nav-link text-white"
                     >Registrarse</router-link
                   >
                 </button>
