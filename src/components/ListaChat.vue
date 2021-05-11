@@ -65,10 +65,16 @@ export default {
   },
   created() {
     //this.getUserDB();
+    //this.getConversations();
   },
 
   mounted() {
-    this.getConversations();
+    if (!this.$store.state.user) {
+      UserSC.getUser((data) => {
+        this.$store.commit("updateUser", data.user_mail);
+        this.getConversations();
+      });       
+    }    
   },
   updated() {},
   components: {
@@ -87,7 +93,7 @@ export default {
       this.convId = convId;
     },
     getConversations() {
-      var email = this.$store.state.user.userMail;
+      var email = this.$store.state.user;
       console.log(email);
 
       ChatSC.getConversationsList(email, (data) => {

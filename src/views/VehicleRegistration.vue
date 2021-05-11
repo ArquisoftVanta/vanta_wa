@@ -332,7 +332,7 @@
                   class="btn btn-warning btn-block btn-sm text-dark"
                   @click="guardarVehiculo(vehicle)"
                 >
-                  Guardar imagen
+                  Guardar
                 </button>
                 <button
                   @click="eliminarVehiculo(vehicle)"

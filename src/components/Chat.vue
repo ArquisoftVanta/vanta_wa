@@ -41,7 +41,7 @@
                 />
                 <div class="input-group-append">
                   <button
-                    class="btn btn-primary"
+                    class="btn btn-dark"
                     type="submit"
                     id="button-addon2"
                     accesskey="”intro″"
@@ -87,7 +87,7 @@ export default {
       this.convId = newValue;
       this.getConversation();
 
-      var usr = this.$store.state.user.userMail;
+      var usr = this.$store.state.user;
       var cht = this.convId;
       this.socket.auth = { usr, cht };
       this.socket.connect();
@@ -119,7 +119,7 @@ export default {
     },
     getConversation() {
       ChatSC.getConversation(
-        this.$store.state.user.userMail,
+        this.$store.state.user,
         this.convId,
         (data) => {
           this.conversation = data.conversation;
@@ -134,7 +134,6 @@ export default {
       }
     },
     toBottom() {
-      console.log("bottom");
       var target = document.getElementById("target");
       target.style.minHeight = "200px";
       var div = document.getElementById("chatBody");
@@ -150,16 +149,16 @@ export default {
       let self = this;
       ChatSC.sendMessage(
         this.convId,
-        this.$store.state.user.userMail,
+        this.$store.state.user,
         this.textMsg,
         (data) => {
           this.socket.emit("private message", {
             content: self.textMsg,
-            user: self.$store.state.user.userMail,
+            user: self.$store.state.user,
             chatId: self.convId,
           });
 
-          var email = this.$store.state.user.userMail;
+          var email = this.$store.state.user;
           this.textMsg = "";
           // Actualizar chat
           ChatSC.getConversation(email, this.convId, (data) => {
