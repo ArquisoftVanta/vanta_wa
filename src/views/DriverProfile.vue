@@ -112,4 +112,8 @@ export default {
 .container {
   height: 85vh;
 }
+
+.input-group-text {
+  min-width: 9vw !important;
+}
 </style>
