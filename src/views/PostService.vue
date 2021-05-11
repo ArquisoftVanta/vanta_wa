@@ -36,9 +36,9 @@
     </div>
     <div>
       <div class="container-fluid mb-5">
-        <div class="row mb-5">
+        <div class="row">
           <div class="col-12 col-md-4 offset-md-1">
-            <div class="createservice card mt-4 mb-3 mb-md-4">
+            <div class="createservice card mb-5 mb-md-0">
               <div class="card-body">
                 <OriginDestination />
                 <button
@@ -52,13 +52,14 @@
             </div>
           </div>
           <div
-            class="col-12 col-md-6 mt-md-4 mb-5"
+            class="col-12 col-md-6 mb-5 mb-md-0"
           >
             <DirectionsMapView></DirectionsMapView>
           </div>
         </div>
       </div>
     </div>
+    <FooterwithBackground></FooterwithBackground>
   </div>
 </template>
 
@@ -68,6 +69,7 @@ import OriginDestination from "../components/OriginDestinationForm";
 import { EventBus } from "@/EventBus.js";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
 import Header from "../components/Header.vue";
+import FooterwithBackground from "../components/FooterwithBackground.vue";
 
 export default {
   name: "PostService",
@@ -79,6 +81,7 @@ export default {
     DirectionsMapView,
     MyRoutesList,
     Header,
+    FooterwithBackground
   },
   mounted() {
     EventBus.$emit("passengerRoutes-data", this.routes);

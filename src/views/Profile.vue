@@ -5,7 +5,9 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-12 col-md-7 offset-lg-1 mt-0 mb-5">
-            <div class="card card-body text-center text-dark border border-dark shadow">
+            <div
+              class="card card-body text-center text-dark border border-dark shadow"
+            >
               <form>
                 <h4 class="mb-4 font-weight-bold">Tus datos personales</h4>
                 <div class="form-group">
@@ -287,5 +289,8 @@ export default {
 #profilePic {
   width: 250px;
   height: 250px;
+}
+.input-group-text {
+  min-width: 9vw !important;
 }
 </style>
