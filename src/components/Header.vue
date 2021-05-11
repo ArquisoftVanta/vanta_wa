@@ -25,7 +25,7 @@
             </a>
           </li> -->
         </ul>
-        <div v-if="authenticated">
+        <div v-if="authenticated && (currentRouteName != 'login' || currentRouteName != 'signup')">
           <div v-if="currentRouteName == 'driver' || currentRouteName == 'passenger'" class="btn-group dropleft mr-1">
             <button
               type="button"
@@ -259,9 +259,13 @@ export default {
         this.$store.commit("updateUser", data.user_mail);
         console.log(data.user_mail);
       });       
-    }
+    };
+/*    if (authenticated && (currentRouteName == 'login' || currentRouteName == 'signup')){
+      goToHome()
+    };-*/
 
     this.getNotifications();
+    
 
     /*const db = firebase.firestore();
     db.collection("notifications").onSnapshot((snap) => {
@@ -275,7 +279,9 @@ export default {
       });
     });*/
   },
-
+  beforeCreate(){
+ 
+  },
   methods: {
     toogleList(){
       this.showList = !this.showList;

@@ -136,5 +136,10 @@ export default {
       this.$router.push("/signup");
     },
   },
+  beforeCreate() {
+    if (localStorage.getItem("token")) {
+      this.$router.push("/home");
+    }
+  },
 };
 </script>

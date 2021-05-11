@@ -228,6 +228,11 @@ export default {
       }
     },
   },
+  beforeCreate() {
+    if (localStorage.getItem("token")) {
+      this.$router.push("/home");
+    }
+  },
 };
 </script>
 <style scoped>
