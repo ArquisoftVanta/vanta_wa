@@ -4,7 +4,7 @@
     <div class="container-fluid text-dark text-center mb-0 mb-md-0">
       <div class="row text-center d-flex justify-content-around flex-wrap">
         <div
-          class="col-12 col-sm-12 col-md-6 mt-0 mt-md-5 mb-5"
+          class="col-12 col-sm-12 col-md-4 mt-0 mt-md-5 mb-5"
         >
           <div class="login-card card">
             <div class="card-body text-dark border-light rounded border border-dark shadow">
@@ -46,7 +46,7 @@
                       />
                     </div>
                 </div>
-                <button type="submit" class="mt-4 mb-2 btn btn-dark btn-block">
+                <button type="submit" class="mt-4 mb-2 btn btn-warning btn-block">
                   Ingresar
                 </button>
               </form>
@@ -58,8 +58,8 @@
         >
           <div class="text mt-4 mt-lg-0">
             <div class="text-center text-wrap">
-              <h1 class="mb-3 font-weight-bold">VANTA</h1>
-              <p class="">
+              <h1 class="mb-3 font-weight-bold pt-3">VANTA</h1>
+              <p class="pb-3 font-weight-bold">
                 Una comunidad dispuesta a viajar junto a ti y 
                 llegar a cualquier lugar a tu lado.
               </p>
@@ -70,7 +70,7 @@
           </div>
           <button
             type="button"
-            class="btn btn-dark btn-lg mt-2"
+            class="btn btn-light btn-lg mt-2"
             @click="goToSignUp"
           >
             ¡Únete!
