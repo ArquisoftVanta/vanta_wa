@@ -80,11 +80,11 @@ export default {
       this.$router.push("/driver");
     },
   },
-  // beforeCreate() {
-  //   if (!localStorage.getItem("token")) {
-  //     this.$router.push("/");
-  //   }
-  // },
+  beforeCreate() {
+    if (!localStorage.getItem("token")) {
+      this.$router.push("/");
+    }
+  },
 };
 </script>
 <style>
