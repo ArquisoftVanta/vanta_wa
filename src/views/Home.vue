@@ -3,20 +3,20 @@
     <Header></Header>
     <div class="container-fluid mb-5">
       <div class="row">
-        <div class="col-12 col-md-6 mt-4 mb-5">
+        <div class="col-12 col-md-6 mb-5 mb-md-0">
           <div
-            class="card bg-dark text-white border shadow rounded text-center mr-0 ml-0 mr-sm-5 ml-sm-5"
+            class="card bg-light text-white shadow rounded border border-dark text-center text-dark mr-0 ml-0 mr-sm-5 ml-sm-5"
             type="button"
             @click="goToDrive"
           >
             <img
               class="card-img-top"
               src="~@/assets/driver.jpg"
-              alt="Card image cap"
+              alt="driver-image"
             />
             <div class="card-body">
-              <h4 class="card-title d-none d-md-block mb-0">Conductor</h4>
-              <h5 class="card-title d-block d-md-none mb-0">Conductor</h5>
+              <h3 class="card-title d-none d-md-block font-weight-bold">Conductor</h3>
+              <h3 class="card-title d-block d-md-none mb-0 font-weight-bold text-left">Conductor</h3>
               <p class="card-text d-none d-md-block mb-0">
                 <small>
                   Descubre todo lo que la plataforma tiene para ti como
@@ -26,20 +26,20 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6 mt-4 mb-5">
+        <div class="col-12 col-md-6 mb-5 mb-md-0">
           <div
-            class="card bg-dark text-white rounded shadow border shadow text-center mr-0 ml-0 mr-sm-5 ml-sm-5"
+            class="card bg-light text-white shadow rounded border border-dark text-center text-dark mr-0 ml-0 mr-sm-5 ml-sm-5"
             type="button"
             @click="goToPassenger"
           >
             <img
               class="card-img-top"
-              src="~@/assets/passenger.jpg"
-              alt="Card image cap"
+              src="~@/assets/passenger1.jpg"
+              alt="passenger-image"
             />
             <div class="card-body">
-              <h4 class="card-title d-none d-md-block mb-0">Pasajero</h4>
-              <h5 class="card-title d-block d-md-none mb-0">Pasajero</h5>
+              <h3 class="card-title d-none d-md-block font-weight-bold">Pasajero</h3>
+              <h3 class="card-title d-block d-md-none mb-0 font-weight-bold text-left">Pasajero</h3>
               <p class="card-text d-none d-md-block mb-0">
                 <small
                   >Descubre todo lo que la plataforma tiene para ti como
@@ -80,10 +80,16 @@ export default {
       this.$router.push("/driver");
     },
   },
-  beforeCreate() {
-    if (!localStorage.getItem("token")) {
-      this.$router.push("/");
-    }
-  },
+  // beforeCreate() {
+  //   if (!localStorage.getItem("token")) {
+  //     this.$router.push("/");
+  //   }
+  // },
 };
 </script>
+<style>
+.card-img-top {
+    min-height: 20vh;
+    object-fit: cover;
+}
+</style>
