@@ -14,15 +14,23 @@
 
 //-------------------------------------------
 const express = require("express");
+const fs = require('fs');
+const https = require('https');
 const app = express();
 console.log(__dirname);
 app.use(express.static(__dirname + "/dist"));
-app.get(/.*/, function(req, res) {
-  res.sendFile(__dirname + "/dist/index.html");
-});
 
 const PORT = process.env.PORT || 3500;
 
-app.listen(PORT, function() {
-  console.log("Servidor web escuchando en el puerto", PORT);
+https.createServer({
+    cert: fs.readFileSync('private.crt'),
+    key: fs.readFileSync('private.key')
+}, app).listen(PORT, function() {
+    console.log('Servidor https corriendo en el puerto' + PORT);
+});
+
+
+app.get(/.*/, function(req, res) {
+    console.log('Servidor https correindo en el puerto' + PORT);
+    res.sendFile(__dirname + "/dist/index.html");
 });

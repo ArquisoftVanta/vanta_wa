@@ -18,6 +18,8 @@
         "chokidar": "^3.5.1",
         "core-js": "^3.6.5",
         "firebase": "^7.24.0",
+        "fs": "*",
+        "https": "^1.0.0",
         "jquery": "^3.5.1",
         "moment": "^2.29.1",
         "node-sass": "^5.0.0",
