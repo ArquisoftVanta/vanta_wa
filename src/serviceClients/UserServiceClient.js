@@ -1,12 +1,12 @@
 const axios = require("axios");
-const route = "http://localhost:8000/graphql";
+const route = "http://localhost:4100/graphql";
 
 function getUser(callback) {
-  axios({
-    method: "POST",
-    url: route,
-    data:{
-        query: `{
+    axios({
+            method: "POST",
+            url: route,
+            data: {
+                query: `{
           userById(token: "${localStorage.getItem("token")}"){
             user_name
             rh
@@ -16,48 +16,48 @@ function getUser(callback) {
             user_phone
           }
         }`
-    }
-}).then(res => {
-    callback(res.data.data.userById);
-   })
-   .catch(err => {
-    callback(err.message);
-   });
+            }
+        }).then(res => {
+            callback(res.data.data.userById);
+        })
+        .catch(err => {
+            callback(err.message);
+        });
 }
 
-function getFastProfile(email, callback){
-  axios
-  .get(route + "/fast-profile", {
-    params: {
-      access_token: localStorage.getItem("token"),
-      userMail: email
-    },
-  })
-  .then((response) => {
-    callback(response.data);
-  })
-  .catch(function(error) {
-    console.log(error);
-  });
+function getFastProfile(email, callback) {
+    axios
+        .get(route + "/fast-profile", {
+            params: {
+                access_token: localStorage.getItem("token"),
+                userMail: email
+            },
+        })
+        .then((response) => {
+            callback(response.data);
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
 }
 
 function createUser(user, callback) {
-  axios
-    .post(route, user)
-    .then((response) => {
-      callback(response.status);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
+    axios
+        .post(route, user)
+        .then((response) => {
+            callback(response.status);
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
 }
 
 function updateUser(user, callback) {
-  axios({
-    method: "POST",
-    url: route,
-    data:{
-        query: `mutation{
+    axios({
+            method: "POST",
+            url: route,
+            data: {
+                query: `mutation{
           updateUser(user_mail: "${user.user_mail}", user:{
             user_name: "${user.user_name}",
             user_doc: "${user.user_doc}",
@@ -70,30 +70,30 @@ function updateUser(user, callback) {
             user_mail
           }
         }`
-    }
-}).then(res => {
-    callback(201);
-   })
-   .catch(err => {
-    callback(err.message);
-   });
+            }
+        }).then(res => {
+            callback(201);
+        })
+        .catch(err => {
+            callback(err.message);
+        });
 }
 
 function deleteUser(id, callback) {
-  axios
-    .delete(`${route}${id}`)
-    .then((response) => {
-      callback(response.status);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
+    axios
+        .delete(`${route}${id}`)
+        .then((response) => {
+            callback(response.status);
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
 }
 
 export default {
-  getUser,
-  getFastProfile,
-  createUser,
-  updateUser,
-  deleteUser,
+    getUser,
+    getFastProfile,
+    createUser,
+    updateUser,
+    deleteUser,
 };
