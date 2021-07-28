@@ -95,7 +95,6 @@ export default {
         this.user.userName = data;
       });
     },
-    updateUser() {},
   },
 };
 </script>
