@@ -83,7 +83,6 @@ export default {
     getUserDB() {
       UserSC.getUser();
     },
-    updateUser() {},
   },
 };
 </script>
