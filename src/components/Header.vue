@@ -3,7 +3,12 @@
     <nav id="Banner" class="navbar navbar-expand-sm container-fluid text-right">
       <div class="col-auto">
         <a class="navbar-brand text-dark" href="" @click="goToHome">
-          <img src="~@/assets/logo.png" alt="vanta_logo" height="40" loading="lazy" />
+          <img
+            src="~@/assets/logo.png"
+            alt="vanta_logo"
+            height="40"
+            loading="lazy"
+          />
         </a>
       </div>
       <button
@@ -18,15 +23,19 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse flex-grow-1" id="navbarNav">
-        <ul class="navbar-nav ml-auto flex-nowrap">
-          <!-- <li class="nav-item" v-if="authenticated">
-            <a href="#" class="nav-link disabled menu-item text-dark font-weight-bold"
-              >Hola Francisco{{ user.userName }}
-            </a>
-          </li> -->
-        </ul>
-        <div v-if="authenticated && (currentRouteName != 'login' || currentRouteName != 'signup')">
-          <div v-if="currentRouteName == 'driver' || currentRouteName == 'passenger'" class="btn-group dropleft mr-1">
+        <ul class="navbar-nav ml-auto flex-nowrap"></ul>
+        <div
+          v-if="
+            authenticated &&
+              (currentRouteName != 'login' || currentRouteName != 'signup')
+          "
+        >
+          <div
+            v-if="
+              currentRouteName == 'driver' || currentRouteName == 'passenger'
+            "
+            class="btn-group dropleft mr-1"
+          >
             <button
               type="button"
               class="btn btn-light rounded-lg border border-dark"
@@ -45,7 +54,13 @@
               />
             </button>
           </div>
-          <div v-else-if="currentRouteName == 'createService' || currentRouteName == 'route-services'" class="btn-group dropleft mr-1">
+          <div
+            v-else-if="
+              currentRouteName == 'createService' ||
+                currentRouteName == 'route-services'
+            "
+            class="btn-group dropleft mr-1"
+          >
             <button
               type="button"
               class="btn btn-light rounded-lg border border-dark"
@@ -64,7 +79,13 @@
               />
             </button>
           </div>
-          <div v-else-if="currentRouteName == 'nomination-services' || currentRouteName == 'postService'" class="btn-group dropleft mr-1">
+          <div
+            v-else-if="
+              currentRouteName == 'nomination-services' ||
+                currentRouteName == 'postService'
+            "
+            class="btn-group dropleft mr-1"
+          >
             <button
               type="button"
               class="btn btn-light rounded-lg border border-dark"
@@ -190,7 +211,11 @@
                 Vehículo
               </button>
               <div class="header-button dropdown-divider rounded-lg"></div>
-              <button class="dropdown-item btn btn-light" @click="closeSession" type="button">
+              <button
+                class="dropdown-item btn btn-light"
+                @click="closeSession"
+                type="button"
+              >
                 Cerrar Sesión
               </button>
             </div>
@@ -201,9 +226,7 @@
             <ul class="navbar-nav">
               <li class="nav-item">
                 <button type="button" class="btn btn-sm btn-dark">
-                  <router-link
-                    to="/"
-                    class="nav-link text-white"
+                  <router-link to="/" class="nav-link text-white"
                     >Ingresar</router-link
                   >
                 </button>
@@ -214,9 +237,7 @@
             <ul class="navbar-nav">
               <li class="nav-item">
                 <button type="button" class="btn btn-sm btn-dark">
-                  <router-link
-                    to="/signup"
-                    class="nav-link text-white"
+                  <router-link to="/signup" class="nav-link text-white"
                     >Registrarse</router-link
                   >
                 </button>
@@ -251,39 +272,18 @@ export default {
       showList: false,
     };
   },
-  created() {},
-
   mounted() {
     if (!this.$store.state.user) {
       UserSC.getUser((data) => {
         this.$store.commit("updateUser", data.user_mail);
         console.log(data.user_mail);
-      });       
-    };
-/*    if (authenticated && (currentRouteName == 'login' || currentRouteName == 'signup')){
-      goToHome()
-    };-*/
+      });
+    }
 
     this.getNotifications();
-    
-
-    /*const db = firebase.firestore();
-    db.collection("notifications").onSnapshot((snap) => {
-      this.notifications = [];
-      snap.forEach((doc) => {
-        let notification = doc.data();
-        notification.id = doc.id;
-        if (this.user.idUser == notification.idUser) {
-          this.notifications.push(notification);
-        }
-      });
-    });*/
-  },
-  beforeCreate(){
- 
   },
   methods: {
-    toogleList(){
+    toogleList() {
       this.showList = !this.showList;
     },
     goToHome() {
@@ -339,6 +339,6 @@ export default {
 
 <style>
 #Banner {
-  background: linear-gradient(45deg,#FFC800,#FFC700, #FFD84D);
+  background: linear-gradient(45deg, #ffc800, #ffc700, #ffd84d);
 }
 </style>
