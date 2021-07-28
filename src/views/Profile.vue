@@ -188,8 +188,6 @@ import FooterwithBackground from "../components/FooterwithBackground.vue";
 import Foto from "@/assets/Enfermeria22.png";
 import UserCo from "../controller/UserController";
 import UserSC from "../serviceClients/UserServiceClient";
-import { EventBus } from "@/EventBus.js";
-import NotificationSC from "../serviceClients/NotificationServiceClient";
 
 export default {
   name: "Perfil",
@@ -253,11 +251,6 @@ export default {
           this.createToast("Revisa los campos", "Error", "danger");
         }
         this.$store.commit("updateUser", this.user);
-        /*NotificationSC.createNotification(
-              {data:"Usuario Modificado",
-              destination: "profile",
-              mailUser: this.user.userMail},(response) => {}
-            )*/
       });
     },
     createToast(toast, title, variant) {
@@ -268,24 +261,6 @@ export default {
         variant: variant,
         solid: true,
       });
-    },
-    onPicSelected(event) {
-      this.selectedPic = document.getElementById("picPicker").files;
-      if (this.selectedPic.length > 0) {
-        var archivo = this.selectedPic[0];
-        var reader = new FileReader();
-        var self = this;
-
-        reader.onloadend = function(FileLoadEvent) {
-          var srcData = FileLoadEvent.target.result;
-
-          self.user.picture = FileLoadEvent.target.result;
-
-          document.getElementById("profilePic").src = srcData;
-        };
-
-        var base64 = reader.readAsDataURL(archivo);
-      }
     },
   },
 };
