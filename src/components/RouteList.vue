@@ -375,7 +375,6 @@ export default {
         );
       }
     },
-    showPassengerData() {},
   },
 };
 </script>
