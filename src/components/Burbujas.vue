@@ -22,22 +22,19 @@
 </template>
 
 <script>
-//import UserSC from "../serviceClients/UserServiceClient";
-
 export default {
   name: "Burbuja",
   props: {
     sender: String,
     message: String,
   },
-  //pasar cor,
+  //Pasar coordenadas,
   data() {
     return {
       userMail: "",
     };
   },
   mounted() {
-    //this.getUserDB();
     this.userMail = this.$store.state.user;
   },
   methods: {},
