@@ -99,10 +99,8 @@
 </template>
 
 <script>
-import VehicleServiceClient from "../serviceClients/VehicleServiceClient";
 import { EventBus } from "@/EventBus.js";
-import VehicleCo from "../controller/VehicleController"
-import AuthSC from "../serviceClients/AuthServiceClient";
+import VehicleCo from "../controller/VehicleController";
 
 export default {
   name: "VehiclesByUser",
@@ -112,32 +110,32 @@ export default {
     return {
       listVehicles: [],
       button: "",
-      modalActive: Boolean
+      modalActive: Boolean,
     };
   },
-   mounted() {
+  mounted() {
     this.nameButton();
     this.showVehicles();
   },
   methods: {
-     showVehicles() {
+    showVehicles() {
       let x = document.getElementById("modalAlert");
-      VehicleCo.obtenerVehiculo((res)=>{
-        this.listVehicles = res
-        if (this.listVehicles!=0){
+      VehicleCo.obtenerVehiculo((res) => {
+        this.listVehicles = res;
+        if (this.listVehicles != 0) {
           x.style.display = "none";
-        }else{
-          if(this.modalActive==false){
+        } else {
+          if (!this.modalActive) {
             x.style.display = "block";
           }
         }
-      })
+      });
     },
     chooseSelection(vehicle) {
-        EventBus.$emit("vehicle", vehicle);
+      EventBus.$emit("vehicle", vehicle);
     },
     sendVehicleList(list) {
-        EventBus.$emit("vehicle", list);
+      EventBus.$emit("vehicle", list);
     },
     goToHome() {
       this.$router.push("/home");
@@ -145,7 +143,7 @@ export default {
     nameButton() {
       if (this.state == "Choose Vehicle") {
         this.button = "Escoger Vehículo";
-      } else{
+      } else {
         this.modalActive = false;
       }
     },
