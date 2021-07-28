@@ -1,5 +1,4 @@
 const axios = require("axios");
-//const environment = require("./../environment.js");
 const route = "https://localhost:8600" + "/conv";
 
 function getConversationsList(email, callback) {
