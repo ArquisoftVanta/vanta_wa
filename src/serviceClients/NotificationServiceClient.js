@@ -1,7 +1,7 @@
 const axios = require("axios");
 //const environment = require("./../environment.js");
 //const route = environment.serverUrl + "/api/notification";
-const route = "http://localhost:4100/graphql";
+const route = "https://localhost:4100/graphql";
 
 function getNotification(callback) {
     axios

@@ -1,5 +1,5 @@
 const axios = require("axios");
-const route = "http://localhost:4100/graphql";
+const route = "https://localhost:4100/graphql";
 
 function getUserMailByToken(callback) {
     axios({

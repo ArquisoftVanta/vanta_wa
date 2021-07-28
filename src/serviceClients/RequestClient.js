@@ -1,6 +1,6 @@
 const axios = require("axios");
 const moment = require("moment");
-const route = "http://localhost:4100/graphql";
+const route = "https://localhost:4100/graphql";
 
 function getRequestbyUser(userMail, callback) {
     var result = axios({
