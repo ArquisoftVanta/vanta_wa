@@ -7,7 +7,7 @@ function getUser(callback) {
             url: route,
             data: {
                 query: `{
-          userById(token: "${localStorage.getItem("token")}"){
+          userById(user_id: "${localStorage.getItem("mail")}"){
             user_name
             rh
             user_address
