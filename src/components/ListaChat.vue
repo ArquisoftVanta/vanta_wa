@@ -32,7 +32,6 @@
 import Chat from "../components/Chat";
 import UserSC from "../serviceClients/UserServiceClient";
 import ChatSC from "../serviceClients/ChatServiceClient";
-import firebase from "firebase";
 
 export default {
   name: "ChatList",
@@ -63,30 +62,20 @@ export default {
       driver: false,
     };
   },
-  created() {
-    //this.getUserDB();
-    //this.getConversations();
-  },
 
   mounted() {
     if (!this.$store.state.user) {
       UserSC.getUser((data) => {
         this.$store.commit("updateUser", data.user_mail);
         this.getConversations();
-      });       
-    }    
+      });
+    }
   },
-  updated() {},
   components: {
     Chat,
   },
   methods: {
     toogleChat(contact, convId) {
-      /*       if (this.collapse1.display == "block") {
-        this.collapse1.display = "none";
-      } else if (this.collapse1.display == "none") {
-        this.collapse1.display = "block";
-      } */
       this.collapse1.display = "block";
 
       this.userName = contact;
@@ -107,70 +96,6 @@ export default {
         });
       });
     },
-
-    /*    
- getUserDB() {
-      UserSC.getUser((data) => {
-        this.user = data;
-      });
-    },
-    createChats(contacts) {
-      const db = firebase.firestore();
-      var i;
-
-      for (i = 0; i < contacts.length; i++) {
-        let pas;
-        pas = this.user.userMail + contacts[i].email;
-
-        db.collection("Chat").doc(pas).set({
-          mensajes: [],
-        });
-      }
-    },
-    isDriver() {
-      const db = firebase.firestore();
-      var self = this;
-
-      db.collection("driverRoute")
-        .where("routeActive", "==", true)
-        .get()
-        .then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            // doc.data() is never undefined for query doc snapshots
-
-            self.driverMail = doc.data().dataDriver.driverMail;
-
-            if (doc.data().dataDriver.driverMail == self.user.userMail) {
-              self.driver = true;
-              for (let i = 65; i < 69; i++) {
-                let passenger = doc.data().passengers[String.fromCharCode(i)];
-                if (passenger.name !== "") {
-                  self.contacts.push({
-                    name: passenger.name,
-                    email: passenger.email,
-                  });
-                }
-                self.createChats(self.contacts);
-              }
-              console.log(self.contacts);
-            } else {
-              for (let i = 65; i < 69; i++) {
-                let passenger = doc.data().passengers[String.fromCharCode(i)];
-                if (passenger.email == self.user.userMail) {
-                  self.contacts.push({
-                    name: doc.data().dataDriver.driverName,
-                    email: doc.data().dataDriver.driverMail,
-                  });
-                }
-                self.createChats(self.contacts);
-              }
-            }
-          });
-        })
-        .catch(function (error) {
-          console.log("Error getting documents: ", error);
-        });
-    }, */
   },
 };
 </script>
