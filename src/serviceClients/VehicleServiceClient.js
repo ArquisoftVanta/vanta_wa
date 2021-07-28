@@ -1,34 +1,32 @@
 const axios = require("axios");
 const route = "https://localhost:4100/graphql";
 
-
-
 function deleteVehicle(id, callback) {
-    axios({
-            method: "POST",
-            url: route,
-            data: {
-                query: `mutation{
+  axios({
+    method: "POST",
+    url: route,
+    data: {
+      query: `mutation{
             deleteVehicle(id: ${id}){
               owner
             }
-          }`
-            }
-        }).then(res => {
-            callback(201);
-        })
-        .catch(err => {
-            callback(err.message);
-        });
+          }`,
+    },
+  })
+    .then(() => {
+      callback(201);
+    })
+    .catch((err) => {
+      callback(err.message);
+    });
 }
 
-
 function createVehicle(vehicle) {
-    axios({
-            method: "POST",
-            url: route,
-            data: {
-                query: `mutation{
+  axios({
+    method: "POST",
+    url: route,
+    data: {
+      query: `mutation{
             createVehicle(vehicle: {
                   owner: "${vehicle.owner}",
                   license_plate: "${vehicle.license_plate}",
@@ -48,22 +46,23 @@ function createVehicle(vehicle) {
               id
               license_plate
             }
-          }`
-            }
-        }).then(res => {
-            return res.data.data.createVehicle;
-        })
-        .catch(err => {
-            return err.message;
-        });
+          }`,
+    },
+  })
+    .then((res) => {
+      return res.data.data.createVehicle;
+    })
+    .catch((err) => {
+      return err.message;
+    });
 }
 
 function updateVehicle(vehicle) {
-    axios({
-            method: "POST",
-            url: route,
-            data: {
-                query: `mutation{
+  axios({
+    method: "POST",
+    url: route,
+    data: {
+      query: `mutation{
             updateVehicle(id:${vehicle.id}, vehicle: {
                   owner: "${vehicle.owner}",
                   license_plate: "${vehicle.license_plate}",
@@ -83,22 +82,23 @@ function updateVehicle(vehicle) {
               id
               soat_exp
             }
-          }`
-            }
-        }).then(res => {
-            return res.data.data.updateVehicle;
-        })
-        .catch(err => {
-            return err.message;
-        });
+          }`,
+    },
+  })
+    .then((res) => {
+      return res.data.data.updateVehicle;
+    })
+    .catch((err) => {
+      return err.message;
+    });
 }
 
 async function getVehicle(user, callback) {
-    await axios({
-            method: "POST",
-            url: route,
-            data: {
-                query: `{
+  await axios({
+    method: "POST",
+    url: route,
+    data: {
+      query: `{
             getVehicles{
               id
               owner
@@ -116,25 +116,26 @@ async function getVehicle(user, callback) {
               engine
               gas_type
             }
-          }`
-            }
-        }).then(res => {
-            var arrayVehiclesUser = []
-            res.data.data.getVehicles.forEach(element => {
-                if (user === element.owner) {
-                    arrayVehiclesUser.push(element)
-                }
-            });
-            callback(arrayVehiclesUser);
-        })
-        .catch(err => {
-            callback(err.message);
-        });
+          }`,
+    },
+  })
+    .then((res) => {
+      var arrayVehiclesUser = [];
+      res.data.data.getVehicles.forEach((element) => {
+        if (user === element.owner) {
+          arrayVehiclesUser.push(element);
+        }
+      });
+      callback(arrayVehiclesUser);
+    })
+    .catch((err) => {
+      callback(err.message);
+    });
 }
 
 export default {
-    getVehicle,
-    createVehicle,
-    updateVehicle,
-    deleteVehicle,
+  getVehicle,
+  createVehicle,
+  updateVehicle,
+  deleteVehicle,
 };
