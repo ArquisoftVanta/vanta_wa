@@ -5,8 +5,13 @@ import store from "./store/index";
 import axios from "axios";
 import VueAxios from "vue-axios";
 import firebase from "firebase";
-import { BootstrapVue, IconsPlugin, BVToastPlugin, ToastPlugin } from "bootstrap-vue";
-import moment from 'moment'
+import {
+  BootstrapVue,
+  IconsPlugin,
+  BVToastPlugin,
+  ToastPlugin,
+} from "bootstrap-vue";
+import moment from "moment";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";

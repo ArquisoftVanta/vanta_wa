@@ -2,12 +2,12 @@ const axios = require("axios");
 const environment = require("./../environment.js");
 const route = environment.serverUrl + "/api/rate";
 
-function getRate(userEmail, callback){
-    axios
+function getRate(userEmail, callback) {
+  axios
     .get(route, {
       params: {
         access_token: localStorage.getItem("token"),
-        userEmail: userEmail
+        userEmail: userEmail,
       },
     })
     .then((response) => {
@@ -18,19 +18,17 @@ function getRate(userEmail, callback){
     });
 }
 function createRate(rate, callback) {
-    axios
-      .post(route, rate)
-      .then(() => {
-        callback();
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  }
-  
+  axios
+    .post(route, rate)
+    .then(() => {
+      callback();
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+}
 
 export default {
-    getRate,
-    createRate
-  };
-  
+  getRate,
+  createRate,
+};
