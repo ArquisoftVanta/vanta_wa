@@ -61,7 +61,6 @@
 
 <script>
 import Burbuja from "../components/Burbujas.vue";
-//import firebase from "firebase";
 import ChatSC from "../serviceClients/ChatServiceClient";
 import io from "socket.io-client";
 
@@ -83,7 +82,7 @@ export default {
     };
   },
   watch: {
-    convId: function (newValue, oldValue) {
+    convId: function(newValue, oldValue) {
       this.convId = newValue;
       this.getConversation();
 
@@ -97,7 +96,7 @@ export default {
 
   mounted() {
     var input = document.getElementById("message");
-    input.addEventListener("keyup", function (event) {
+    input.addEventListener("keyup", function(event) {
       if (event.keyCode === 13) {
         event.preventDefault();
         document.getElementById("button-addon2").click();
@@ -113,18 +112,14 @@ export default {
       this.socket = io("http://localhost:8600", { autoConnect: false });
       let self = this;
       // Evento
-      this.socket.on("private message", function ({ content, user }) {
+      this.socket.on("private message", function({ content, user }) {
         self.getConversation();
       });
     },
     getConversation() {
-      ChatSC.getConversation(
-        this.$store.state.user,
-        this.convId,
-        (data) => {
-          this.conversation = data.conversation;
-        }
-      );
+      ChatSC.getConversation(this.$store.state.user, this.convId, (data) => {
+        this.conversation = data.conversation;
+      });
     },
     toogleChat() {
       if (this.collapse1.display == "block") {
@@ -137,11 +132,6 @@ export default {
       var target = document.getElementById("target");
       target.style.minHeight = "200px";
       var div = document.getElementById("chatBody");
-      /*       div.scrollIntoView({
-        block: "end",
-        behavior: "smooth",
-        inline: "start",
-      }); */
       div.scrollTop = div.scrollHeight;
       target.style.minHeight = "0px";
     },
@@ -167,25 +157,9 @@ export default {
           });
         }
       );
-
-      /*       const db = firebase.firestore();
-      var washingtonRef = db.collection("Chat").doc(this.idDoc);
-      if (this.textMsg) {
-        this.conversation.push({ sender: this.userMail, msg: this.textMsg });
-
-        washingtonRef.update({
-          mensajes: this.conversation,
-        });
-
-        //this.conversation.push({ sender: 1, msg: this.textMsg });
-
-        this.textMsg = "";
-      } */
     },
   },
 };
-
-// Initialize Firebase
 </script>
 
 <style>
