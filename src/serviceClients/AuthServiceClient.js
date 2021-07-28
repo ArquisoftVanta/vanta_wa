@@ -73,6 +73,7 @@ function loginUser(user, callback, showtoast) {
         }).then((response) => {
             console.log(response.data.data.loginUser.access_token)
             localStorage.setItem("token", response.data.data.loginUser.access_token);
+            localStorage.setItem("mail", userGet.userMail);
             callback();
 
         })
