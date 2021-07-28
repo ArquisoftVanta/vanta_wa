@@ -19,13 +19,13 @@
                     </div>
                     <input
                       v-model="user.user_name"
+                      :disabled="disabledButton"
                       id="validationDefault01"
                       type="text"
                       class="form-control"
                       placeholder="Nombre completo"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-sm"
-                      disabled
                     />
                   </div>
                   <div class="input-group input-group-sm mb-2">
@@ -36,13 +36,13 @@
                     </div>
                     <input
                       v-model="user.user_doc"
+                      :disabled="disabledButton"
                       id="validationDefault02"
                       type="text"
                       class="form-control"
                       placeholder="Número de identificación"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-sm"
-                      disabled
                     />
                   </div>
                   <div class="input-group input-group-sm mb-2">
@@ -53,13 +53,13 @@
                     </div>
                     <input
                       v-model="user.rh"
+                      :disabled="disabledButton"
                       id="validationDefault03"
                       type="text"
                       class="form-control"
                       placeholder="Tipo sanguineo"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-sm"
-                      disabled
                     />
                   </div>
                   <div class="input-group input-group-sm mb-2">
@@ -70,13 +70,13 @@
                     </div>
                     <input
                       v-model="user.user_address"
+                      :disabled="disabledButton"
                       id="validationDefault04"
                       type="text"
                       class="form-control"
                       placeholder="Dirección de residencia"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-sm"
-                      disabled
                     />
                   </div>
                   <div class="input-group input-group-sm mb-2">
@@ -87,13 +87,13 @@
                     </div>
                     <input
                       v-model="user.user_phone"
+                      :disabled="disabledButton"
                       id="validationDefault05"
                       type="text"
                       class="form-control"
                       placeholder="Número telefonico o celular"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-sm"
-                      disabled
                     />
                   </div>
                   <div class="input-group input-group-sm mb-2">
@@ -104,34 +104,35 @@
                     </div>
                     <input
                       v-model="user.user_mail"
+                      :disabled="disabledButton"
                       id="validationDefault06"
                       type="text"
                       class="form-control"
                       placeholder="Correo electrónico"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-sm"
-                      disabled
                     />
                   </div>
                 </div>
                 <div class="form-row">
                   <div class="col-6">
-                    <a
-                      v-on:click="editInputData"
+                    <button
+                      @click="editInputData"
                       type="button"
                       class="btn btn-dark btn-block text-white"
                     >
-                      Editar datos
-                    </a>
+                      {{ editButton }}
+                    </button>
                   </div>
                   <div class="col-6">
-                    <a
+                    <button
+                      @click="updateUser"
+                      :disabled="disabledButton"
                       type="button"
                       class="btn btn-warning btn-block text-dark"
-                      @click="updateUser"
                     >
                       Guardar datos
-                    </a>
+                    </button>
                   </div>
                 </div>
               </form>
@@ -186,7 +187,7 @@ import Header from "../components/Header";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 import Foto from "@/assets/Enfermeria22.png";
 import UserCo from "../controller/UserController";
-import UserSC from "../serviceClients/UserServiceClient"
+import UserSC from "../serviceClients/UserServiceClient";
 import { EventBus } from "@/EventBus.js";
 import NotificationSC from "../serviceClients/NotificationServiceClient";
 
@@ -211,24 +212,28 @@ export default {
       },
       //Estado del botón que permite editar y guardar los cambios realizados a la información de un usuario
       inputState: true,
+      //Mensaje que muestra el botón de editar los datos
+      editButton: "Editar datos",
     };
   },
   props: [],
   mounted() {
     this.getUserDB();
   },
+  computed: {
+    disabledButton() {
+      return this.inputState == true;
+    },
+  },
   methods: {
     editInputData() {
       this.inputState = !this.inputState;
-      document.getElementById("validationDefault01").disabled = this.inputState;
-      document.getElementById("validationDefault02").disabled = this.inputState;
-      document.getElementById("validationDefault03").disabled = this.inputState;
-      document.getElementById("validationDefault04").disabled = this.inputState;
-      document.getElementById("validationDefault05").disabled = this.inputState;
-      document.getElementById("validationDefault06").disabled = this.inputState;
       if (this.inputState == true) {
-        this.getUserDB();
+        this.editButton = "Editar datos";
+      } else {
+        this.editButton = "Cancelar";
       }
+      this.getUserDB();
     },
     getUserDB() {
       UserSC.getUser((data) => {
@@ -238,13 +243,14 @@ export default {
     updateUser() {
       UserCo.updateUser(this.user, (data) => {
         if (data === 201) {
+          this.editInputData();
           this.createToast(
-            "¡Datos de perfil guardados correctamente!",
-            "Datos Guardados",
+            "¡Tus datos se guardaron correctamente!",
+            "Datos actualizados",
             "success"
           );
         } else {
-          this.createToast("Revise los campos", "Error", "danger");
+          this.createToast("Revisa los campos", "Error", "danger");
         }
         this.$store.commit("updateUser", this.user);
         /*NotificationSC.createNotification(
@@ -270,7 +276,7 @@ export default {
         var reader = new FileReader();
         var self = this;
 
-        reader.onloadend = function (FileLoadEvent) {
+        reader.onloadend = function(FileLoadEvent) {
           var srcData = FileLoadEvent.target.result;
 
           self.user.picture = FileLoadEvent.target.result;
