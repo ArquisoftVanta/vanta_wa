@@ -66,16 +66,7 @@ export default {
                 );
                 const overviewPath = response.routes[0].overview_path;
                 const middleIndex = parseInt(overviewPath.length / 2);
-                const middleLoc = overviewPath[middleIndex];
-
-                /*const distanceDurationLabel = new google.maps.InfoWindow({
-                  content: `<div style="background-color:#FFC700;padding:5px; color:black;">${distance.text} - ${duration.text}</div>`,
-                  position: new google.maps.LatLng(
-                    middleLoc.lat(),
-                    middleLoc.lng()
-                  ),
-                });*/
-                //distanceDurationLabel.open(this.map, null);
+                
                 /**
                  * Se llama a "google.maps.Marker" para brindar al conductor una mayor claridad en cuanto a la ubicacion
                  * del pasajero tanto para su recogida como para su destino.
