@@ -109,11 +109,6 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <!--div class="modal-body">
-                  <FastProfile
-                    v-bind:userMail="route.dataPassenger.passengerMail"
-                  ></FastProfile>
-                </div-->
               </div>
             </div>
           </div>
@@ -175,7 +170,6 @@
                     @click="routePassengerItemPressed(route)"
                     data-dismiss="modal"
                     aria-label="Close"
-
                   >
                     Ver ruta del pasajero
                   </button>
@@ -192,13 +186,10 @@
 <script>
 import firebase from "firebase";
 import { EventBus } from "@/EventBus.js";
-import UserSC from "../serviceClients/UserServiceClient";
-import FastProfile from "./FastProfile";
-import RequestCo from "../controller/RequestController"
+import RequestCo from "../controller/RequestController";
 
 export default {
   components: {
-    FastProfile,
   },
   data() {
     return {
@@ -232,10 +223,10 @@ export default {
   },
   methods: {
     getListPassengersActives() {
-      RequestCo.getRequestsbyActive((call)=>{
-        this.routes = call
-        console.log(this.routes)
-      })
+      RequestCo.getRequestsbyActive((call) => {
+        this.routes = call;
+        console.log(this.routes);
+      });
     },
     sortRoute(e) {
       const sortName = e.target.value.split("-")[0];
@@ -299,14 +290,14 @@ export default {
      * "DirectionsMapView" para pintar la ruta del pasajero en el mapa.
      */
     routePassengerItemPressed(route) {
-      console.log(route)
-      this.request.origin.lat = Number(route[1][0].lat)
-      this.request.origin.lng = Number(route[1][0].lng)
-      this.request.origin.address = route[1][0].address
-      this.request.destination.lat = Number(route[1][1].lat)
-      this.request.destination.lng = Number(route[1][1].lng)
-      this.request.destination.address = route[1][1].address
-      console.log(this.request)
+      console.log(route);
+      this.request.origin.lat = Number(route[1][0].lat);
+      this.request.origin.lng = Number(route[1][0].lng);
+      this.request.origin.address = route[1][0].address;
+      this.request.destination.lat = Number(route[1][1].lat);
+      this.request.destination.lng = Number(route[1][1].lng);
+      this.request.destination.address = route[1][1].address;
+      console.log(this.request);
       EventBus.$emit("passengerRoutes-data", [this.request]);
     },
     /**
