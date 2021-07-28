@@ -140,8 +140,8 @@
                     white-space: pre;
                     white-space: pre-wrap;
                   "
-                  >Adicionalmente Vanta te permite calificar que tal te fue
-                  en tu viaje con el resto de la comunidad; &iexcl;as&iacute;
+                  >Adicionalmente Vanta te permite calificar que tal te fue en
+                  tu viaje con el resto de la comunidad; &iexcl;as&iacute;
                   resaltamos a los buenos pasajeros y conductores!</span
                 >
               </p>
@@ -192,8 +192,8 @@
                     white-space: pre;
                     white-space: pre-wrap;
                   "
-                  >Para nosotros la seguridad es una prioridad; por esto
-                  Vanta est&aacute; &uacute;nicamente disponible (al menos
+                  >Para nosotros la seguridad es una prioridad; por esto Vanta
+                  est&aacute; &uacute;nicamente disponible (al menos
                   inicialmente) para las comunidades universitarias que se
                   autentican con sus correos institucionales; de esta forma
                   garantizamos que no existir&aacute;n perfiles ni correos
@@ -547,8 +547,8 @@
                       >&nbsp;establece en su art&iacute;culo 2 literal 18 que
                       los veh&iacute;culos con 3 o m&aacute;s personas
                       (incluyendo el conductor) estar&aacute;n exentos del Pico
-                      y Placa previo registro. &iexcl;Con Vanta puedes
-                      llenar tu cupo!</span
+                      y Placa previo registro. &iexcl;Con Vanta puedes llenar tu
+                      cupo!</span
                     >
                   </p>
                 </li>
@@ -733,5 +733,4 @@ export default {
   overflow: auto;
   padding: 60px;
 }
-
 </style>

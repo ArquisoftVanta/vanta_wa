@@ -95,16 +95,13 @@
       <div class="container-fluid mb-5">
         <div class="row mb-5">
           <div class="col-12 col-md-4 offset-md-1">
-            
             <div class="card mb-3 mb-md-4">
               <div class="card-body">
                 <h5 class="card-title text-dark">Crear servicio</h5>
                 <div class="form-group mb-2">
                   <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
-                      <span
-                        class="input-group-text"
-                        id="basic-addon1"
+                      <span class="input-group-text" id="basic-addon1"
                         >Salida</span
                       >
                     </div>
@@ -120,9 +117,7 @@
                   </div>
                   <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
-                      <span
-                        class="input-group-text"
-                        id="basic-addon1"
+                      <span class="input-group-text" id="basic-addon1"
                         >Llegada</span
                       >
                     </div>
@@ -138,9 +133,7 @@
                   </div>
                   <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
-                      <span
-                        class="input-group-text"
-                        id="basic-addon1"
+                      <span class="input-group-text" id="basic-addon1"
                         >Fecha</span
                       >
                     </div>
@@ -155,9 +148,7 @@
                   </div>
                   <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
-                      <span
-                        class="input-group-text"
-                        id="basic-addon1"
+                      <span class="input-group-text" id="basic-addon1"
                         >Hora</span
                       >
                     </div>
@@ -172,9 +163,7 @@
                   </div>
                   <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
-                      <span
-                        class="input-group-text"
-                        id="basic-addon1"
+                      <span class="input-group-text" id="basic-addon1"
                         >Valor</span
                       >
                     </div>
@@ -260,7 +249,6 @@ import Draggable from "vuedraggable";
 import Directions from "../components/WatchCurrentDirections";
 import VehiclesByUser from "../components/VehiclesByUser";
 import NotificationSC from "../serviceClients/NotificationServiceClient";
-import UserSC from "../serviceClients/UserServiceClient";
 
 export default {
   name: "CreateService",
@@ -395,7 +383,6 @@ export default {
     VehiclesByUser,
   },
   mounted() {
-    
     this.getFormattedDate();
     EventBus.$on("vehicle", (vehicle) => {
       try {
@@ -570,7 +557,9 @@ export default {
             this.route.orderRoute.stops[String.fromCharCode(j)] = element;
             j = j + 1;
           });
-          db.collection("driverRoute").doc().set(this.route);
+          db.collection("driverRoute")
+            .doc()
+            .set(this.route);
           db.collection("driverRoute")
             .where(
               "dataDriver.driverMail",
@@ -588,18 +577,15 @@ export default {
                     this.changeStateofPassenger(
                       this.route.passengers[String.fromCharCode(i)].id,
                       idRoute
-                    ); //, this.route.value);
+                    );
                   }
 
-                  NotificationSC.createNotification(
-                    {
-                      data: "¡Haz sido seleccionado para un viaje!",
-                      destination: "nomination-services",
-                      mailUser: this.route.passengers[String.fromCharCode(i)]
-                        .email,
-                    },
-                    (response) => {}
-                  );
+                  NotificationSC.createNotification({
+                    data: "¡Haz sido seleccionado para un viaje!",
+                    destination: "nomination-services",
+                    mailUser: this.route.passengers[String.fromCharCode(i)]
+                      .email,
+                  });
                 }
               });
             });

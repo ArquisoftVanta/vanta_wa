@@ -18,7 +18,9 @@
               <h3 class="card-title d-none d-md-block font-weight-bold">
                 Nuevo servicio
               </h3>
-              <h3 class="card-title d-block d-md-none mb-0 font-weight-bold text-left">
+              <h3
+                class="card-title d-block d-md-none mb-0 font-weight-bold text-left"
+              >
                 Nuevo servicio
               </h3>
               <p class="card-text d-none d-md-block mb-0">
@@ -46,7 +48,9 @@
               <h3 class="card-title d-none d-md-block font-weight-bold">
                 Servicios actuales
               </h3>
-              <h3 class="card-title d-block d-md-none mb-0 font-weight-bold text-left">
+              <h3
+                class="card-title d-block d-md-none mb-0 font-weight-bold text-left"
+              >
                 Servicios actuales
               </h3>
               <p class="card-text d-none d-md-block mb-0">
