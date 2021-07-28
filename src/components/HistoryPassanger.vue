@@ -54,13 +54,12 @@ export default {
     routePassengerItemPressed(route) {
       EventBus.$emit("passengerRoutes-data", [route]);
       this.$bvToast.toast("¡Ruta Cargada Correctamente!", {
-            title: "Ruta Cargada",
-            autoHideDelay: 4000,
-            appendToast: true,
-            variant: "success",
-            solid: true,
-          });
-
+        title: "Ruta Cargada",
+        autoHideDelay: 4000,
+        appendToast: true,
+        variant: "success",
+        solid: true,
+      });
     },
   },
 };

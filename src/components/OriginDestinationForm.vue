@@ -74,7 +74,7 @@ import axios from "axios";
 import { EventBus } from "@/EventBus.js";
 import UserCo from "../controller/UserController";
 import Directions from "../components/WatchCurrentDirections";
-import RequestCo from "../controller/RequestController"
+import RequestCo from "../controller/RequestController";
 
 export default {
   components: {
@@ -104,10 +104,9 @@ export default {
   },
 
   async mounted() {
-    
-    UserCo.getUser((data)=>{
+    UserCo.getUser((data) => {
       this.request.passengerMail = data.user_mail;
-    })
+    });
 
     for (let ref in this.$refs) {
       const autocomplete = new google.maps.places.Autocomplete(
@@ -145,7 +144,7 @@ export default {
       axios
         .get(URL)
         .then((response) => {
-          console.log(response)
+          console.log(response);
           if (response.data.error_message) {
             this.error = response.data.error_message;
           } else {
@@ -161,34 +160,42 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(URL)
+          console.log(URL);
           console.log(error.message);
           this.error = error.message;
         });
     },
     saveRoute() {
-      if (this.request.time === "" || this.request.date === "" || this.request.origin.address === "" || this.request.destination.address === "")  {
-          this.createToast("¡Faltan Campos Por Llenar!","Error","danger")
+      if (
+        this.request.time === "" ||
+        this.request.date === "" ||
+        this.request.origin.address === "" ||
+        this.request.destination.address === ""
+      ) {
+        this.createToast("¡Faltan Campos Por Llenar!", "Error", "danger");
       } else {
-        RequestCo.createRequest(this.request,(response)=>{
-          if(response == 201){
-            this.createToast("¡Postulación Almacenada Correctamente!","Postulación Almacenada","success")
-          }else{
-            this.createToast("¡Hubo un Error con la BD!","Error","danger")
+        RequestCo.createRequest(this.request, (response) => {
+          if (response == 201) {
+            this.createToast(
+              "¡Postulación Almacenada Correctamente!",
+              "Postulación Almacenada",
+              "success"
+            );
+          } else {
+            this.createToast("¡Hubo un Error con la BD!", "Error", "danger");
           }
         });
       }
     },
-    createToast(toast,title,variant){
+    createToast(toast, title, variant) {
       this.$bvToast.toast(toast, {
-      title: title,
-      autoHideDelay: 5000,
-      appendToast: true,
-      variant: variant,
-      solid: true,
+        title: title,
+        autoHideDelay: 5000,
+        appendToast: true,
+        variant: variant,
+        solid: true,
       });
     },
-
   },
 };
 </script>

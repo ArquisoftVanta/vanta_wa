@@ -15,7 +15,7 @@
                 :aria-controls="`data${route.id}`"
                 style="color: #06416d"
               >
-                Origen: {{ route.origin.address }} <br>
+                Origen: {{ route.origin.address }} <br />
                 Destino: {{ route.destination.address }}
               </button>
             </h2>
@@ -40,8 +40,7 @@
                     Ver Ruta
                   </button>
                 </div>
-                <div class="col">
-                </div>   
+                <div class="col"></div>
                 <div class="col">
                   <button
                     type="button"
@@ -117,9 +116,9 @@ export default {
   methods: {
     routePassengerItemPressed(route) {
       EventBus.$emit("passengerRoutes-data", [route]);
-    },     
+    },
     deleteRoute(route) {
-        const db = firebase.firestore();
+      const db = firebase.firestore();
       db.collection("passengerRoutes")
         .doc(route.id)
         .delete();

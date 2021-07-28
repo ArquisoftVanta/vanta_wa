@@ -142,10 +142,7 @@ export default {
     addUserRateSincePassenger(route) {
       for (let i = 65; i < 69; i++) {
         let passenger = route.passengers[String.fromCharCode(i)];
-        if (
-          passenger.id !== "" &&
-          passenger.email !== this.$store.state.user
-        ) {
+        if (passenger.id !== "" && passenger.email !== this.$store.state.user) {
           this.rates.push({
             grader: this.$store.state.user,
             graded: passenger.email,
