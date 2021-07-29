@@ -262,6 +262,18 @@ export default {
         solid: true,
       });
     },
+    onPicSelected() {
+      this.selectedPic = document.getElementById("picPicker").files;
+      if (this.selectedPic.length > 0) {
+        var reader = new FileReader();
+        var self = this;
+        reader.onloadend = function (FileLoadEvent) {
+          var srcData = FileLoadEvent.target.result;
+          self.user.picture = FileLoadEvent.target.result;
+          document.getElementById("profilePic").src = srcData;
+        };
+      }
+    },
   },
 };
 </script>
