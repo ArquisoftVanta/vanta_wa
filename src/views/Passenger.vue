@@ -2,10 +2,10 @@
   <div id="passenger">
     <Header></Header>
     <div class="container-fluid mb-5">
-      <div class="row">
-        <div class="col-12 col-md-6 mb-5 mb-md-0">
+      <div class="row justify-content-lg-around">
+        <div class="col-12 col-lg-5 mb-3 mb-lg-0 mr-0 ml-0">
           <div
-            class="card bg-light text-white shadow rounded border border-dark text-center text-dark mr-0 ml-0 mr-sm-5 ml-sm-5"
+            class="card bg-dark shadow text-left text-md-center mr-0 ml-0"
             type="button"
             @click="goToPostulation"
           >
@@ -15,25 +15,20 @@
               alt="postulate-image"
             />
             <div class="card-body">
-              <h3 class="card-title d-none d-md-block font-weight-bold">
-                Postularte a servicios
-              </h3>
-              <h3 class="card-title d-block d-md-none mb-0 font-weight-bold text-left">
-                Postularte a servicios
-              </h3>
-              <p class="card-text d-none d-md-block mb-0">
-                <small>
-                  Postulate a un
-                  <strong>servicio disponible</strong> como
-                  <strong>pasajero</strong>.</small
-                >
+              <h1 class="card-title text-warning text-left text-md-center lead">
+                Postulate a un servicio
+              </h1>
+              <p class="card-text text-light mb-2">
+                Postula tu ruta y un
+                <strong class="text-warning">conductor</strong> te seleccionará como
+                <strong class="text-warning">pasajero</strong>.
               </p>
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6 mb-5 mb-md-0">
+        <div class="col-12 col-lg-5 mb-3 mb-lg-0 mr-0 ml-0">
           <div
-            class="card bg-light text-white shadow rounded border border-dark text-center text-dark mr-0 ml-0 mr-sm-5 ml-sm-5"
+            class="card bg-dark shadow text-left text-md-center mr-0 ml-0"
             type="button"
             @click="goToHistory"
           >
@@ -43,22 +38,17 @@
               alt="historical-image"
             />
             <div class="card-body">
-              <h3 class="card-title d-none d-md-block font-weight-bold">
+              <h1 class="card-title text-warning text-left text-md-center lead">
                 Historial de servicios
-              </h3>
-              <h3 class="card-title d-block d-md-none mb-0 font-weight-bold text-left">
-                Historial de servicios
-              </h3>
-              <p class="card-text d-none d-md-block mb-0">
-                <small>
-                  Mira tu historial de
-                  <strong>servicios realizados</strong> como
-                  <strong>pasajero</strong>.</small
-                >
+              </h1>
+              <p class="card-text text-light mb-2">
+                Mira tu historial de
+                <strong class="text-warning">servicios actuales</strong> y
+                realizados.
               </p>
             </div>
           </div>
-        </div>        
+        </div>
       </div>
     </div>
     <FooterwithBackground></FooterwithBackground>
