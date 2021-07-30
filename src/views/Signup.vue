@@ -4,16 +4,20 @@
     <div class="container-fluid text-center">
       <div class="row">
         <div class="col-12 col-lg-4 offset-lg-4">
-          <div class="card border border-dark shadow">
+          <div class="card shadow">
             <div class="form-col text-dark align-items-center">
               <div class="card-body">
-                <!-- <img class="logo mb-4" alt="logo" src="~@/assets/logo.png" /> -->
-                <h5 class="text-muted">Únete a vanta</h5>
-                <h2 class="mb-3 font-weight-bold">Crea tu cuenta</h2>
+                <img
+                  class="logo mb-1"
+                  width="200"
+                  alt="logo"
+                  src="~@/assets/logo.png"
+                />
+                <h3 class="font-weight-bold">Crea tu cuenta</h3>
                 <form @submit.prevent="signup">
                   <div class="col-auto">
                     <div class="form-group">
-                      <div class="input-group input-group-sm mb-2">
+                      <div class="input-group input-group-sm">
                         <div class="input-group-prepend">
                           <span
                             class="input-group-text"
@@ -35,7 +39,7 @@
                   </div>
                   <div class="col-auto">
                     <div class="form-group">
-                      <div class="input-group input-group-sm mb-2">
+                      <div class="input-group input-group-sm">
                         <input
                           v-model="email"
                           type="text"
@@ -54,7 +58,7 @@
                   </div>
                   <div class="col-auto">
                     <div class="form-group">
-                      <div class="input-group input-group-sm mb-2">
+                      <div class="input-group input-group-sm">
                         <div class="input-group-prepend">
                           <span
                             class="input-group-text"
@@ -78,7 +82,7 @@
 
                   <div class="col-auto">
                     <div class="form-group">
-                      <div class="input-group input-group-sm mb-2">
+                      <div class="input-group input-group-sm">
                         <div class="input-group-prepend">
                           <span
                             class="input-group-text"
@@ -100,7 +104,7 @@
                   </div>
                   <div class="col-auto">
                     <div class="form-group">
-                      <div class="input-group input-group-sm mb-2">
+                      <div class="input-group input-group-sm">
                         <div class="input-group-prepend">
                           <span
                             class="input-group-text"
@@ -128,13 +132,11 @@
                       >
                     </p>
                   </div>
-                  <div class="row justify-content-md-center">
-                    <vue-recaptcha
-                      sitekey="6LdrIGUbAAAAAJ4mAo5Am81ADakb6t9lQQK_47Aj"
-                      @verify="mxVerify"
-                    ></vue-recaptcha>
-                  </div>
-                  <button type="submit" class="btn btn-warning btn-block">
+                  <vue-recaptcha
+                    sitekey="6LdrIGUbAAAAAJ4mAo5Am81ADakb6t9lQQK_47Aj"
+                    @verify="mxVerify"
+                  ></vue-recaptcha>
+                  <button type="submit" class="btn btn-warning btn-block mt-2">
                     Registrarse
                   </button>
                   <button
