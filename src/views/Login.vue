@@ -32,9 +32,9 @@
                 src="~@/assets/logo.png"
                 alt="logo"
               />
-              <h5 class="text-muted mb-4">
-                <small> Ingresa a tu cuenta Vanta</small>
-              </h5>
+              <h3 class="mb-4">
+                Ingresa a tu cuenta
+              </h3>
               <form @submit.prevent="login">
                 <div class="form-group text-left">
                   <div class="input-group input-group-sm">
