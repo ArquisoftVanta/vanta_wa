@@ -29,7 +29,7 @@ export default {
 
 <style>
 body {
-  background-image: url("~@/assets/Enfermeria2.png");
+  background-image: url("~@/assets/background_un.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -37,7 +37,7 @@ body {
 }
 
 #footer {
-  background-color: #212121;
+  background-color: #181B1F;
 }
 
 #footer p {
