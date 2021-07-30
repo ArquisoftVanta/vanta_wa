@@ -32,7 +32,7 @@
                 src="~@/assets/logo.png"
                 alt="logo"
               />
-              <h3 class="mb-4">
+              <h3 class="mb-4 lead">
                 Ingresa a tu cuenta
               </h3>
               <form @submit.prevent="login">
