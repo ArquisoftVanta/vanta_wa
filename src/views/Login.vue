@@ -3,11 +3,29 @@
     <Header></Header>
     <div class="container-fluid text-dark text-center mb-0 mb-md-0">
       <div class="row text-center d-flex justify-content-around flex-wrap">
+        <div
+          class="col-12 col-sm-12 col-md-4 mr-1 ml-1 mb-5 mb-md-0 d-flex justify-content-center align-content-center flex-wrap"
+        >
+          <div class="text text-warning mt-4 mt-lg-0">
+            <div class="text-center text-wrap">
+              <h1 class="mb-3 pt-3 display-2 font-weight-bold">VANTA</h1>
+              <p class="pb-3 lead">
+                Una comunidad dispuesta a viajar junto a ti y llegar a cualquier
+                lugar a tu lado.
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-warning btn-lg mt-2"
+            @click="goToSignUp"
+          >
+            Registrate
+          </button>
+        </div>
         <div class="col-12 col-sm-12 col-md-4 mt-0 mt-md-5 mb-5">
           <div class="login-card card">
-            <div
-              class="card-body text-dark border-light rounded border border-dark shadow"
-            >
+            <div class="card-body text-dark border-light rounded border shadow">
               <img
                 class="logo mt- mb-2 mr-0 mr-md-5 ml-0 ml-md-5"
                 width="200"
@@ -19,7 +37,7 @@
               </h5>
               <form @submit.prevent="login">
                 <div class="form-group text-left">
-                  <div class="input-group input-group-sm ">
+                  <div class="input-group input-group-sm">
                     <input
                       v-model="userMail"
                       type="text"
@@ -52,45 +70,19 @@
                       required
                     />
                   </div>
-                  <div class="row justify-content-md-center">
-                    <vue-recaptcha
-                      sitekey="6LdrIGUbAAAAAJ4mAo5Am81ADakb6t9lQQK_47Aj"
-                      @verify="mxVerify"
-                    ></vue-recaptcha>
-                  </div>
                 </div>
-                <button
-                  type="submit"
-                  class="mt-4 mb-2 btn btn-warning btn-block"
-                >
+
+                <vue-recaptcha
+                  sitekey="6LdrIGUbAAAAAJ4mAo5Am81ADakb6t9lQQK_47Aj"
+                  @verify="mxVerify"
+                ></vue-recaptcha>
+
+                <button type="submit" class="mt-4 mb-2 btn btn-dark btn-block">
                   Ingresar
                 </button>
               </form>
             </div>
           </div>
-        </div>
-        <div
-          class="col-12 col-sm-12 col-md-4 mr-1 ml-1 mb-5 mb-md-0 d-flex justify-content-center align-content-center flex-wrap"
-        >
-          <div class="text mt-4 mt-lg-0">
-            <div class="text-center text-wrap">
-              <h1 class="mb-3 font-weight-bold pt-3">VANTA</h1>
-              <p class="pb-3 font-weight-bold">
-                Una comunidad dispuesta a viajar junto a ti y llegar a cualquier
-                lugar a tu lado.
-              </p>
-              <!-- <h5 class="d-block d-md-none">
-                Viaja en comunidad a cualquier lugar.
-              </h5> -->
-            </div>
-          </div>
-          <button
-            type="button"
-            class="btn btn-light btn-lg mt-2"
-            @click="goToSignUp"
-          >
-            ¡Únete!
-          </button>
         </div>
       </div>
     </div>
@@ -99,10 +91,9 @@
 </template>
 
 <script>
-import FooterwithBackground from "../components/FooterwithBackground";
+import FooterwithBackground from "../components/FooterwithBackground.vue";
 import AuthServiceClient from "../serviceClients/AuthServiceClient";
-import UserSC from "../serviceClients/UserServiceClient";
-import Header from "../components/Header";
+import Header from "../components/Header.vue";
 import VueRecaptcha from "vue-recaptcha";
 
 export default {
