@@ -6,7 +6,7 @@
           <img
             src="~@/assets/logo.png"
             alt="vanta_logo"
-            height="40"
+            height="30"
             loading="lazy"
           />
         </a>
@@ -104,14 +104,29 @@
               />
             </button>
           </div>
+
+          <!-- Back button -->
           <div class="btn-group dropleft mr-1">
             <button
               type="button"
-              class="btn btn-light rounded-lg border border-dark"
+              class="btn btn-dark dropdown-toggle"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Atrás
+            </button>
+          </div>
+          <!-- /Back button -->
+
+          <!-- Messages button -->
+          <div class="btn-group dropleft mr-1">
+            <button
+              type="button"
+              class="btn btn-dark dropdown-toggle"
               data-toggle="dropdown"
               data-display="static"
               aria-haspopup="true"
-              v-on:click="toogleList"
               aria-expanded="false"
             >
               <img
@@ -119,19 +134,36 @@
                 src="~@/assets/mail.png"
                 width="30"
                 height="30"
-                alt="notifications"
+                alt="messages"
               />
             </button>
+            <div class="dropdown-menu">
+              <h6 class="dropdown-header lead text-wrap">
+                Mensajes
+              </h6>
+              <div class="header-button dropdown-divider"></div>
+              <button
+                type="button"
+                class="dropdown-item btn btn-dark"
+                v-for="(contact, index) in contacts"
+                :key="index"
+                @click="toogleChat(contact.user, contact.convId)"
+              >
+                {{ contact.user }}
+              </button>
+            </div>
           </div>
+          <!-- /Messages button -->
+
+          <!-- Notification button -->
           <div class="btn-group dropleft mr-1">
             <button
               type="button"
-              class="btn btn-light rounded-lg border border-dark"
+              class="btn btn-dark dropdown-toggle"
               data-toggle="dropdown"
-              data-display="static"
               aria-haspopup="true"
-              @click="getNotifications"
               aria-expanded="false"
+              @click="getNotifications"
             >
               <img
                 class=""
@@ -146,30 +178,24 @@
                 >{{ notifications.length }}</span
               >
             </button>
-            <div
-              v-if="notifications.length >= 0"
-              class="dropdown-menu dropdown-menu-lg-left rounded-lg"
-            >
-              <div class="row">
-                <div class="col-auto">
-                  <button
-                    class="header-button dropdown-item rounded-lg"
-                    @click="deleteNotifications"
-                  >
-                    Eliminar notificación
-                    <img
-                      src="~@/assets/delete.png"
-                      width="30"
-                      height="30"
-                      alt="Borrar Notificaciones"
-                    />
-                  </button>
-                </div>
-              </div>
+            <div class="dropdown-menu">
+              <h6 class="dropdown-header lead text-wrap">
+                Notificaciones
+              </h6>
               <div class="header-button dropdown-divider"></div>
+              <button
+                class="dropdown-item btn btn-dark"
+                @click="deleteNotifications"
+              >
+                Eliminar notificación
+              </button>
+              <div
+                v-if="notifications.length > 0"
+                class="dropdown-divider"
+              ></div>
               <div v-for="(notification, index) in notifications" :key="index">
                 <button
-                  class="dropdown-item rounded-lg"
+                  class="dropdown-item btn btn-dark"
                   type="button"
                   @click="goToNotification(notification.direction)"
                 >
@@ -178,12 +204,14 @@
               </div>
             </div>
           </div>
+          <!-- /Notification button -->
+
+          <!-- Profile button -->
           <div class="btn-group dropleft">
             <button
+              class="btn btn-dark dropdown-toggle"
               type="button"
-              class="btn btn-light rounded-lg border border-dark"
               data-toggle="dropdown"
-              data-display="static"
               aria-haspopup="true"
               aria-expanded="false"
             >
@@ -195,31 +223,36 @@
                 alt="usuario"
               />
             </button>
-            <div class="dropdown-menu dropdown-menu-lg-left">
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <h6 class="dropdown-header lead text-wrap">
+                Ingresaste como <strong>{{ userMail }}</strong>
+              </h6>
+              <div class="header-button dropdown-divider"></div>
               <button
-                class="header-button dropdown-item rounded-lg btn btn-light"
+                class="dropdown-item btn btn-dark"
                 @click="goToProfile"
                 type="button"
               >
-                Perfil
+                Tu perfil
               </button>
               <button
-                class="header-button dropdown-item rounded-lg btn btn-light"
+                class="dropdown-item btn btn-dark"
                 @click="goToVehicleRegistration"
                 type="button"
               >
-                Vehículo
+                Tus vehículos
               </button>
-              <div class="header-button dropdown-divider rounded-lg"></div>
+              <div class="dropdown-divider"></div>
               <button
-                class="dropdown-item btn btn-light"
+                class="dropdown-item btn btn-dark"
                 @click="closeSession"
                 type="button"
               >
-                Cerrar Sesión
+                Cerrar sesión
               </button>
             </div>
           </div>
+          <!-- /Profile button -->
         </div>
         <div v-else>
           <div v-if="currentRouteName == 'signup'">
@@ -248,13 +281,20 @@
       </div>
     </nav>
     <div v-if="authenticated">
-      <ChatList :showList="showList"></ChatList>
+      <Chat
+        :collapse1="collapse1"
+        :conversation="conversation"
+        :userMail="user.userMail"
+        :userName="userName"
+        :convId="convId"
+      ></Chat>
     </div>
   </div>
 </template>
 
 <script>
-import ChatList from "../components/ListaChat";
+import Chat from "../components/Chat";
+import ChatSC from "../serviceClients/ChatServiceClient";
 import UserSC from "../serviceClients/UserServiceClient";
 import NotificationSC from "../serviceClients/NotificationServiceClient";
 
@@ -264,27 +304,40 @@ export default {
     nombre: String,
   },
   components: {
-    ChatList,
+    Chat,
   },
   data() {
     return {
+      contacts: [],
+      conversation: [],
+      collapse1: { display: "none" },
+      userName: "",
+      convId: "",
+      driverMail: "",
+      driver: false,
+
       notifications: [],
       showList: false,
+      userMail: "",
     };
   },
   mounted() {
+    this.userMail = localStorage.getItem("mail");
     if (!this.$store.state.user) {
       UserSC.getUser((data) => {
         this.$store.commit("updateUser", data.user_mail);
         console.log(data.user_mail);
       });
     }
-
+    this.getConversations();
     this.getNotifications();
   },
   methods: {
-    toogleList() {
-      this.showList = !this.showList;
+    toogleChat(contact, convId) {
+      this.collapse1.display = "block";
+
+      this.userName = contact;
+      this.convId = convId;
     },
     goToHome() {
       this.$router.push("home");
@@ -321,6 +374,21 @@ export default {
     },
     deleteNotifications() {
       NotificationSC.deleteNotification();
+    },
+    getConversations() {
+      var email = localStorage.getItem("mail");
+      console.log(email);
+
+      ChatSC.getConversationsList(email, (data) => {
+        this.contacts = [];
+        data.forEach((element) => {
+          if (element.user1 == email) {
+            this.contacts.push({ user: element.user2, convId: element._id });
+          } else {
+            this.contacts.push({ user: element.user1, convId: element._id });
+          }
+        });
+      });
     },
   },
   computed: {
