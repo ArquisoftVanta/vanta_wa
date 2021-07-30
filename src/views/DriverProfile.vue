@@ -67,7 +67,6 @@
 <script>
 import Header from "../components/Header";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
-import Foto from "@/assets/Enfermeria22.png";
 import UserSC from "../serviceClients/UserServiceClient";
 
 export default {
@@ -78,7 +77,6 @@ export default {
   },
   data() {
     return {
-      Foto: Foto,
       user: {
         userName: "Gonzalo Diaz",
       },
