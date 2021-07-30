@@ -1,15 +1,28 @@
 const axios = require("axios");
-const route = "https://localhost:8600" + "/conv";
+const route2 = "https://localhost:4100/graphql";
 
 function getConversationsList(email, callback) {
-  axios
-    .get(route + "/" + email, {
-      params: {
-        access_token: localStorage.getItem("token"),
-      },
-    })
+  axios({
+    method: "POST",
+    url: route2,
+    data: {
+      query: `{
+      chatByUser(user_id: "${email}"){
+      _id,
+      user1,
+      user2,
+      active,
+      conversation{
+        sender,
+        content,
+        createdAt
+        }
+      }
+    }`,
+    },
+  })
     .then((response) => {
-      callback(response.data);
+      callback(response.data.data.chatByUser);
     })
     .catch(function(error) {
       console.log(error);
@@ -17,14 +30,28 @@ function getConversationsList(email, callback) {
 }
 
 function getConversation(email, convId, callback) {
-  axios
-    .get(route + "/" + email + "/" + convId, {
-      params: {
-        access_token: localStorage.getItem("token"),
-      },
-    })
+  axios({
+    method: "POST",
+    url: route2,
+    data: {
+      query: `{
+        chatById(user_id: "${email}", chat_id: "${convId}"){
+          _id,
+          user1,
+          user2,
+          active,
+          conversation{
+            sender,
+            content,
+            createdAt
+          }
+        }
+      }`,
+    },
+  })
     .then((response) => {
-      callback(response.data);
+      console.log(response);
+      callback(response.data.data.chatById);
     })
     .catch(function(error) {
       console.log(error);
@@ -32,18 +59,21 @@ function getConversation(email, convId, callback) {
 }
 
 function sendMessage(convId, userId, content, callback) {
-  axios
-    .put(
-      route,
-      { convId: convId, userId: userId, content: content },
-      {
-        params: {
-          access_token: localStorage.getItem("token"),
-        },
-      }
-    )
+  axios({
+    method: "POST",
+    url: route2,
+    data: {
+      query: `mutation{
+        sendMessage(msg: {convId: "${convId}", userId:"${userId}", content: "${content}"}){
+          _id,
+          sender,
+          content
+        }
+      }`,
+    },
+  })
     .then((response) => {
-      callback(response.data);
+      callback(response.data.data.sendMessage);
     })
     .catch(function(error) {
       console.log(error);
