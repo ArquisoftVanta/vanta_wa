@@ -1,16 +1,14 @@
 <template>
-  <div class="fixed-top">
-    <nav id="Banner" class="navbar navbar-expand-sm container-fluid text-right">
-      <div class="col-auto">
-        <a class="navbar-brand text-dark" href="" @click="goToHome">
-          <img
-            src="~@/assets/logo.png"
-            alt="vanta_logo"
-            height="30"
-            loading="lazy"
-          />
-        </a>
-      </div>
+  <div class="mb-3">
+    <nav id="Banner" class="navbar navbar-expand-sm text-right mr-0 ml-0">
+      <a class="navbar-brand text-dark" href="" @click="goToHome">
+        <img
+          src="~@/assets/logo.png"
+          alt="vanta_logo"
+          height="30"
+          loading="lazy"
+        />
+      </a>
       <button
         class="navbar-toggler navbar-dark bg-dark"
         type="button"
