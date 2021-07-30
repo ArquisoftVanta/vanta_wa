@@ -1,35 +1,28 @@
 <template>
   <div id="home">
     <Header></Header>
-    <div class="container-fluid mb-5 mh-100">
+    <div class="container-fluid mb-5">
       <div class="row justify-content-lg-around">
-        <div class="col-12 col-lg-4 mb-3 mb-lg-0 mr-0 ml-0">
+        <div class="col-12 col-lg-5 mb-3 mb-lg-0 mr-0 ml-0">
           <div
             class="card bg-dark shadow text-left text-md-center mr-0 ml-0"
             type="button"
             @click="goToDrive"
           >
-            <img class="card-img-top" src="~@/assets/driver.jpg" alt="driver" />
+            <img class="card-img-top" src="~@/assets/new1.jpg" alt="driver" />
             <div class="card-body">
-              <h1
-                class="card-title display-5 d-none d-md-block text-warning font-weight-bold"
-              >
-                Conductor
-              </h1>
-              <h1
-                class="card-title d-block d-md-none mb-0 text-warning font-weight-bold"
-              >
+              <h1 class="card-title text-warning text-left text-md-center lead">
                 Conductor
               </h1>
               <p class="card-text text-light mb-2">
                 Como
-                <strong class="text-warning font-weight-bold">conductor</strong>
-                puedes crear servicios y seleccionar a tus pasajeros.
+                <strong class="text-warning">conductor</strong>
+                puedes crear servicios y viajar acompañado.
               </p>
             </div>
           </div>
         </div>
-        <div class="col-12 col-lg-4 mb-3 mb-lg-0 mr-0 ml-0">
+        <div class="col-12 col-lg-5 mb-3 mb-lg-0 mr-0 ml-0">
           <div
             class="card bg-dark shadow text-left text-md-center mr-0 ml-0"
             type="button"
@@ -41,20 +34,13 @@
               alt="passenger"
             />
             <div class="card-body">
-              <h1
-                class="card-title display-5 d-none d-md-block text-warning font-weight-bold"
-              >
-                Pasajero
-              </h1>
-              <h1
-                class="card-title d-block d-md-none mb-0 text-warning font-weight-bold"
-              >
+              <h1 class="card-title text-warning text-left text-md-center lead">
                 Pasajero
               </h1>
               <p class="card-text text-light mb-2">
                 Como
-                <strong class="text-warning font-weight-bold">pasajero</strong>
-                puedes postularte a cualquier servicio para viajar acompañado.
+                <strong class="text-warning">pasajero</strong>
+                puedes postularte a cualquier servicio.
               </p>
             </div>
           </div>
@@ -95,5 +81,4 @@ export default {
   },
 };
 </script>
-<style>
-</style>
+<style></style>
