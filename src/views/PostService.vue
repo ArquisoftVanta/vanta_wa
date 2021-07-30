@@ -9,7 +9,7 @@
               <h3 class="card-title text-warning lead">Postula tu ruta</h3>
               <form @submit.prevent="saveRoute">
                 <div class="form-group mb-2">
-                  <div class="input-group input-group-sm mb-3">
+                  <div class="input-group input-group-sm mb-2">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1"
                         >Salida</span
@@ -25,7 +25,7 @@
                       required
                     />
                   </div>
-                  <div class="input-group input-group-sm mb-3">
+                  <div class="input-group input-group-sm mb-2">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1"
                         >Llegada</span
@@ -42,7 +42,7 @@
                       required
                     />
                   </div>
-                  <div class="input-group input-group-sm mb-3">
+                  <div class="input-group input-group-sm mb-2">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1"
                         >Fecha</span
