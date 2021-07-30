@@ -90,7 +90,7 @@ function createRequest(request, callback) {
     data: {
       query: `mutation{
                     newRequest(req:{
-                        user_id: "${request.passengerMail}",
+                        user_id: "${localStorage.getItem("mail")}",
                         date: "${request.date}",
                         time: "${request.time}",
                         active: "false",
