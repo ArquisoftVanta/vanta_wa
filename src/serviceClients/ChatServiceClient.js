@@ -24,9 +24,7 @@ function getConversationsList(email, callback) {
     .then((response) => {
       callback(response.data.data.chatByUser);
     })
-    .catch(function(error) {
-      console.log(error);
-    });
+    .catch(function() {});
 }
 
 function getConversation(email, convId, callback) {
@@ -50,12 +48,9 @@ function getConversation(email, convId, callback) {
     },
   })
     .then((response) => {
-      console.log(response);
       callback(response.data.data.chatById);
     })
-    .catch(function(error) {
-      console.log(error);
-    });
+    .catch(function() {});
 }
 
 function sendMessage(convId, userId, content, callback) {
@@ -75,9 +70,7 @@ function sendMessage(convId, userId, content, callback) {
     .then((response) => {
       callback(response.data.data.sendMessage);
     })
-    .catch(function(error) {
-      console.log(error);
-    });
+    .catch(function() {});
 }
 
 export default {
