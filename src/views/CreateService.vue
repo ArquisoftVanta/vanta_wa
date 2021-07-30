@@ -93,142 +93,138 @@
     </div>
     <div>
       <div class="container-fluid mb-5">
-        <div class="row mb-5">
-          <div class="col-12 col-md-4 offset-md-1">
-            <div class="card mb-3 mb-md-4">
+        <div class="row">
+          <div class="col-12 col-md-5">
+            <div class="card bg-dark mb-5 mb-md-0">
               <div class="card-body">
-                <h5 class="card-title text-dark">Crear servicio</h5>
-                <div class="form-group mb-2">
-                  <div class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1"
-                        >Salida</span
-                      >
+                <h3 class="card-title text-warning lead">Crear servicio</h3>
+                <form @submit.prevent="saveRoute">
+                  <div class="form-group mb-2">
+                    <div class="input-group input-group-sm mb-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"
+                          >Salida</span
+                        >
+                      </div>
+                      <input
+                        id="placeoforigin"
+                        type="text"
+                        class="form-control"
+                        placeholder="Lugar de salida"
+                        aria-label="lugar-salida"
+                        aria-describedby="basic-addon1"
+                        ref="originDriver"
+                        required
+                      />
                     </div>
-                    <input
-                      id="placeoforigin"
-                      type="text"
-                      class="form-control"
-                      placeholder="Lugar de salida"
-                      aria-label="lugar-salida"
-                      aria-describedby="basic-addon1"
-                      ref="originDriver"
-                    />
-                  </div>
-                  <div class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1"
-                        >Llegada</span
-                      >
+                    <div class="input-group input-group-sm mb-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"
+                          >Llegada</span
+                        >
+                      </div>
+                      <input
+                        id="placeofdeparture"
+                        type="text"
+                        class="form-control"
+                        placeholder="Lugar de llegada"
+                        aria-label="lugar-llegada"
+                        aria-describedby="basic-addon1"
+                        ref="destinationDriver"
+                        required
+                      />
                     </div>
-                    <input
-                      id="placeofdeparture"
-                      type="text"
-                      class="form-control"
-                      placeholder="Lugar de llegada"
-                      aria-label="lugar-llegada"
-                      aria-describedby="basic-addon1"
-                      ref="destinationDriver"
-                    />
-                  </div>
-                  <div class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1"
-                        >Fecha</span
-                      >
+                    <div class="input-group input-group-sm mb-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"
+                          >Fecha</span
+                        >
+                      </div>
+                      <input
+                        v-model="route.date"
+                        type="date"
+                        class="form-control"
+                        placeholder="Fecha de salida"
+                        aria-label="fecha-salida"
+                        aria-describedby="basic-addon1"
+                        required
+                      />
                     </div>
-                    <input
-                      v-model="route.date"
-                      type="date"
-                      class="form-control"
-                      placeholder="Fecha de salida"
-                      aria-label="fecha-salida"
-                      aria-describedby="basic-addon1"
-                    />
-                  </div>
-                  <div class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1"
-                        >Hora</span
-                      >
+                    <div class="input-group input-group-sm mb-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"
+                          >Hora</span
+                        >
+                      </div>
+                      <input
+                        v-model="route.time"
+                        type="time"
+                        class="form-control"
+                        placeholder="Hora de salida"
+                        aria-label="hora-salida"
+                        aria-describedby="basic-addon1"
+                        required
+                      />
                     </div>
-                    <input
-                      v-model="route.time"
-                      type="time"
-                      class="form-control"
-                      placeholder="Hora de salida"
-                      aria-label="hora-salida"
-                      aria-describedby="basic-addon1"
-                    />
-                  </div>
-                  <div class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1"
-                        >Valor</span
-                      >
+                    <div class="input-group input-group-sm mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"
+                          >Valor</span
+                        >
+                      </div>
+                      <input
+                        v-model="route.value"
+                        type="text"
+                        class="form-control"
+                        placeholder="Valor del viaje"
+                        aria-label=""
+                        aria-describedby="basic-addon1"
+                        required
+                      />
                     </div>
-                    <input
-                      v-model="route.value"
-                      type="text"
-                      class="form-control"
-                      placeholder="Valor del viaje"
-                      aria-label=""
-                      aria-describedby="basic-addon1"
-                    />
-                  </div>
-                </div>
-                <form>
-                  <div>
                     <button
-                      type="button"
-                      class="btn btn-dark btn-sm btn-block"
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                      data-display="static"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      Escoger Pasajeros
-                    </button>
-                  </div>
-                  <div class="mt-2">
-                    <button
-                      type="button"
-                      class="btn btn-dark btn-sm btn-block"
-                      data-toggle="modal"
-                      data-target="#modalVehicles"
-                      data-display="static"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      Escoger Vehículo
-                    </button>
-                  </div>
-
-                  <div class="mt-2">
-                    <button
-                      type="button"
-                      class="btn btn-dark btn-sm btn-block"
-                      data-toggle="modal"
-                      data-target="#exampleModal2"
-                    >
-                      Ordenar Ruta
-                    </button>
-                  </div>
-                  <div class="mt-2">
-                    <button
-                      type="button"
-                      class="btn btn-dark btn-block btn-sm btn-block"
-                      @click="saveRoute"
+                      type="summit"
+                      class="btn btn-warning btn-block btn-sm btn-block"
                     >
                       Crear Servicio
                     </button>
                   </div>
                 </form>
+                <button
+                  type="button"
+                  class="btn btn-light btn-sm btn-block"
+                  data-toggle="modal"
+                  data-target="#exampleModal"
+                  data-display="static"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Escoger Pasajeros
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-light btn-sm btn-block"
+                  data-toggle="modal"
+                  data-target="#modalVehicles"
+                  data-display="static"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Escoger Vehículo
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-light btn-sm btn-block"
+                  data-toggle="modal"
+                  data-target="#exampleModal2"
+                >
+                  Ordenar Ruta
+                </button>
               </div>
             </div>
           </div>
-          <div class="col-12 col-md-6 mb-5">
+          <div class="col-12 col-md-7 mb-5">
             <DirectionsMapView />
           </div>
         </div>
