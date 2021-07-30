@@ -1,50 +1,60 @@
 <template>
   <div id="home">
     <Header></Header>
-    <div class="container-fluid mb-5">
-      <div class="row">
-        <div class="col-12 col-md-6 mb-5 mb-md-0">
+    <div class="container-fluid mb-5 mh-100">
+      <div class="row justify-content-lg-around">
+        <div class="col-12 col-lg-4 mb-3 mb-lg-0 mr-0 ml-0">
           <div
-            class="card bg-light text-white shadow rounded border border-dark text-center text-dark mr-0 ml-0 mr-sm-5 ml-sm-5"
+            class="card bg-dark shadow text-left text-md-center mr-0 ml-0"
             type="button"
             @click="goToDrive"
           >
-            <img
-              class="card-img-top"
-              src="~@/assets/driver.jpg"
-              alt="driver-image"
-            />
+            <img class="card-img-top" src="~@/assets/driver.jpg" alt="driver" />
             <div class="card-body">
-              <h3 class="card-title d-none d-md-block font-weight-bold">Conductor</h3>
-              <h3 class="card-title d-block d-md-none mb-0 font-weight-bold text-left">Conductor</h3>
-              <p class="card-text d-none d-md-block mb-0">
-                <small>
-                  Descubre todo lo que la plataforma tiene para ti como
-                  <strong>conductor</strong>.</small
-                >
+              <h1
+                class="card-title display-5 d-none d-md-block text-warning font-weight-bold"
+              >
+                Conductor
+              </h1>
+              <h1
+                class="card-title d-block d-md-none mb-0 text-warning font-weight-bold"
+              >
+                Conductor
+              </h1>
+              <p class="card-text text-light mb-2">
+                Como
+                <strong class="text-warning font-weight-bold">conductor</strong>
+                puedes crear servicios y seleccionar a tus pasajeros.
               </p>
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6 mb-5 mb-md-0">
+        <div class="col-12 col-lg-4 mb-3 mb-lg-0 mr-0 ml-0">
           <div
-            class="card bg-light text-white shadow rounded border border-dark text-center text-dark mr-0 ml-0 mr-sm-5 ml-sm-5"
+            class="card bg-dark shadow text-left text-md-center mr-0 ml-0"
             type="button"
             @click="goToPassenger"
           >
             <img
               class="card-img-top"
-              src="~@/assets/passenger1.jpg"
-              alt="passenger-image"
+              src="~@/assets/passenger.jpg"
+              alt="passenger"
             />
             <div class="card-body">
-              <h3 class="card-title d-none d-md-block font-weight-bold">Pasajero</h3>
-              <h3 class="card-title d-block d-md-none mb-0 font-weight-bold text-left">Pasajero</h3>
-              <p class="card-text d-none d-md-block mb-0">
-                <small
-                  >Descubre todo lo que la plataforma tiene para ti como
-                  <strong>pasajero</strong>.</small
-                >
+              <h1
+                class="card-title display-5 d-none d-md-block text-warning font-weight-bold"
+              >
+                Pasajero
+              </h1>
+              <h1
+                class="card-title d-block d-md-none mb-0 text-warning font-weight-bold"
+              >
+                Pasajero
+              </h1>
+              <p class="card-text text-light mb-2">
+                Como
+                <strong class="text-warning font-weight-bold">pasajero</strong>
+                puedes postularte a cualquier servicio para viajar acompañado.
               </p>
             </div>
           </div>
@@ -55,7 +65,7 @@
   </div>
 </template>
 <script>
-import Header from "../components/Header";
+import Header from "../components/Header.vue";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 
 export default {
@@ -68,9 +78,7 @@ export default {
     FooterwithBackground,
   },
   data() {
-    return {
-      telefono: 0,
-    };
+    return {};
   },
   methods: {
     goToPassenger() {
@@ -88,8 +96,4 @@ export default {
 };
 </script>
 <style>
-.card-img-top {
-    min-height: 20vh;
-    object-fit: cover;
-}
 </style>
