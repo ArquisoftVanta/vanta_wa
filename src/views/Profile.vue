@@ -104,13 +104,13 @@
                     </div>
                     <input
                       v-model="user.user_mail"
-                      :disabled="disabledButton"
                       id="validationDefault06"
                       type="text"
                       class="form-control"
                       placeholder="Correo electrónico"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-sm"
+                      disabled
                     />
                   </div>
                 </div>
@@ -183,9 +183,8 @@
 </template>
 
 <script>
-import Header from "../components/Header";
+import Header from "../components/Header.vue";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
-import Foto from "@/assets/Enfermeria22.png";
 import UserCo from "../controller/UserController";
 import UserSC from "../serviceClients/UserServiceClient";
 
@@ -197,7 +196,6 @@ export default {
   },
   data() {
     return {
-      Foto: Foto,
       selectedPic: null,
       user: {
         user_name: "",
@@ -248,7 +246,7 @@ export default {
             "success"
           );
         } else {
-          this.createToast("Revisa los campos", "Error", "danger");
+          this.createToast("Revisa los campos", "Error", "Danger");
         }
         this.$store.commit("updateUser", this.user);
       });
