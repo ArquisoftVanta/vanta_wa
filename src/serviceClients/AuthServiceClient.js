@@ -80,7 +80,7 @@ function loginUser(user, callback, showtoast) {
       callback();
     })
     .catch((error) => {
-      showtoast("Datos de Ingreso Invalidos", error);
+      showtoast("¡Verifica tus datos!", error);
     });
 }
 
