@@ -6,7 +6,7 @@
         <div class="col-12 col-md-5">
           <div class="card bg-dark mb-5 mb-md-0">
             <div class="card-body">
-              <h5 class="card-title text-warning lead">Postula tu ruta</h5>
+              <h3 class="card-title text-warning lead">Postula tu ruta</h3>
               <form @submit.prevent="saveRoute">
                 <div class="form-group mb-2">
                   <div class="input-group input-group-sm mb-3">
@@ -93,7 +93,7 @@
                 class="btn btn-light btn-block btn-sm"
                 @click="locatorButtonPressed"
               >
-                ¡Ubicame!
+                Ubicación actual
               </button>
             </div>
           </div>
