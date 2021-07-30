@@ -47,7 +47,6 @@
 <script>
 import Header from "../components/Header";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
-import Foto from "@/assets/Enfermeria22.png";
 import UserSC from "../serviceClients/UserServiceClient";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
 import { EventBus } from "@/EventBus.js";
@@ -66,7 +65,6 @@ export default {
   },
   data() {
     return {
-      Foto: Foto,
     };
   },
   props: {},
