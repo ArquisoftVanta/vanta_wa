@@ -30,6 +30,7 @@
               (currentRouteName != 'login' || currentRouteName != 'signup')
           "
         >
+          <!-- Back button -->
           <div
             v-if="
               currentRouteName == 'driver' || currentRouteName == 'passenger'
@@ -97,13 +98,10 @@
               />
             </button>
           </div>
-
-          <!-- Back button -->
-
           <!-- /Back button -->
 
           <!-- Messages button -->
-          <div class="btn-group dropleft mr-1">
+          <div class="btn-group dropdown mr-1">
             <button
               type="button"
               class="btn btn-dark dropdown-toggle"
