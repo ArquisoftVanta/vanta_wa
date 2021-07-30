@@ -1,6 +1,5 @@
 <template>
   <div id="home">
-    <Header></Header>
     <div class="container-fluid fixed-bottom">
       <div class="row">
         <div class="col-12">
@@ -109,7 +108,7 @@ export default {
 
   methods: {
     createSocket() {
-      this.socket = io("http://localhost:8600", { autoConnect: false });
+      this.socket = io("http://localhost:8000", { autoConnect: false , transports: ['websocket']});
       let self = this;
       // Evento
       this.socket.on("private message", function({ content, user }) {
