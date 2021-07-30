@@ -36,15 +36,7 @@
             "
             class="btn-group dropleft mr-1"
           >
-            <button
-              type="button"
-              class="btn btn-light rounded-lg border border-dark"
-              data-toggle="dropdown"
-              data-display="static"
-              aria-haspopup="true"
-              @click="goToHome"
-              aria-expanded="false"
-            >
+            <button class="btn btn-dark" @click="goToHome">
               <img
                 class=""
                 src="~@/assets/return.png"
@@ -61,15 +53,7 @@
             "
             class="btn-group dropleft mr-1"
           >
-            <button
-              type="button"
-              class="btn btn-light rounded-lg border border-dark"
-              data-toggle="dropdown"
-              data-display="static"
-              aria-haspopup="true"
-              @click="goToDriver"
-              aria-expanded="false"
-            >
+            <button class="btn btn-dark" @click="goToDriver">
               <img
                 class=""
                 src="~@/assets/return.png"
@@ -86,15 +70,24 @@
             "
             class="btn-group dropleft mr-1"
           >
-            <button
-              type="button"
-              class="btn btn-light rounded-lg border border-dark"
-              data-toggle="dropdown"
-              data-display="static"
-              aria-haspopup="true"
-              @click="goToPassenger"
-              aria-expanded="false"
-            >
+            <button class="btn btn-dark" @click="goToPassenger">
+              <img
+                class=""
+                src="~@/assets/return.png"
+                width="30"
+                height="30"
+                alt="return"
+              />
+            </button>
+          </div>
+          <div
+            v-else-if="
+              currentRouteName == 'profile' ||
+                currentRouteName == 'vehicleRegistration'
+            "
+            class="btn-group dropleft mr-1"
+          >
+            <button class="btn btn-dark" @click="goToHome">
               <img
                 class=""
                 src="~@/assets/return.png"
@@ -106,17 +99,7 @@
           </div>
 
           <!-- Back button -->
-          <div class="btn-group dropleft mr-1">
-            <button
-              type="button"
-              class="btn btn-dark dropdown-toggle"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Atrás
-            </button>
-          </div>
+
           <!-- /Back button -->
 
           <!-- Messages button -->
@@ -128,6 +111,7 @@
               data-display="static"
               aria-haspopup="true"
               aria-expanded="false"
+              @click="getConversations"
             >
               <img
                 class=""
@@ -164,6 +148,7 @@
               aria-haspopup="true"
               aria-expanded="false"
               @click="getNotifications"
+              disabled
             >
               <img
                 class=""
@@ -326,11 +311,9 @@ export default {
     if (!this.$store.state.user) {
       UserSC.getUser((data) => {
         this.$store.commit("updateUser", data.user_mail);
-        console.log(data.user_mail);
       });
     }
     this.getConversations();
-    this.getNotifications();
   },
   methods: {
     toogleChat(contact, convId) {
@@ -377,7 +360,6 @@ export default {
     },
     getConversations() {
       var email = localStorage.getItem("mail");
-      console.log(email);
 
       ChatSC.getConversationsList(email, (data) => {
         this.contacts = [];
