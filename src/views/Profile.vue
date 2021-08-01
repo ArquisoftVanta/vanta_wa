@@ -140,18 +140,18 @@
               </form>
             </div>
           </div>
-          <div class="col-12 col-lg-4 mb-3 mb-lg-0">
-            <div class="card pt-5 bg-dark shadow">
+          <div class="col-12 col-lg-4 mb-5 mb-lg-0">
+            <div class="card pt-3 bg-dark shadow">
               <img
                 src=""
-                class="img-thumbnail align-self-center h-50 w-50"
+                class="img-thumbnail align-self-center"
                 alt=" Imagen de perfil"
                 id="profilePic"
               />
               <div class="card-body">
                 <form @summit.prevent="updateUser">
                   <p class="card-title text-light">Imagen de perfil</p>
-                  <div class="form-group mb-0">
+                  <div class="form-group">
                     <div class="input-group input-group-sm">
                       <div class="custom-file">
                         <input
