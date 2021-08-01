@@ -265,7 +265,7 @@
       <Chat
         :collapse1="collapse1"
         :conversation="conversation"
-        :userMail="user.userMail"
+        :userMail="userMail"
         :userName="userName"
         :convId="convId"
       ></Chat>
