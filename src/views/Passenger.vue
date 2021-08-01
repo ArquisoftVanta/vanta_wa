@@ -3,7 +3,7 @@
     <Header></Header>
     <div class="container-fluid mb-5">
       <div class="row justify-content-lg-around">
-        <div class="col-12 col-lg-5 mb-3 mb-lg-0 mr-0 ml-0">
+        <div class="col-12 col-lg-5 mb-3 mb-lg-0">
           <div
             class="card bg-dark shadow text-left text-md-center mr-0 ml-0"
             type="button"
@@ -26,7 +26,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-lg-5 mb-3 mb-lg-0 mr-0 ml-0">
+        <div class="col-12 col-lg-5 mb-3 mb-lg-0">
           <div
             class="card bg-dark shadow text-left text-md-center mr-0 ml-0"
             type="button"
