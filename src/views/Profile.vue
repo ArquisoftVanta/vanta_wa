@@ -4,12 +4,10 @@
     <div>
       <div class="container-fluid">
         <div class="row">
-          <div class="col-sm-12 col-md-7 offset-lg-1 mt-0 mb-5">
-            <div
-              class="card card-body text-center text-dark border border-dark shadow"
-            >
-              <form>
-                <h4 class="mb-4 font-weight-bold">Tus datos personales</h4>
+          <div class="col-12 col-lg-8 mb-3 mb-lg-0">
+            <div class="card card-body bg-dark text-left text-light shadow">
+              <form @submit.prevent="updateUser">
+                <p class="card-title text-light">Información</p>
                 <div class="form-group">
                   <div class="input-group input-group-sm mb-2">
                     <div class="input-group-prepend">
@@ -26,6 +24,7 @@
                       placeholder="Nombre completo"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-sm"
+                      required
                     />
                   </div>
                   <div class="input-group input-group-sm mb-2">
@@ -43,6 +42,7 @@
                       placeholder="Número de identificación"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-sm"
+                      required
                     />
                   </div>
                   <div class="input-group input-group-sm mb-2">
@@ -60,6 +60,7 @@
                       placeholder="Tipo sanguineo"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-sm"
+                      required
                     />
                   </div>
                   <div class="input-group input-group-sm mb-2">
@@ -77,6 +78,7 @@
                       placeholder="Dirección de residencia"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-sm"
+                      required
                     />
                   </div>
                   <div class="input-group input-group-sm mb-2">
@@ -94,6 +96,7 @@
                       placeholder="Número telefonico o celular"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-sm"
+                      required
                     />
                   </div>
                   <div class="input-group input-group-sm mb-2">
@@ -119,28 +122,26 @@
                     <button
                       @click="editInputData"
                       type="button"
-                      class="btn btn-dark btn-block text-white"
+                      class="btn btn-light btn-block btn-sm"
                     >
                       {{ editButton }}
                     </button>
                   </div>
                   <div class="col-6">
                     <button
-                      @click="updateUser"
                       :disabled="disabledButton"
-                      type="button"
-                      class="btn btn-warning btn-block text-dark"
+                      type="summit"
+                      class="btn btn-warning btn-block btn-sm"
                     >
-                      Guardar datos
+                      Guardar información
                     </button>
                   </div>
                 </div>
               </form>
             </div>
           </div>
-          <div class="col-sm-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-            <div class="card pt-3 border border-dark shadow">
-              <h4 class="mb-4 text-center font-weight-bold">Foto de perfil</h4>
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0">
+            <div class="card pt-5 bg-dark shadow">
               <img
                 src=""
                 class="img-thumbnail align-self-center h-50 w-50"
@@ -148,30 +149,48 @@
                 id="profilePic"
               />
               <div class="card-body">
-                <h5 class="card-title pt-3">{{ user.userName }}</h5>
-                <div class="form-group mb-0">
-                  <div class="input-group input-group-sm">
-                    <div class="custom-file">
-                      <input
-                        type="file"
-                        @change="onPicSelected"
-                        class="custom-file-input"
-                        id="picPicker"
-                      />
-                      <label
-                        class="custom-file-label text-left"
-                        for="inputGroupFile01"
-                        >Seleccionar imagen</label
-                      >
+                <form @summit.prevent="updateUser">
+                  <p class="card-title text-light">Imagen de perfil</p>
+                  <div class="form-group mb-0">
+                    <div class="input-group input-group-sm">
+                      <div class="custom-file">
+                        <input
+                          type="file"
+                          @change="onPicSelected"
+                          class="custom-file-input"
+                          id="picPicker"
+                          :disabled="disabledButtonImage"
+                          required
+                        />
+                        <label
+                          class="custom-file-label text-left"
+                          for="inputGroupFile01"
+                          >Seleccionar imagen</label
+                        >
+                      </div>
                     </div>
                   </div>
-                </div>
-                <button
-                  class="btn btn-warning btn-block btn-sm text-dark"
-                  @click="updateUser"
-                >
-                  Guardar imagen
-                </button>
+                  <div class="form-row">
+                    <div class="col-6">
+                      <button
+                        type="button"
+                        class="btn btn-light btn-block btn-sm"
+                        @click="editInputImage"
+                      >
+                        {{ editButtonImage }}
+                      </button>
+                    </div>
+                    <div class="col-6">
+                      <button
+                        class="btn btn-warning btn-block btn-sm text-dark"
+                        type="summit"
+                        :disabled="disabledButtonImage"
+                      >
+                        Guardar imagen
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -208,8 +227,10 @@ export default {
       },
       //Estado del botón que permite editar y guardar los cambios realizados a la información de un usuario
       inputState: true,
+      inputImage: true,
       //Mensaje que muestra el botón de editar los datos
-      editButton: "Editar datos",
+      editButton: "Modificar información",
+      editButtonImage: "Cambiar imagen",
     };
   },
   props: [],
@@ -220,14 +241,26 @@ export default {
     disabledButton() {
       return this.inputState == true;
     },
+    disabledButtonImage() {
+      return this.inputImage == true;
+    },
   },
   methods: {
     editInputData() {
       this.inputState = !this.inputState;
       if (this.inputState == true) {
-        this.editButton = "Editar datos";
+        this.editButton = "Modificar información";
       } else {
         this.editButton = "Cancelar";
+      }
+      this.getUserDB();
+    },
+    editInputImage() {
+      this.inputImage = !this.inputImage;
+      if (this.inputImage == true) {
+        this.editButtonImage = "Cambiar imagen";
+      } else {
+        this.editButtonImage = "Cancelar";
       }
       this.getUserDB();
     },
@@ -265,7 +298,7 @@ export default {
       if (this.selectedPic.length > 0) {
         var reader = new FileReader();
         var self = this;
-        reader.onloadend = function (FileLoadEvent) {
+        reader.onloadend = function(FileLoadEvent) {
           var srcData = FileLoadEvent.target.result;
           self.user.picture = FileLoadEvent.target.result;
           document.getElementById("profilePic").src = srcData;
