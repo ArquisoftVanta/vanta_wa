@@ -44,7 +44,7 @@ export default {
                   directions: response,
                   map: this.map,
                   polylineOptions: {
-                    strokeColor: "#FFC700",
+                    strokeColor: "#181B1F",
                     strokeWeight: 2,
                   },
                 });
@@ -76,7 +76,7 @@ export default {
                   map: this.map,
                   icon: {
                     path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                    strokeColor: "#FFC700",
+                    strokeColor: "#181B1F",
                     scale: 3,
                   },
                 });
@@ -85,7 +85,7 @@ export default {
                   map: this.map,
                   icon: {
                     path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                    strokeColor: "#FFC700",
+                    strokeColor: "#181B1F",
                     scale: 3,
                   },
                 });
@@ -148,7 +148,7 @@ export default {
               directions: response,
               map: this.map,
               polylineOptions: {
-                strokeColor: "#FFC700",
+                strokeColor: "#181B1F",
                 strokeWeight: 2,
               },
             });
@@ -196,7 +196,7 @@ export default {
      */
     createInfoWindowWith(message, address, lat, lng) {
       const infoWindow = new google.maps.InfoWindow({
-        content: `<div style="background-color:#FFC700;padding:5px; color:black">${message} : ${address}</div>`,
+        content: `<div style="background-color:#181B1F;padding:5px; color:white">${message} : ${address}</div>`,
         position: { lat: lat, lng: lng },
       });
 
