@@ -26,22 +26,6 @@ function getUser(callback) {
     });
 }
 
-function getFastProfile(email, callback) {
-  axios
-    .get(route + "/fast-profile", {
-      params: {
-        access_token: localStorage.getItem("token"),
-        userMail: email,
-      },
-    })
-    .then((response) => {
-      callback(response.data);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
-}
-
 function createUser(user, callback) {
   axios
     .post(route, user)
@@ -94,7 +78,6 @@ function deleteUser(id, callback) {
 
 export default {
   getUser,
-  getFastProfile,
   createUser,
   updateUser,
   deleteUser,
