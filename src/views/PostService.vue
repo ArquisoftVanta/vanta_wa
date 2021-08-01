@@ -3,10 +3,10 @@
     <Header></Header>
     <div class="container-fluid mb-5">
       <div class="row">
-        <div class="col-12 col-md-5">
-          <div class="card bg-dark mb-5 mb-md-0">
+        <div class="col-12 col-lg-5 mb-3 mb-lg-0">
+          <div class="card bg-dark">
             <div class="card-body">
-              <h3 class="card-title text-warning lead">Postula tu ruta</h3>
+              <p class="card-title text-light">Postula tu ruta</p>
               <form @submit.prevent="saveRoute">
                 <div class="form-group mb-2">
                   <div class="input-group input-group-sm mb-2">
@@ -98,7 +98,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-7 mb-5 mb-md-0">
+        <div class="col-12 col-lg-7 mb-3 mb-lg-0">
           <DirectionsMapView></DirectionsMapView>
         </div>
       </div>
