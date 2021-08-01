@@ -214,14 +214,14 @@
                 @click="goToProfile"
                 type="button"
               >
-                Tu perfil
+                Informacion
               </button>
               <button
                 class="dropdown-item btn btn-dark"
                 @click="goToVehicleRegistration"
                 type="button"
               >
-                Tus vehículos
+                Vehículos
               </button>
               <div class="dropdown-divider"></div>
               <button
