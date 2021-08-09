@@ -65,12 +65,12 @@
                   <transition-group type="transition" name="flip-list">
                     <div
                       class="sortable"
-                      :id="`${element.type + element.id}`"
+                      :id="`${element.type + element.request}`"
                       v-for="element in orderedRoutesOfPassengers"
-                      :key="`${element.type + element.id}`"
+                      :key="`${element.type + element.request}`"
                     >
                       <strong
-                        >{{ element.type }} pasajero {{ element.id }}:</strong
+                        >{{ element.type }} pasajero:</strong
                       >
                       <strong>{{ element.address }}</strong>
                     </div>
@@ -141,7 +141,7 @@
                         >
                       </div>
                       <input
-                        v-model="route.date"
+                        v-model="route.service.date"
                         type="date"
                         class="form-control"
                         placeholder="Fecha de salida"
@@ -157,7 +157,7 @@
                         >
                       </div>
                       <input
-                        v-model="route.time"
+                        v-model="route.service.time"
                         type="time"
                         class="form-control"
                         placeholder="Hora de salida"
@@ -173,7 +173,7 @@
                         >
                       </div>
                       <input
-                        v-model="route.value"
+                        v-model="route.service.value"
                         type="text"
                         class="form-control"
                         placeholder="Valor del viaje"
@@ -245,6 +245,7 @@ import Draggable from "vuedraggable";
 import Directions from "../components/WatchCurrentDirections";
 import VehiclesByUser from "../components/VehiclesByUser";
 import NotificationSC from "../serviceClients/NotificationServiceClient";
+import ServiceClient from "../serviceClients/ServiceClient";
 
 export default {
   name: "CreateService",
@@ -257,113 +258,24 @@ export default {
       pointChoosed: "",
       currentDate: Date,
       route: {
-        orderRoute: {
-          ori: {},
-          des: {},
-          stops: {},
+        service:{
+        email: "",
+        idVehicle: "BRS954",
+        value: "",
+        date: "",
+        time: "",
+        places: ""
         },
-        idVehicle: "",
         originDriver: {
           address: "",
           lat: 0,
           lng: 0,
-        },
-        originPassengers: {
-          A: {
-            address: "",
-            lat: 0,
-            lng: 0,
-            type: "Origen",
-            id: 1,
-          },
-          B: {
-            address: "",
-            lat: 0,
-            lng: 0,
-            type: "Origen",
-            id: 2,
-          },
-          C: {
-            address: "",
-            lat: 0,
-            lng: 0,
-            type: "Origen",
-            id: 3,
-          },
-          D: {
-            address: "",
-            lat: 0,
-            lng: 0,
-            type: "Origen",
-            id: 4,
-          },
-        },
-        destinationPassengers: {
-          A: {
-            address: "",
-            lat: 0,
-            lng: 0,
-            type: "Destino",
-            id: 1,
-          },
-          B: {
-            address: "",
-            lat: 0,
-            lng: 0,
-            type: "Destino",
-            id: 2,
-          },
-          C: {
-            address: "",
-            lat: 0,
-            lng: 0,
-            type: "Destino",
-            id: 3,
-          },
-          D: {
-            address: "",
-            lat: 0,
-            lng: 0,
-            type: "Destino",
-            id: 4,
-          },
         },
         destinationDriver: {
           address: "",
           lat: 0,
           lng: 0,
         },
-        dataDriver: {
-          driverMail: "",
-          driverName: "",
-        },
-        passengers: {
-          A: {
-            name: "",
-            id: "",
-            email: "",
-          },
-          B: {
-            name: "",
-            id: "",
-            email: "",
-          },
-          C: {
-            name: "",
-            id: "",
-            email: "",
-          },
-          D: {
-            name: "",
-            id: "",
-            email: "",
-          },
-        },
-        value: "",
-        date: "",
-        time: "",
-        routeActive: Boolean,
-        servicePerformed: Boolean,
       },
 
       error: "",
@@ -382,7 +294,7 @@ export default {
     this.getFormattedDate();
     EventBus.$on("vehicle", (vehicle) => {
       try {
-        this.route.idVehicle = vehicle.vehicleLicenseplate;
+        this.route.service.idVehicle = vehicle.vehicleLicenseplate;
       } catch (error) {
         console.log("");
       }
@@ -398,71 +310,12 @@ export default {
       }
     });
     EventBus.$on("choosePassengerRoutes-data", (routesReceived) => {
-      /**
-       *En esta función se traen los datos de los pasajeros seleccionados
-       *por parte del conductor en el componente "Route List" y se guardan
-       *en el objeto "route" para posteriormente enviar a Firebase
-       */
-      let letterchar = 65;
-      routesReceived.forEach(({ origin, destination, id, dataPassenger }) => {
-        let repeatDirectionOrigin = 0;
-        let repeatDirectionDestination = 0;
-
-        this.route.originPassengers[String.fromCharCode(letterchar)].address =
-          origin.address;
-        this.route.originPassengers[String.fromCharCode(letterchar)].lat =
-          origin.lat;
-        this.route.originPassengers[String.fromCharCode(letterchar)].lng =
-          origin.lng;
-        this.route.destinationPassengers[
-          String.fromCharCode(letterchar)
-        ].address = destination.address;
-        this.route.destinationPassengers[String.fromCharCode(letterchar)].lat =
-          destination.lat;
-        this.route.destinationPassengers[String.fromCharCode(letterchar)].lng =
-          destination.lng;
-        this.route.passengers[String.fromCharCode(letterchar)].name =
-          dataPassenger.passengerName;
-        this.route.passengers[String.fromCharCode(letterchar)].id = id;
-        this.route.passengers[String.fromCharCode(letterchar)].email =
-          dataPassenger.passengerMail;
-
-        /**
-         *Existen casos donde algunos pasajeros salen del mismo lugar.
-         *Entonces, para practicidad por parte del conductor, solo se
-         *guardan ubicaciones unicas en la variable "orderedRoutesOfPassengers"
-         *para que cuando el conductor pueda ordenar la ruta, no le aparezca
-         *una ubicacion dos veces repetidas.
-         */
-        this.orderedRoutesOfPassengers.forEach(({ address }) => {
-          if (
-            address ==
-            this.route.originPassengers[String.fromCharCode(letterchar)].address
-          ) {
-            repeatDirectionOrigin = repeatDirectionOrigin + 1;
-          }
-          if (
-            address ==
-            this.route.destinationPassengers[String.fromCharCode(letterchar)]
-              .address
-          ) {
-            repeatDirectionDestination = repeatDirectionDestination + 1;
-          }
-        });
-        if (repeatDirectionOrigin == 0) {
-          this.orderedRoutesOfPassengers.push(
-            this.route.originPassengers[String.fromCharCode(letterchar)]
-          );
-        }
-        if (repeatDirectionDestination == 0) {
-          this.orderedRoutesOfPassengers.push(
-            this.route.destinationPassengers[String.fromCharCode(letterchar)]
-          );
-        }
-        letterchar = letterchar + 1;
-      });
+      for (let index = 0; index < routesReceived.length; index++) {
+          this.orderedRoutesOfPassengers.push(routesReceived[index][1][0]);
+          this.orderedRoutesOfPassengers.push(routesReceived[index][1][1]);
+      }
     });
-
+  
     EventBus.$emit("passengerRoutes-data", this.routes);
     /**
      *Esta parte del código, permite crear la opcion de Autocompletar
@@ -502,16 +355,6 @@ export default {
         "-" +
         date.toLocaleDateString("es-CO", { day: "2-digit" });
     },
-    /*getUserDB() {
-      UserSC.getUser((data) => {
-        this.route.dataDriver.driverMail = data.userMail;
-        this.route.dataDriver.driverName = data.userName;
-      });
-    },*/
-    /**
-     * Esta función guarda el objeto "route" con todas las paradas y datos
-     *  en la colección "driverRoute", de firebase.
-     */
     saveRoute() {
       var textAlert = "";
       let idRoute;
@@ -521,18 +364,18 @@ export default {
       if (this.route.destinationDriver.address === "") {
         textAlert = textAlert + "Punto de Destino, \n";
       }
-      if (this.route.date === "") {
+      if (this.route.service.date === "") {
         textAlert = textAlert + "Fecha de Servicio, \n";
       }
-      if (this.route.time === "") {
+      if (this.route.service.time === "") {
         textAlert = textAlert + "Hora de Partida, \n";
       }
-      if (this.route.value === "") {
+      if (this.route.service.value === "") {
         textAlert = textAlert + "Valor de Servicio, \n";
       }
-      if (this.route.idVehicle === "") {
+      /*if (this.route.service.idVehicle === "") {
         textAlert = textAlert + "Vehículo, \n";
-      }
+      }*/
       if (textAlert === "") {
         if (new Date(this.currentDate) > new Date(this.route.date)) {
           this.$bvToast.toast(textAlert, {
@@ -543,56 +386,24 @@ export default {
             solid: true,
           });
         } else {
-          const db = firebase.firestore();
-          this.route.routeActive = true;
-          this.route.servicePerformed = false;
-          this.route.orderRoute.ori = this.routeDefinitive[0];
-          this.route.orderRoute.des = this.routeDefinitive[1];
-          let j = 65;
-          this.routeDefinitive[2].forEach((element) => {
-            this.route.orderRoute.stops[String.fromCharCode(j)] = element;
-            j = j + 1;
-          });
-          db.collection("driverRoute")
-            .doc()
-            .set(this.route);
-          db.collection("driverRoute")
-            .where(
-              "dataDriver.driverMail",
-              "==",
-              this.route.dataDriver.driverMail
-            )
-            .where("date", "==", this.route.date)
-            .where("time", "==", this.route.time)
-            .get()
-            .then((snap) => {
-              snap.forEach((doc) => {
-                idRoute = doc.id;
-                for (let i = 65; i < 69; i++) {
-                  if (this.route.passengers[String.fromCharCode(i)].id !== "") {
-                    this.changeStateofPassenger(
-                      this.route.passengers[String.fromCharCode(i)].id,
-                      idRoute
-                    );
-                  }
+          ServiceClient.createService(this.routeDefinitive,(res)=>{
+            if (res == 201){
+                        this.$bvToast.toast("¡Ruta Creada Correctamente!", {
+                        title: "Ruta Creada",
+                        autoHideDelay: 5000,
+                        appendToast: true,
+                        variant: "success",
+                        solid: true,
+                        });
 
-                  NotificationSC.createNotification({
+            }
+          });
+                  /*NotificationSC.createNotification({
                     data: "¡Haz sido seleccionado para un viaje!",
                     destination: "nomination-services",
                     mailUser: this.route.passengers[String.fromCharCode(i)]
                       .email,
-                  });
-                }
-              });
-            });
-
-          this.$bvToast.toast("¡Ruta Creada Correctamente!", {
-            title: "Ruta Creada",
-            autoHideDelay: 5000,
-            appendToast: true,
-            variant: "success",
-            solid: true,
-          });
+                  });*/
         }
       } else {
         this.$bvToast.toast(textAlert, {
@@ -603,15 +414,6 @@ export default {
           solid: true,
         });
       }
-    },
-    changeStateofPassenger(id, idRoute) {
-      const db = firebase.firestore();
-      const a = db.collection("passengerRoutes").doc(id);
-      a.update({
-        selected: true,
-        idRoute: idRoute,
-        value: "" + this.route.value,
-      });
     },
     /**
      * Esta función, envia "routeDefinitive" al componente "DirectionsMapView",
@@ -625,6 +427,8 @@ export default {
       this.routeDefinitive.push(this.route.originDriver);
       this.routeDefinitive.push(this.route.destinationDriver);
       this.routeDefinitive.push(this.orderedRoutesOfPassengers);
+      this.route.service.places = this.orderedRoutesOfPassengers.length / 2
+      this.routeDefinitive.push(this.route.service);
       EventBus.$emit("possibleRoute-data", this.routeDefinitive);
     },
   },

@@ -10,14 +10,6 @@
               @change="sortRoute($event)"
             >
               <option selected disabled>Ordenar</option>
-              <optgroup label="Distancia">
-                <option value="distance-asc">Corta</option>
-                <option value="distance-desc">Larga</option>
-              </optgroup>
-              <optgroup label="Duracion">
-                <option value="duration-asc">Mayor</option>
-                <option value="duration-desc">Menor</option>
-              </optgroup>
               <optgroup label="Fecha">
                 <option value="date-asc">Fecha</option>
               </optgroup>
@@ -85,34 +77,6 @@
       </div>
       <div class="accordion" id="accordionExample56">
         <div class="card" v-for="route in routes" :key="route[0].request_id">
-          <!-- Modal de perfil de usuario -->
-          <div
-            class="modal fade"
-            id="exampleModal1"
-            tabindex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="false"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">
-                    Perfil del pasajero
-                  </h5>
-
-                  <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Fin del modal -->
           <div class="card-header" id="headingOne">
             <h2 class="mb-0">
               <button
@@ -225,7 +189,6 @@ export default {
     getListPassengersActives() {
       RequestCo.getRequestsbyActive((call) => {
         this.routes = call;
-        console.log(this.routes);
       });
     },
     sortRoute(e) {
@@ -290,14 +253,12 @@ export default {
      * "DirectionsMapView" para pintar la ruta del pasajero en el mapa.
      */
     routePassengerItemPressed(route) {
-      console.log(route);
       this.request.origin.lat = Number(route[1][0].lat);
       this.request.origin.lng = Number(route[1][0].lng);
       this.request.origin.address = route[1][0].address;
       this.request.destination.lat = Number(route[1][1].lat);
       this.request.destination.lng = Number(route[1][1].lng);
       this.request.destination.address = route[1][1].address;
-      console.log(this.request);
       EventBus.$emit("passengerRoutes-data", [this.request]);
     },
     /**

@@ -3,11 +3,11 @@ const moment = require("moment");
 const route = "https://localhost:4100/graphql";
 
 function getRequestbyUser(userMail, callback) {
-  axios({
-    method: "POST",
-    url: route,
-    data: {
-      query: `
+    axios({
+            method: "POST",
+            url: route,
+            data: {
+                query: `
                 {
                     getRequestbyUser(user_id:"${userMail}"){
                         request_id
@@ -19,22 +19,22 @@ function getRequestbyUser(userMail, callback) {
                       }
                 }
                 `,
-    },
-  })
-    .then((res) => {
-      callback(res.data.data.getRequestbyUser);
-    })
-    .catch((err) => {
-      callback(err.message);
-    });
+            },
+        })
+        .then((res) => {
+            callback(res.data.data.getRequestbyUser);
+        })
+        .catch((err) => {
+            callback(err.message);
+        });
 }
 
 function getRequestbyActive(flag, callback) {
-  axios({
-    method: "POST",
-    url: route,
-    data: {
-      query: `
+    axios({
+            method: "POST",
+            url: route,
+            data: {
+                query: `
             {
                 getRequestActive(active:"${flag}"){
                     request_id
@@ -46,24 +46,25 @@ function getRequestbyActive(flag, callback) {
               }
             }
             `,
-    },
-  })
-    .then((res) => {
-      callback(res.data.data.getRequestActive);
-    })
-    .catch((err) => {
-      callback(err.message);
-    });
+            },
+        })
+        .then((res) => {
+            callback(res.data.data.getRequestActive);
+        })
+        .catch((err) => {
+            callback(err.message);
+        });
 }
 
 function getCoordinatesByRequest(request, callback) {
-  axios({
-    method: "POST",
-    url: route,
-    data: {
-      query: `
+    axios({
+            method: "POST",
+            url: route,
+            data: {
+                query: `
             {
                 getCoordinatesbyRequest(request:${request}){
+                    coordinates_id
                     request
                     lat
                     lng
@@ -73,22 +74,22 @@ function getCoordinatesByRequest(request, callback) {
                 }
             }
             `,
-    },
-  })
-    .then((res) => {
-      callback(res.data.data.getCoordinatesbyRequest);
-    })
-    .catch((err) => {
-      callback(err.message);
-    });
+            },
+        })
+        .then((res) => {
+            callback(res.data.data.getCoordinatesbyRequest);
+        })
+        .catch((err) => {
+            callback(err.message);
+        });
 }
 
 function createRequest(request, callback) {
-  axios({
-    method: "POST",
-    url: route,
-    data: {
-      query: `mutation{
+    axios({
+            method: "POST",
+            url: route,
+            data: {
+                query: `mutation{
                     newRequest(req:{
                         user_id: "${localStorage.getItem("mail")}",
                         date: "${request.date}",
@@ -99,54 +100,54 @@ function createRequest(request, callback) {
                         lat: "${request.origin.lat}",
                         lng: "${request.origin.lng}",
                         address: "${request.origin.address}",
-                        type: "origin"
+                        type: "Origen"
                     
                       },coor2:{
                         lat: "${request.destination.lat}",
                         lng: "${request.destination.lng}",
                         address: "${request.destination.address}",
-                        type: "destination"
+                        type: "Destino"
                     
                       })
                       {
                         request_id
                       }
                 }`,
-    },
-  })
-    .then((res) => {
-      callback(res.data.data.newRequest.request_id);
-    })
-    .catch((err) => {
-      callback(err.message);
-    });
+            },
+        })
+        .then((res) => {
+            callback(res.data.data.newRequest.request_id);
+        })
+        .catch((err) => {
+            callback(err.message);
+        });
 }
 
 function deleteRequest(request, callback) {
-  axios({
-    method: "POST",
-    url: route,
-    data: {
-      query: `
+    axios({
+            method: "POST",
+            url: route,
+            data: {
+                query: `
                 mutation{
                     deleteRequest(request_id:${request}){
                       request_id
                     }}
                 `,
-    },
-  })
-    .then((res) => {
-      callback(res.data.data.deleteRequest);
-    })
-    .catch((err) => {
-      callback(err.message);
-    });
+            },
+        })
+        .then((res) => {
+            callback(res.data.data.deleteRequest);
+        })
+        .catch((err) => {
+            callback(err.message);
+        });
 }
 
 export default {
-  getRequestbyUser,
-  createRequest,
-  getRequestbyActive,
-  getCoordinatesByRequest,
-  deleteRequest,
+    getRequestbyUser,
+    createRequest,
+    getRequestbyActive,
+    getCoordinatesByRequest,
+    deleteRequest,
 };

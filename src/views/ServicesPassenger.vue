@@ -233,6 +233,7 @@ export default {
   },
   created() {
     this.getRoutesActives();
+    this.getRoutesChoosed();
   },
   mounted() {
     EventBus.$emit("passengerRoutes-data", this.routes);
@@ -242,26 +243,19 @@ export default {
       this.$router.push("/passenger");
     },
     getRoutesActives() {
-      RequestCo.getRequests((data) => {
+      RequestCo.getRequests("false",(data) => {
         this.routesActive = [];
         this.routesActive = data;
+        console.log(data)
       });
     },
-    getRoutesChoosed() {
-      const db = firebase.firestore();
-      db.collection("passengerRoutes")
-        .where("dataPassenger.passengerMail", "==", this.userMail)
-        .where("servicePerformed", "==", false)
-        .where("selected", "==", true)
-        .get()
-        .then((snap) => {
-          this.routesChoosed = [];
-          snap.forEach((doc) => {
-            let route = doc.data();
-            route.id = doc.id;
-            this.routesChoosed.push(route);
-          });
-        });
+    getRoutesChoosed(){
+      RequestCo.getRequests("true",(data) => {
+        this.routesChoosed = [];
+        this.routesChoosed = data;
+        console.log(data)
+      });
+      
     },
     getRoutesMade() {
       const db = firebase.firestore();

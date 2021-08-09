@@ -125,11 +125,10 @@ export default {
        * en el mapa.
        */
       routes[2].forEach(({ address, lat, lng }) => {
-        let waypoint = { location: { lat: lat, lng: lng }, stopover: false };
+        let waypoint = { location: { lat: parseFloat(lat), lng: parseFloat(lng) }, stopover: false };
         this.waypoints.push(waypoint);
-        this.createInfoWindowWith("Parada", address, lat, lng);
+        this.createInfoWindowWith("Parada", address, parseFloat(lat), parseFloat(lng));
       });
-
       /**
        * Se hace uso de "google.maps.DirectionsService", para pintar el mapa con el punto de salida,
        * punto de llegada y paradas por parte del conductor.
