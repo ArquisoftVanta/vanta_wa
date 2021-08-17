@@ -35,7 +35,7 @@ export default {
     };
   },
   mounted() {
-    this.userMail = this.$store.state.user;
+    this.userMail = localStorage.getItem("mail");
   },
   methods: {},
 };
