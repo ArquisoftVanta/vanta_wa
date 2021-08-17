@@ -33,7 +33,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-12 col-md-7 offset-lg-1 mt-0 mb-5">
+          <div class="col-12 col-lg-8 mb-3 mb-lg-0">
             <div class="card text-center text-dark border border-dark shadow">
               <div class="card-body">
                 <form novalidate>
@@ -283,7 +283,7 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+          <div class="col-12 col-lg-4 mb-5 mb-lg-0">
             <div class="card pt-3 border border-dark shadow">
               <h4 class="mb-4 text-center font-weight-bold">
                 Foto del vehículo
