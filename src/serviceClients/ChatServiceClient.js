@@ -12,11 +12,6 @@ function getConversationsList(email, callback) {
       user1,
       user2,
       active,
-      conversation{
-        sender,
-        content,
-        createdAt
-        }
       }
     }`,
     },
