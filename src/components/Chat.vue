@@ -89,7 +89,6 @@ export default {
       var cht = this.convId;
       this.socket.auth = { usr, cht };
       this.socket.connect();
-      console.log(this.socket);
     },
   },
 
@@ -101,7 +100,6 @@ export default {
         document.getElementById("button-addon2").click();
       }
     });
-    this.getConversation();
     this.toBottom();
     this.createSocket();
   },
@@ -116,11 +114,12 @@ export default {
       });
     },
     getConversation() {
-      ChatSC.getConversation(this.$store.state.user, this.convId, (data) => {
+      ChatSC.getConversation(localStorage.getItem("mail"), this.convId, (data) => {
         this.conversation = data.conversation;
       });
     },
     toogleChat() {
+      /* this.getConversation(); */
       if (this.collapse1.display == "block") {
         this.collapse1.display = "none";
       } else if (this.collapse1.display == "none") {
