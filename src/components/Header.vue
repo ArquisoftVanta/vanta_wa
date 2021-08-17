@@ -264,7 +264,6 @@
     <div v-if="authenticated">
       <Chat
         :collapse1="collapse1"
-        :conversation="conversation"
         :userMail="userMail"
         :userName="userName"
         :convId="convId"
@@ -290,7 +289,6 @@ export default {
   data() {
     return {
       contacts: [],
-      conversation: [],
       collapse1: { display: "none" },
       userName: "",
       convId: "",
@@ -309,7 +307,6 @@ export default {
         this.$store.commit("updateUser", data.user_mail);
       });
     }
-    this.getConversations();
   },
   methods: {
     toogleChat(contact, convId) {
