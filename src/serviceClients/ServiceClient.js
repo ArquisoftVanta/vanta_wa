@@ -1,7 +1,6 @@
 const axios = require("axios");
 const moment = require("moment");
-const environment = require("./../environment.js");
-const route = environment.apiUrl;
+const route = process.env.VUE_APP_API_URL;
 
 function createService(service, callback) {
     for (let index = service[2].length; index < 8; index++) {

@@ -1,6 +1,5 @@
 const axios = require("axios");
-const environment = require("./../environment.js");
-const route = environment.apiUrl;
+const route = process.env.VUE_APP_API_URL;
 
 function getConversationsList(email, callback) {
   axios({
