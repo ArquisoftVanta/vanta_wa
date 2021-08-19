@@ -1,10 +1,10 @@
 const axios = require("axios");
-const route2 = "https://localhost:4100/graphql";
+const route = "https://localhost:4100/graphql";
 
 function getConversationsList(email, callback) {
   axios({
     method: "POST",
-    url: route2,
+    url: route,
     data: {
       query: `{
       chatByUser(user_id: "${email}"){
@@ -25,7 +25,7 @@ function getConversationsList(email, callback) {
 function getConversation(email, convId, callback) {
   axios({
     method: "POST",
-    url: route2,
+    url: route,
     data: {
       query: `{
         chatById(user_id: "${email}", chat_id: "${convId}"){
@@ -51,7 +51,7 @@ function getConversation(email, convId, callback) {
 function sendMessage(convId, userId, content, callback) {
   axios({
     method: "POST",
-    url: route2,
+    url: route,
     data: {
       query: `mutation{
         sendMessage(msg: {convId: "${convId}", userId:"${userId}", content: "${content}"}){
