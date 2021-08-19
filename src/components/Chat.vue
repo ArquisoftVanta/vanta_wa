@@ -1,36 +1,28 @@
 <template>
   <div id="home">
-    <div class="container-fluid fixed-bottom">
-      <div class="row">
-        <div class="col-12">
-          <div v-bind:style="collapse1" id="collapseChat">
+    <div class="container-fluid fixed-bottom mb-5">
+      <div class="row ">
+        <div class="col-12 col-md-6 offset-md-6 col-lg-4 offset-lg-8">
+          <div class="card" v-bind:style="collapse">
             <div
-              class="chatbody z-index-3 col-12 col-md-6 offset-md-6 col-lg-4 offset-lg-8"
+              class="card-header d-flex justify-content-between align-items-center"
             >
-              <button
-                class="col-12 btn btn-dark border border-light text-white shadow"
-                @click="toogleChat()"
-              >
-                {{ userName }}
-              </button>
-
-              <div
-                class="card card-body messages-body border border-dark shadow"
-                id="chatBody"
-              >
-                <Burbuja
-                  v-for="(message, index) in conversation"
-                  :key="index"
-                  :sender="message.sender"
-                  :message="message.content"
-                ></Burbuja>
-                <div id="target"></div>
-              </div>
-
+              {{ userName }}
+              <div class="btn btn-sm btn-dark" @click="toogleChat()">Ocultar conversación</div>
+            </div>
+            <div class="card-body messages-body overflow-auto">
+              <Burbuja
+                v-for="(message, index) in conversation"
+                :key="index"
+                :sender="message.sender"
+                :message="message.content"
+              ></Burbuja>
+            </div>
+            <div class="card-footer">
               <div class="input-group">
                 <input
                   type="text"
-                  class="form-control border border-dark shadow"
+                  class="form-control"
                   id="message"
                   placeholder="Escriba su mensaje"
                   aria-label="Escriba su mensaje"
@@ -66,7 +58,7 @@ import io from "socket.io-client";
 export default {
   name: "Chat",
   props: {
-    collapse1: Object,
+    collapse: Object,
     userMail: String,
     userName: String,
     convId: String,
@@ -106,7 +98,10 @@ export default {
 
   methods: {
     createSocket() {
-      this.socket = io("http://localhost:8000", { autoConnect: false , transports: ['websocket']});
+      this.socket = io("http://localhost:8000", {
+        autoConnect: false,
+        transports: ["websocket"],
+      });
       let self = this;
       // Evento
       this.socket.on("private message", function({ content, user }) {
@@ -114,16 +109,20 @@ export default {
       });
     },
     getConversation() {
-      ChatSC.getConversation(localStorage.getItem("mail"), this.convId, (data) => {
-        this.conversation = data.conversation;
-      });
+      ChatSC.getConversation(
+        localStorage.getItem("mail"),
+        this.convId,
+        (data) => {
+          this.conversation = data.conversation;
+        }
+      );
     },
     toogleChat() {
       /* this.getConversation(); */
-      if (this.collapse1.display == "block") {
-        this.collapse1.display = "none";
-      } else if (this.collapse1.display == "none") {
-        this.collapse1.display = "block";
+      if (this.collapse.display == "block") {
+        this.collapse.display = "none";
+      } else if (this.collapse.display == "none") {
+        this.collapse.display = "block";
       }
     },
     toBottom() {
@@ -162,14 +161,7 @@ export default {
 
 <style>
 .messages-body {
-  height: 300px;
+  height: 35vh;
   overflow: auto;
-}
-.chatbody {
-  bottom: 59px;
-}
-#target {
-  min-height: 0px;
-  background-color: white;
 }
 </style>
