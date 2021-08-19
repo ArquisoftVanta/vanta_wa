@@ -1,9 +1,11 @@
 {
     "development": {
-      "serverUrl": "http://localhost:8443"
+      "serverUrl": "http://localhost:3500",
+      "apiUrl":"https://localhost:4100/graphql"
     },
     "production": {
-      "serverUrl": "https://echo-api.endpoints.wheelsus.cloud.goog"
+      "serverUrl": "https://echo-api.endpoints.wheelsus.cloud.goog",
+      "apiUR":"https://localhost:4100/graphql"
     }
   }
   
