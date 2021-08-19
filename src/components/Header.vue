@@ -262,12 +262,12 @@
       </div>
     </nav>
     <div v-if="authenticated">
-      <Chat
-        :collapse1="collapse1"
-        :userMail="userMail"
-        :userName="userName"
-        :convId="convId"
-      ></Chat>
+        <Chat
+          :collapse="collapse"
+          :userMail="userMail"
+          :userName="userName"
+          :convId="convId"
+        ></Chat>
     </div>
   </div>
 </template>
@@ -289,7 +289,7 @@ export default {
   data() {
     return {
       contacts: [],
-      collapse1: { display: "none" },
+      collapse: { display: "none" },
       userName: "",
       convId: "",
       driverMail: "",
@@ -310,7 +310,7 @@ export default {
   },
   methods: {
     toogleChat(contact, convId) {
-      this.collapse1.display = "block";
+      this.collapse.display = "block";
 
       this.userName = contact;
       this.convId = convId;
