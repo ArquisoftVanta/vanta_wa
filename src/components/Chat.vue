@@ -8,7 +8,9 @@
               class="card-header d-flex justify-content-between align-items-center"
             >
               {{ userName }}
-              <div class="btn btn-sm btn-dark" @click="toogleChat()">Ocultar conversación</div>
+              <div class="btn btn-sm btn-dark" @click="toogleChat()">
+                Ocultar conversación
+              </div>
             </div>
             <div class="card-body messages-body overflow-auto">
               <Burbuja
@@ -92,7 +94,6 @@ export default {
         document.getElementById("button-addon2").click();
       }
     });
-    this.toBottom();
     this.createSocket();
   },
 
@@ -125,13 +126,6 @@ export default {
         this.collapse.display = "block";
       }
     },
-    toBottom() {
-      var target = document.getElementById("target");
-      target.style.minHeight = "200px";
-      var div = document.getElementById("chatBody");
-      div.scrollTop = div.scrollHeight;
-      target.style.minHeight = "0px";
-    },
     sendMsg() {
       let self = this;
       ChatSC.sendMessage(
@@ -150,7 +144,6 @@ export default {
           // Actualizar chat
           ChatSC.getConversation(email, this.convId, (data) => {
             this.conversation = data.conversation;
-            this.toBottom();
           });
         }
       );
@@ -160,6 +153,10 @@ export default {
 </script>
 
 <style>
+#target {
+  height: 100%;
+  overflow: auto;
+}
 .messages-body {
   height: 35vh;
   overflow: auto;
