@@ -1,21 +1,21 @@
 <template>
   <div class="row">
-    <div class="col-6">
+    <div class="col-9">
       <div
-        class="btn btn-light btn-block text-wrap mb-1 pb-0 pt-2 text-left"
+        class="btn btn-light btn-block text-wrap pt-1 pb-1 text-left mb-1"
         disabled
         v-if="sender != userMail"
       >
-        <p>{{ message }}</p>
+        {{ message }}
       </div>
     </div>
-    <div class="col-6">
+    <div class="col-9 offset-3">
       <div
-        class="btn btn-dark btn-block text-wrap mb-1 pb-0 pt-2 text-right"
+        class="btn btn-dark btn-block text-wrap pt-1 pb-1 text-right mb-1"
         disabled
         v-if="sender == userMail"
       >
-        <p class="">{{ message }}</p>
+        {{ message }}
       </div>
     </div>
   </div>
