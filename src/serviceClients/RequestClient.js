@@ -1,6 +1,7 @@
 const axios = require("axios");
 const moment = require("moment");
-const route = "https://localhost:4100/graphql";
+const environment = require("./../environment.js");
+const route = environment.apiUrl;
 
 function getRequestbyUser(userMail, callback) {
     axios({
