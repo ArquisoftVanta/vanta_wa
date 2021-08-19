@@ -14,23 +14,25 @@
 
 //-------------------------------------------
 const express = require("express");
-const fs = require('fs');
-const https = require('https');
+const https = require("https");
+const fs = require("fs");
+
+const options = {
+  key: fs.readFileSync("./key/private.key"),
+  cert: fs.readFileSync("./key/private.crt"),
+};
+
 const app = express();
 console.log(__dirname);
 app.use(express.static(__dirname + "/dist"));
 
 const PORT = process.env.PORT || 3500;
 
-https.createServer({
-    cert: fs.readFileSync('private.crt'),
-    key: fs.readFileSync('private.key')
-}, app).listen(PORT, function() {
-    console.log('Servidor https corriendo en el puerto' + PORT);
+https.createServer(options, app).listen(PORT, function() {
+  console.log("Servidor https corriendo en el puerto" + PORT);
 });
 
-
 app.get(/.*/, function(req, res) {
-    console.log('Servidor https correindo en el puerto' + PORT);
-    res.sendFile(__dirname + "/dist/index.html");
+  console.log("Servidor https correindo en el puerto" + PORT);
+  res.sendFile(__dirname + "/dist/index.html");
 });
