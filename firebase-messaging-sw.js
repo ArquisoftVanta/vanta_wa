@@ -4,6 +4,7 @@ importScripts('https://www.gstatic.com/firebasejs/8.6.1/firebase-messaging.js');
 var firebaseConfig = {
     apiKey: "AIzaSyAPoQCAkJr6IqI9As8n9rq8lLtWObSl3yw",
     authDomain: "vanta-132d2.firebaseapp.com",
+    databaseURL: "https://vanta-132d2-default-rtdb.firebaseio.com/",
     projectId: "vanta-132d2",
     storageBucket: "vanta-132d2.appspot.com",
     messagingSenderId: "557344769302",

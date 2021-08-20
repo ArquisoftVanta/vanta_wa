@@ -24,6 +24,7 @@ var firebaseConfig = {
     apiKey: "AIzaSyAPoQCAkJr6IqI9As8n9rq8lLtWObSl3yw",
     authDomain: "vanta-132d2.firebaseapp.com",
     projectId: "vanta-132d2",
+    databaseURL: "https://vanta-132d2-default-rtdb.firebaseio.com/",
     storageBucket: "vanta-132d2.appspot.com",
     messagingSenderId: "557344769302",
     appId: "1:557344769302:web:7c3ff58d300d60fbb5fc37",
@@ -32,18 +33,18 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
+const db = firebase.firestore();
 const messaging = firebase.messaging();
-
+let user = {
+    email: "",
+    token: "",
+}
 window.onload = function() {
     messaging.requestPermission()
         .then(function() {
             if ("serviceWorker" in navigator) {
                 navigator.serviceWorker
-<<<<<<< HEAD
-                    .register("/firebase-messaging-sw.js")
-=======
                     .register("./firebase-messaging-sw.js")
->>>>>>> 3fc96207a709475606f01809b155c71a350d5fdc
                     .then(function(registration) {
                         console.log("Registration successful, scope is:", registration.scope);
                         messaging.getToken({
@@ -52,6 +53,10 @@ window.onload = function() {
                             })
                             .then((currentToken) => {
                                 if (currentToken) {
+                                    const db = firebase.firestore();
+                                    user.token = currentToken
+                                    console.log(user)
+                                    db.collection("usernavigator").doc().set(user);
                                     console.log('current token for client: ', currentToken);
                                 } else {
                                     console.log('No registration token available. Request permission to generate one.');
