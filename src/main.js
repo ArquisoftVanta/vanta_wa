@@ -39,11 +39,7 @@ window.onload = function() {
         .then(function() {
             if ("serviceWorker" in navigator) {
                 navigator.serviceWorker
-<<<<<<< HEAD
-                    .register("/firebase-messaging-sw.js")
-=======
                     .register("./firebase-messaging-sw.js")
->>>>>>> 3fc96207a709475606f01809b155c71a350d5fdc
                     .then(function(registration) {
                         console.log("Registration successful, scope is:", registration.scope);
                         messaging.getToken({
