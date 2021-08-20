@@ -10,7 +10,6 @@ var firebaseConfig = {
     appId: "1:557344769302:web:7c3ff58d300d60fbb5fc37",
     measurementId: "G-07FD4P162Z"
 };
-
 firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
@@ -21,7 +20,7 @@ messaging.onBackgroundMessage(function(payload) {
     const notificationTitle = 'Background Message Title';
     const notificationOptions = {
         body: 'Background Message body.',
-        //icon: 'http://localhost/notificaciones/img/icon.png'
+        icon: 'http://localhost/notificaciones/img/icon.png'
     };
 
     self.registration.showNotification(notificationTitle,

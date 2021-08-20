@@ -39,7 +39,11 @@ window.onload = function() {
         .then(function() {
             if ("serviceWorker" in navigator) {
                 navigator.serviceWorker
+<<<<<<< HEAD
+                    .register("/firebase-messaging-sw.js")
+=======
                     .register("./firebase-messaging-sw.js")
+>>>>>>> 3fc96207a709475606f01809b155c71a350d5fdc
                     .then(function(registration) {
                         console.log("Registration successful, scope is:", registration.scope);
                         messaging.getToken({
@@ -65,6 +69,16 @@ window.onload = function() {
             console.log('No se ha recibido el permiso');
             showAlert();
         });
+    let enableForegroundNotification = true;
+    messaging.onMessage(function(payload) {
+        console.log("mensaje recibido");
+        if (enableForegroundNotification) {
+            const { title, ...options } = JSON.parse(payload.data.notification);
+            navigator.serviceWorker.getRegistrations().then(registration => {
+                registration[0].showNotification(title, options);
+            });
+        }
+    });
 
 }
 
