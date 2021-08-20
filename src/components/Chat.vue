@@ -99,7 +99,7 @@ export default {
 
   methods: {
     createSocket() {
-      this.socket = io("http://localhost:8000", {
+      this.socket = io("http://44.195.120.118:30000", {
         autoConnect: false,
         transports: ["websocket"],
       });
@@ -153,10 +153,6 @@ export default {
 </script>
 
 <style>
-#target {
-  height: 100%;
-  overflow: auto;
-}
 .messages-body {
   height: 35vh;
   overflow: auto;
