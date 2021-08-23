@@ -62,7 +62,7 @@ function getRequestsbyActive(callback) {
 function deleteRequests(request_id, callback) {
     AuthSC.getUserMailByToken(() => {
         RequestSC.deleteRequest(request_id, () => {
-            this.getRequests("false", (response2) => {
+            this.getRequests('false', (response2) => {
                 callback(response2);
             });
         });
