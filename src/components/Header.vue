@@ -326,6 +326,8 @@ export default {
     },
     closeSession() {
       localStorage.removeItem("token");
+      localStorage.removeItem("mail");
+      localStorage.removeItem("token_navigator");
       this.$router.push("/");
     },
     goToProfile() {

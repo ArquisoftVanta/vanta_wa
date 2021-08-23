@@ -127,6 +127,7 @@ export default {
           this.credentials,
           () => {
             this.$router.push("home");
+
             this.$store.commit("updateUser", {
               userMail: this.credentials.userMail,
             });

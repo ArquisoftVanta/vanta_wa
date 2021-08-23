@@ -53,7 +53,8 @@
 <script>
 import Header from "../components/Header.vue";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
-
+import main from "../main.js"
+import firebase from "firebase";
 export default {
   name: "Home",
   props: {
@@ -68,7 +69,7 @@ export default {
   },
   methods: {
     goToPassenger() {
-      this.$router.push("/passenger");
+     this.$router.push("/passenger");
     },
     goToDrive() {
       this.$router.push("/driver");
@@ -77,7 +78,31 @@ export default {
   beforeCreate() {
     if (!localStorage.getItem("token")) {
       this.$router.push("/");
+      }
     }
+    ,
+    mounted(){
+    main.giveToken();    
+    let user = {
+    email: localStorage.getItem("mail"),
+    token: localStorage.getItem("token_navigator"),
+    }
+    const db = firebase.firestore();
+    db.collection("usernavigator").where(
+              "email",
+              "==",
+              user.email).get().then((snap) => {
+              if (snap.docs.length == 0){
+              db.collection("usernavigator").doc().set(user)
+              }else{
+                snap.forEach(element => {
+                const a = db.collection("usernavigator").doc(element.id);
+                a.update({
+                token: localStorage.getItem("token_navigator"),
+                });
+              })
+              }
+            })
   },
 };
 </script>

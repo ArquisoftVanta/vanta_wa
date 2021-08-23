@@ -56,6 +56,7 @@
 import Burbuja from "../components/Burbujas.vue";
 import ChatSC from "../serviceClients/ChatServiceClient";
 import io from "socket.io-client";
+import NotificationSC from "../serviceClients/NotificationsServiceClient"
 
 export default {
   name: "Chat",
@@ -115,6 +116,7 @@ export default {
         this.convId,
         (data) => {
           this.conversation = data.conversation;
+          console.log(this.conversation);
         }
       );
     },
@@ -128,6 +130,9 @@ export default {
     },
     sendMsg() {
       let self = this;
+      console.log(localStorage.getItem("mail"))
+      console.log(this.userName)
+      console.log(self.textMsg)
       ChatSC.sendMessage(
         this.convId,
         this.$store.state.user,
@@ -138,9 +143,9 @@ export default {
             user: self.$store.state.user,
             chatId: self.convId,
           });
-
           var email = this.$store.state.user;
           this.textMsg = "";
+          NotificationSC.createNotification(localStorage.getItem("mail"),this.userName,self.textMsg)
           // Actualizar chat
           ChatSC.getConversation(email, this.convId, (data) => {
             this.conversation = data.conversation;

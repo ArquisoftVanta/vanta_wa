@@ -33,31 +33,35 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
-const db = firebase.firestore();
 const messaging = firebase.messaging();
-let user = {
-    email: "",
-    token: "",
-}
 window.onload = function() {
+    giveToken();
+    let enableForegroundNotification = true;
+    messaging.onMessage(function(payload) {
+        if (enableForegroundNotification) {
+            const { title, ...options } = JSON.parse(payload.data.notification);
+            navigator.serviceWorker.getRegistrations().then(registration => {
+                registration[0].showNotification(title, options);
+            });
+        }
+    });
+}
+
+function giveToken() {
     messaging.requestPermission()
         .then(function() {
             if ("serviceWorker" in navigator) {
                 navigator.serviceWorker
                     .register("./firebase-messaging-sw.js")
                     .then(function(registration) {
-                        console.log("Registration successful, scope is:", registration.scope);
                         messaging.getToken({
                                 vapidKey: 'BFpT_o73pzbP3KXOsqBp9kUB6ZKPbEmQPpiNRFqVzmVXWTL_TAqxBa4gHM63E7XMKWU7_-Vz16SIRxWXPayA4wg',
                                 serviceWorkerRegistration: registration
                             })
                             .then((currentToken) => {
                                 if (currentToken) {
-                                    const db = firebase.firestore();
-                                    user.token = currentToken
-                                    console.log(user)
-                                    db.collection("usernavigator").doc().set(user);
-                                    console.log('current token for client: ', currentToken);
+                                    localStorage.setItem("token_navigator", currentToken);
+                                    console.log(currentToken);
                                 } else {
                                     console.log('No registration token available. Request permission to generate one.');
                                 }
@@ -72,18 +76,7 @@ window.onload = function() {
             }
         }).catch(function(err) {
             console.log('No se ha recibido el permiso');
-            showAlert();
         });
-    let enableForegroundNotification = true;
-    messaging.onMessage(function(payload) {
-        console.log("mensaje recibido");
-        if (enableForegroundNotification) {
-            const { title, ...options } = JSON.parse(payload.data.notification);
-            navigator.serviceWorker.getRegistrations().then(registration => {
-                registration[0].showNotification(title, options);
-            });
-        }
-    });
 
 }
 
@@ -101,3 +94,6 @@ new Vue({
     moment,
     render: (h) => h(App),
 }).$mount("#app");
+export default {
+    giveToken
+}

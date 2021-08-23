@@ -240,12 +240,13 @@ import RouteList from "../components/RouteList.vue";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
 import Header from "../components/Header.vue";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
-import firebase from "firebase";
+import noti from  "../serviceClients/NotificationsServiceClient.js"
 import Draggable from "vuedraggable";
 import Directions from "../components/WatchCurrentDirections";
 import VehiclesByUser from "../components/VehiclesByUser";
-import NotificationSC from "../serviceClients/NotificationServiceClient";
+//import NotificationSC from "../serviceClients/NotificationServiceClient";
 import ServiceClient from "../serviceClients/ServiceClient";
+import firebase from  "firebase";
 
 export default {
   name: "CreateService",
@@ -356,6 +357,7 @@ export default {
         date.toLocaleDateString("es-CO", { day: "2-digit" });
     },
     saveRoute() {
+      noti.createNotification("ojtinjacar@unal.edu.co","Hola","Puto")
       var textAlert = "";
       let idRoute;
       if (this.route.originDriver.address === "") {
@@ -398,12 +400,6 @@ export default {
 
             }
           });
-                  /*NotificationSC.createNotification({
-                    data: "¡Haz sido seleccionado para un viaje!",
-                    destination: "nomination-services",
-                    mailUser: this.route.passengers[String.fromCharCode(i)]
-                      .email,
-                  });*/
         }
       } else {
         this.$bvToast.toast(textAlert, {
