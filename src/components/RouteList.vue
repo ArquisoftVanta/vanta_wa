@@ -5,18 +5,6 @@
         <div class="row">
           <div class="col">
             <select
-              class="form-control"
-              style="border: 0; background: #f1f1f1"
-              @change="sortRoute($event)"
-            >
-              <option selected disabled>Ordenar</option>
-              <optgroup label="Fecha">
-                <option value="date-asc">Fecha</option>
-              </optgroup>
-            </select>
-          </div>
-          <div class="col">
-            <select
               id="inputState2"
               class="form-control"
               style="border: 0; background: #f1f1f1"
@@ -29,36 +17,6 @@
               <option>1</option>
               <option>0</option>
             </select>
-          </div>
-        </div>
-        <div id="filter" style="display: none">
-          <div class="row">
-            <div class="col">
-              <select
-                id="inputState3"
-                class="form-control"
-                style="border: 0; background: #f1f1f1; margin: 5% 0 0 0"
-                @change="sortRouteByDate($event)"
-              >
-                <option disabled value="" selected>Seleccione fecha</option>
-                <option v-for="dat in date" :key="dat" :value="dat">
-                  {{ dat }}
-                </option>
-              </select>
-            </div>
-            <div class="col">
-              <select
-                id="inputState4"
-                class="form-control"
-                style="border: 0; background: #f1f1f1; margin: 5% 0 0 0"
-                @change="sortRouteByHour($event)"
-              >
-                <option disabled value="" selected>Seleccione hora</option>
-                <option v-for="hour in hours" :key="hour" :value="hour">
-                  {{ hour }}
-                </option>
-              </select>
-            </div>
           </div>
         </div>
         <div class="row">
@@ -190,63 +148,7 @@ export default {
       RequestCo.getRequestsbyActive((call) => {
         this.routes = call;
       });
-    },
-    sortRoute(e) {
-      const sortName = e.target.value.split("-")[0];
-      const sortOrder = e.target.value.split("-")[1];
-      var x = document.getElementById("filter");
-      const db = firebase.firestore();
-      if (sortName === "duration" || sortName === "distance") {
-        x.style.display = "none";
-        db.collection("passengerRoutes")
-          .orderBy(sortName + ".value", sortOrder)
-          .get()
-          .then((snap) => {
-            this.routes = [];
-            snap.forEach((doc) => {
-              let route = doc.data();
-              route.id = doc.id;
-              this.routes.push(route);
-            });
-          });
-      } else {
-        x.style.display = "block";
-      }
-    },
-    sortRouteByDate(e) {
-      this.datefilter = e.target.value;
-      const db = firebase.firestore();
-      db.collection("passengerRoutes")
-        .where("date", "==", this.datefilter)
-        .get()
-        .then((snap) => {
-          this.routes = [];
-          this.hours = [];
-          snap.forEach((doc) => {
-            let route = doc.data();
-            route.id = doc.id;
-            this.routes.push(route);
-            if (this.hours.indexOf(route.time) === -1) {
-              this.hours.push(route.time);
-            }
-          });
-        });
-    },
-    sortRouteByHour(e) {
-      this.hourfilter = e.target.value;
-      const db = firebase.firestore();
-      db.collection("passengerRoutes")
-        .where("date", "==", this.datefilter)
-        .where("time", "==", this.hourfilter)
-        .get()
-        .then((snap) => {
-          this.routes = [];
-          snap.forEach((doc) => {
-            let route = doc.data();
-            route.id = doc.id;
-            this.routes.push(route);
-          });
-        });
+  
     },
     /**
      * Esta función enviar la ruta del pasajero al componente

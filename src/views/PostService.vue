@@ -148,10 +148,8 @@ export default {
   },
   async mounted() {
     EventBus.$emit("passengerRoutes-data", this.routes);
-    UserCo.getUser((data) => {
-      this.request.passengerMail = data.user_mail;
-    });
-
+    this.request.passengerMail = localStorage.getItem("mail");
+    
     for (let ref in this.$refs) {
       const autocomplete = new google.maps.places.Autocomplete(
         this.$refs[ref],

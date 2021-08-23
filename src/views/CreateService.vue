@@ -255,12 +255,13 @@ export default {
       typeInput: "",
       orderedRoutesOfPassengers: [],
       routeDefinitive: [],
+      passengersSelected:[],
       listVehicles: [],
       pointChoosed: "",
       currentDate: Date,
       route: {
         service:{
-        email: "",
+        email: localStorage.getItem("mail"),
         idVehicle: "BRS954",
         value: "",
         date: "",
@@ -312,6 +313,7 @@ export default {
     });
     EventBus.$on("choosePassengerRoutes-data", (routesReceived) => {
       for (let index = 0; index < routesReceived.length; index++) {
+          this.passengersSelected.push(routesReceived[index][0].user_id)
           this.orderedRoutesOfPassengers.push(routesReceived[index][1][0]);
           this.orderedRoutesOfPassengers.push(routesReceived[index][1][1]);
       }
@@ -357,7 +359,6 @@ export default {
         date.toLocaleDateString("es-CO", { day: "2-digit" });
     },
     saveRoute() {
-      noti.createNotification("ojtinjacar@unal.edu.co","Hola","Puto")
       var textAlert = "";
       let idRoute;
       if (this.route.originDriver.address === "") {
@@ -389,6 +390,7 @@ export default {
           });
         } else {
           ServiceClient.createService(this.routeDefinitive,(res)=>{
+            console.log(res)
             if (res == 201){
                         this.$bvToast.toast("¡Ruta Creada Correctamente!", {
                         title: "Ruta Creada",
@@ -397,7 +399,10 @@ export default {
                         variant: "success",
                         solid: true,
                         });
+              for (let index = 0; index < this.passengersSelected.length; index++) {
+                  noti.createNotification(this.passengersSelected[index],localStorage.getItem("mail"),"¡Han seleccionado tu postulación!, échale un vistazo.")
 
+              }
             }
           });
         }
