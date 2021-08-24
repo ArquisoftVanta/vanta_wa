@@ -37,7 +37,7 @@
             <div class="card text-center text-dark border border-dark shadow">
               <div class="card-body">
                 <form novalidate>
-                  <h4 class="mb-4 font-weight-bold">Datos de tú vehículo</h4>
+                  <h4 class="mb-4 font-weight-bold">Datos de tu vehículo</h4>
                   <div class="form-row">
                     <div class="col-12 col-md-6">
                       <div class="input-group input-group-sm mb-2">
@@ -146,7 +146,7 @@
                       <div class="input-group input-group-sm mb-2">
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="basic-addon1"
-                            >Fecha vemcimiento SOAT</span
+                            >Fecha vencimiento SOAT</span
                           >
                         </div>
                         <input
