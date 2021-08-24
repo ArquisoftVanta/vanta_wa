@@ -1,15 +1,24 @@
 import firebase from "firebase";
-
 const axios = require("axios");
+var emailA;
+var titleA;
+
+function send() {
+    console.log(titleA)
+    return emailA, titleA
+}
 
 function createNotification(email, title, body) {
+    emailA = titleA
+    titleA = body
     const db = firebase.firestore();
+    const messaging = firebase.messaging();
+
     db.collection("usernavigator").where(
         "email",
         "==",
         email).get().then((snap) => {
         snap.forEach(element => {
-
             db.collection("usernavigator").doc(element.id).get().then((data) => {
                 axios({
                     method: 'POST',
@@ -43,5 +52,6 @@ function createNotification(email, title, body) {
 }
 
 export default {
-    createNotification
+    createNotification,
+    send
 }

@@ -145,7 +145,7 @@ export default {
           });
           var email = this.$store.state.user;
           this.textMsg = "";
-          NotificationSC.createNotification(localStorage.getItem("mail"),this.userName,self.textMsg)
+          NotificationSC.createNotification(this.userName,localStorage.getItem("mail"),self.textMsg)
           // Actualizar chat
           ChatSC.getConversation(email, this.convId, (data) => {
             this.conversation = data.conversation;

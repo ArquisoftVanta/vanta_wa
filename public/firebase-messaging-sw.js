@@ -13,17 +13,3 @@ var firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
-
-
-/*messaging.onBackgroundMessage(function(payload) {
-    console.log('[firebase-messaging-sw.js] Received background message ', payload);
-    // Customize notification here
-    const notificationTitle = '-play stop';
-    const notificationOptions = {
-        body: 'Background Message body.',
-        icon: 'http://localhost/notificaciones/img/icon.png'
-    };
-
-    self.registration.showNotification(notificationTitle,
-        notificationOptions);
-});*/
