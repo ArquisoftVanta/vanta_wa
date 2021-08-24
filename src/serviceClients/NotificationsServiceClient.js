@@ -1,12 +1,9 @@
 import firebase from "firebase";
-import { Callbacks } from "jquery";
 const axios = require("axios");
 
 
 function createNotification(email, title, body) {
-    console.log(body)
     const db = firebase.firestore();
-    const messaging = firebase.messaging();
 
     db.collection("usernavigator").where(
         "email",
@@ -34,9 +31,9 @@ function createNotification(email, title, body) {
                     }
 
                 }).then((res) => {
-                    Callback(res);
+                    console.log(res);
                 }).catch((res2) => {
-                    Callback(res2)
+                    console.log(res2)
                 })
             });
         })

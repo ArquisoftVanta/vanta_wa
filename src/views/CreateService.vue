@@ -1,7 +1,6 @@
 <template>
   <div>
     <Header></Header>
-    <Directions state="Choose Direction" />
     <VehiclesByUser state="Choose" />
     <div
       class="modal fade"
@@ -242,7 +241,6 @@ import Header from "../components/Header.vue";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 import noti from  "../serviceClients/NotificationsServiceClient.js"
 import Draggable from "vuedraggable";
-import Directions from "../components/WatchCurrentDirections";
 import VehiclesByUser from "../components/VehiclesByUser";
 //import NotificationSC from "../serviceClients/NotificationServiceClient";
 import ServiceClient from "../serviceClients/ServiceClient";
@@ -287,7 +285,6 @@ export default {
     RouteList,
     DirectionsMapView,
     Header,
-    Directions,
     FooterwithBackground,
     Draggable,
     VehiclesByUser,
