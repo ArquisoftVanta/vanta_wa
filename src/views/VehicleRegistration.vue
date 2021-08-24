@@ -491,6 +491,14 @@ export default {
 
     guardarVehiculo(vehicle) {
       vehicleCo.guardarVehiculo(vehicle);
+                              this.$bvToast.toast("¡Ruta Creada Correctamente!", {
+                        title: "Ruta Creada",
+                        autoHideDelay: 5000,
+                        appendToast: true,
+                        variant: "success",
+                        solid: true,
+                        });
+
     },
 
     habilitarCampos() {
