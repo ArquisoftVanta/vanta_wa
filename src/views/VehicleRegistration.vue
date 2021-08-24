@@ -482,7 +482,6 @@ export default {
     },
 
     llenarFormulario() {
-      console.log(this.DatosRunt);
       this.vehicle = vehicleCo.obtenerDatosRUNT(this.vehicle, this.DatosRunt);
     },
 

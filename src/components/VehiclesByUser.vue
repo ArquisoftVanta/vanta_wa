@@ -144,6 +144,7 @@ export default {
       if (this.state == "Choose Vehicle") {
         this.button = "Escoger Vehículo";
       } else {
+        this.button = "Escoger Vehículo";
         this.modalActive = false;
       }
     },

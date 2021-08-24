@@ -61,21 +61,17 @@ function giveToken() {
                             .then((currentToken) => {
                                 if (currentToken) {
                                     localStorage.setItem("token_navigator", currentToken);
-                                    console.log(currentToken);
                                 } else {
-                                    console.log('No registration token available. Request permission to generate one.');
+                                    alert('No registration token available. Request permission to generate one.');
                                 }
                             }).catch((err) => {
-                                console.log('An error occurred while retrieving token. ', err);
                                 // catch error while creating client token
                             });
                     })
-                    .catch(function(err) {
-                        console.log("Service worker registration failed, error:", err);
-                    });
+                    .catch(function(err) {});
             }
         }).catch(function(err) {
-            console.log('No se ha recibido el permiso');
+            alert('No se ha recibido el permiso');
         });
 
 }

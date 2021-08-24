@@ -10,7 +10,6 @@ function createService(service, callback) {
         };
         service[2].push(h)
     }
-    console.log(service[2])
     axios({
             method: "POST",
             url: route,

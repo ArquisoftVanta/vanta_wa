@@ -246,14 +246,12 @@ export default {
       RequestCo.getRequests("false",(data) => {
         this.routesActive = [];
         this.routesActive = data;
-        console.log(data)
       });
     },
     getRoutesChoosed(){
       RequestCo.getRequests("true",(data) => {
         this.routesChoosed = [];
         this.routesChoosed = data;
-        console.log(data)
       });
       
     },

@@ -149,7 +149,7 @@ export default {
   async mounted() {
     EventBus.$emit("passengerRoutes-data", this.routes);
     this.request.passengerMail = localStorage.getItem("mail");
-    
+
     for (let ref in this.$refs) {
       const autocomplete = new google.maps.places.Autocomplete(
         this.$refs[ref],
@@ -199,7 +199,6 @@ export default {
         axios
           .get(URL)
           .then((response) => {
-            console.log(response);
             if (response.data.error_message) {
               this.error = response.data.error_message;
             } else {
@@ -215,8 +214,6 @@ export default {
             }
           })
           .catch((error) => {
-            console.log(URL);
-            console.log(error.message);
             this.error = error.message;
           });
       }

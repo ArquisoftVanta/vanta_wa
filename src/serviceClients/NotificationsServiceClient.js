@@ -1,16 +1,10 @@
 import firebase from "firebase";
+import { Callbacks } from "jquery";
 const axios = require("axios");
-var emailA;
-var titleA;
 
-function send() {
-    console.log(titleA)
-    return emailA, titleA
-}
 
 function createNotification(email, title, body) {
-    emailA = titleA
-    titleA = body
+    console.log(body)
     const db = firebase.firestore();
     const messaging = firebase.messaging();
 
@@ -40,9 +34,9 @@ function createNotification(email, title, body) {
                     }
 
                 }).then((res) => {
-                    console.log(res);
+                    Callback(res);
                 }).catch((res2) => {
-                    console.log(res2)
+                    Callback(res2)
                 })
             });
         })
@@ -53,5 +47,4 @@ function createNotification(email, title, body) {
 
 export default {
     createNotification,
-    send
 }

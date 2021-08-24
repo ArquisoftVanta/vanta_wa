@@ -390,7 +390,6 @@ export default {
           });
         } else {
           ServiceClient.createService(this.routeDefinitive,(res)=>{
-            console.log(res)
             if (res == 201){
                         this.$bvToast.toast("¡Ruta Creada Correctamente!", {
                         title: "Ruta Creada",
