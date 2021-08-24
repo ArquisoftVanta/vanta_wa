@@ -296,7 +296,7 @@ export default {
     this.getFormattedDate();
     EventBus.$on("vehicle", (vehicle) => {
       try {
-        this.route.service.idVehicle = vehicle.vehicleLicenseplate;
+        this.route.service.idVehicle = vehicle.license_plate;
       } catch (error) {
         console.log("");
       }
@@ -389,6 +389,7 @@ export default {
             solid: true,
           });
         } else {
+          console.log(this.routeDefinitive)
           ServiceClient.createService(this.routeDefinitive,(res)=>{
             if (res == 201){
                         this.$bvToast.toast("¡Ruta Creada Correctamente!", {

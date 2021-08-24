@@ -132,6 +132,7 @@ export default {
       });
     },
     chooseSelection(vehicle) {
+      console.log(vehicle);
       EventBus.$emit("vehicle", vehicle);
     },
     sendVehicleList(list) {
